@@ -77,7 +77,17 @@ namespace Astrofinder
         {
             Console.WriteLine("★---------------------------");
             Console.WriteLine("| SEARCH");
-            Console.WriteLine("★---------------------------");
+            Console.WriteLine("★------------");
+            Console.Write(
+                "| In order to search the celestial bodies with the desired");
+            Console.Write(
+                " parameters, first input *what* you want to search and then");
+            Console.Write(
+                " the respective value, sepatating multiple searches with");
+            Console.WriteLine(
+                " commas. For example:");
+            Console.WriteLine("|");
+            Console.WriteLine("| HOSTNAME 11 Com, YEARDISCOVERED >1998");
         }
     }
 }
