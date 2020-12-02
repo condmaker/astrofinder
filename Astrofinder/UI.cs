@@ -87,7 +87,10 @@ namespace Astrofinder
             Console.WriteLine(
                 " commas. For example:");
             Console.WriteLine("|");
-            Console.WriteLine("| HOSTNAME 11 Com, YEARDISCOVERED >1998");
+            Console.Write("| HOSTNAME 11 Com, YEARDISCOVERED_MAX 1998,");
+            Console.WriteLine(" TEMP_MIN > 3000");
+            Console.WriteLine("|");
+            
         }
     }
 }
