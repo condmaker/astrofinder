@@ -2,21 +2,19 @@ namespace Astrofinder
 {
     public struct Planet
     {
-        //pl_name
-        public string Name {get; set;}
-        //hostname
-        public string Host {get; set;}
-        //discoverymethod 
-        public string DiscMethod {get; set;}
+        //Assumi q isto existia apesar de ser o hostname
+        public string Name { get; private set;}
+        //st_teff
+        public string DiscMethod { get; private set;}
         //disc_year 
-        public short DiscYear {get; set;}
+        public short? DiscYear { get; private set;}
         //pl_orber
-        public short OrbitalPeriod {get;set;}
+        public float? OrbitalPeriod { get; private set;}
         //pl_rade
-        public float Radius {get; set;}
+        public float? Radius { get; private set;}
         //pl_masse
-        public float Mass {get; set;}
+        public float? Mass { get; private set;}
         //pl_eqt
-        public float Temperature {get; set;}
+        public short? EqTemp { get; private set;}
     }
 }
