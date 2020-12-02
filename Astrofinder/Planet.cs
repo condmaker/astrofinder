@@ -2,6 +2,55 @@ namespace Astrofinder
 {
     public struct Planet
     {
+        public static Comparison<Planet> CompareByName = 
+            delegate (Planet p1, Planet p2)
+        {
+            return p1.Name.CompareTo(p2.Name);
+        };
+
+        public static Comparison<Planet> CompareByHostName = 
+            delegate (Planet p1, Planet p2)
+        {
+            return p1.Host.CompareTo(p2.Host);
+        };
+
+        public static Comparison<Planet> CompareByDiscMethod = 
+            delegate (Planet p1, Planet p2)
+        {
+            return p1?.DiscMethod?.CompareTo(p2?.DiscMethod);
+        };
+
+        public static Comparison<Planet> CompareByDiscYear = 
+            delegate (Planet p1, Planet p2)
+        {
+            return p1?.DiscYear?.CompareTo(p2?.DiscYear);
+        };
+
+        public static Comparison<Planet> CompareByOrbitalPeriod = 
+            delegate (Planet p1, Planet p2)
+        {
+            return p1?.OrbitalPeriod?.CompareTo(p2?.OrbitalPeriod);
+        };
+
+        public static Comparison<Planet> CompareByRadius = 
+            delegate (Planet p1, Planet p2)
+        {
+            return p1?.Radius?.CompareTo(p2?.Radius);
+        };
+
+        public static Comparison<Planet> CompareByMass = 
+            delegate (Planet p1, Planet p2)
+        {
+            return p1?.Mass?.CompareTo(p2?.Mass);
+        };
+
+        public static Comparison<Planet> CompareByTemperature = 
+            delegate (Planet p1, Planet p2)
+        {
+            return p1?.Temperature?.CompareTo(p2?.Temperature);
+        };
+
+
         //pl_name
         public string Name {get; set;}
         //hostname
