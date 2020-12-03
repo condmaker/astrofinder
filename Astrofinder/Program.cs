@@ -7,10 +7,12 @@ namespace Astrofinder
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // Makes it so that the program supports unicode characters.
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            FileReader fr = new FileReader();
+            ConsoleClient cc = new ConsoleClient();
 
+            cc.SearchList();
         }
 
         
