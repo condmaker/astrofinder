@@ -7,7 +7,7 @@ namespace Astrofinder
     /// This is the class that manages all the on-screen text-based interface,
     /// as well as the user's inputs.
     /// </summary>
-    public class UI
+    public class ConsoleClient
     {
         /// <summary>
         /// The string that identifies the input for a UI instance.
@@ -17,7 +17,7 @@ namespace Astrofinder
         /// <summary>
         /// Class constructor.
         /// </summary>
-        public UI()
+        public ConsoleClient()
         {
         }
 
@@ -78,19 +78,56 @@ namespace Astrofinder
             Console.WriteLine("★---------------------------");
             Console.WriteLine("| SEARCH");
             Console.WriteLine("★------------");
+            Console.WriteLine("| Available Commands: ");
+            Console.WriteLine("|");
+            Console.WriteLine("| General - ");
+            Console.WriteLine(
+                "| NAME, STARNAME, DISCOVERYMETHOD, DISCOVERYYEAR");
+            Console.WriteLine("|");    
+            Console.WriteLine("| Planet Specific Commands - ");    
+            Console.WriteLine(
+                "| ORBITALPERIOD, PLANETRADIUS, PLANETMASS, PLANETTEMPERATURE");
+            Console.WriteLine("|");    
+            Console.WriteLine("| Star Specific Commands - ");        
+            Console.WriteLine(
+                "| STARTEMPERATURE, STARRADIUS, STARMASS, STARAGE,");
+            Console.WriteLine(
+                "| STARROTATIONVELOCITY, STARROTATIONPERIOD, STARDISTANCE");
+            Console.WriteLine("|");        
+            Console.WriteLine("★------------");
+            Console.WriteLine("| Input T to view how to utilize SEARCH.");
+            Console.WriteLine("★------------");
+            Console.Write(">");
+
+            Input = Console.ReadLine();
+
+            if (Input.ToLower() == "t") SearchTutorial();
+        }
+
+        public void SearchTutorial()
+        {
+            Console.WriteLine("★---------------------------");
             Console.Write(
                 "| In order to search the celestial bodies with the desired");
-            Console.Write(
-                " parameters, first input *what* you want to search and then");
-            Console.Write(
-                " the respective value, sepatating multiple searches with");
             Console.WriteLine(
-                " commas. For example:");
+                " filters,");
+            Console.WriteLine(
+                "| first input *what* you want to search and then");
+            Console.WriteLine(
+                "| the respective value, sepatating multiple searches with");
+            Console.WriteLine(
+                "| commas. For example:");
             Console.WriteLine("|");
-            Console.Write("| HOSTNAME 11 Com, YEARDISCOVERED_MAX 1998,");
-            Console.WriteLine(" TEMP_MIN > 3000");
+            Console.Write("| STARNAME 11 Com, YEARDISCOVERED_MAX 1998,");
+            Console.WriteLine(" TEMP_MIN 3000");
             Console.WriteLine("|");
-            
+            Console.WriteLine(
+                "| Numerical filters (like YEARDISCOVERED) can have a max or");
+            Console.WriteLine(
+                "| min value with the '_MAX' and '_MIN' sufixes.");
+            // Space here for implementing star search if we do the advanced
+
+            SearchList();
         }
     }
 }

@@ -9,6 +9,10 @@ namespace Astrofinder
         {
             // Makes it so that the program supports unicode characters.
             Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            ConsoleClient cc = new ConsoleClient();
+
+            cc.SearchList();
         }
     }
 }
