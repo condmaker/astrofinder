@@ -155,8 +155,7 @@ namespace Astrofinder
         /// <param name="pCol">The list of planets or starts.</param>
         /// <typeparam name="T">The type of viewer-- either Planets or Stars.
         /// </typeparam>
-        public void ListNavigation<T>(ICollection<T> pCol ) where T : Planets,
-            Stars
+        public void ListNavigation<T>(ICollection<T> pCol ) where T : Planet
         {
             short index = 0;
             IEnumerable<T> viewer;
@@ -200,6 +199,6 @@ namespace Astrofinder
         // This maybe shouldn't be here.
         private short Lerp(short limA, short limB, short num ) 
             => (short) (limA * (1 - num) + limB * num);
-}
     }
+    
 }

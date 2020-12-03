@@ -72,9 +72,7 @@ namespace Astrofinder
 
 
         public Planet(){}
-        
-        //Don't really know y the "this" but without it there's an error
-        //struct and properties shenanigans 
+
         public Planet(string name, string hostname, string discM = "",
         short? discY = null,  float? orber = null, float? radius = null,
         float? mass = null, short? eqTemp = null )
