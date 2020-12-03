@@ -12,39 +12,61 @@ namespace Astrofinder
         // receber filename de UI e invocar FileReader
         void ReadFile(string path)
         {
-            FileReader fr = new FileReader(path);
-            searcher = new Searcher(); // falta os enumerables
+            //FileReader fr = new FileReader(path);
+            //searcher = new Searcher(); // falta os enumerables
+
+            
+            starQueries = new StarQueryParams();
+            planetQueries = new PlanetQueryParams();
         }
 
-        // Receber QueryParams
-         de UI e atualizar query params
-        void UpdateParams(string filter)
+        // Receber QueryParams e value de consoleclient e atualizar query params
+        void UpdateParams(QueryParam param, string value)
         {
+            if (param < QueryParam.S_NAME)
+                planetQueries.UpdateParam(param, value);
+            else
+                starQueries.UpdateParam(param, value);
+        }
 
+        void UpdateParams(QueryParam param, short? value)
+        {
+            if (param < QueryParam.S_NAME)
+                planetQueries.UpdateParam(param, value);
+            else
+                starQueries.UpdateParam(param, value);
+        }
+
+        void UpdateParams(QueryParam param, float? value)
+        {
+            if (param < QueryParam.S_NAME)
+                planetQueries.UpdateParam(param, value);
+            else
+                starQueries.UpdateParam(param, value);
         }
 
         // Enviar lista para ConsoleClient
         IEnumerable<Planet> SearchPlanets()
         {
-            searcher.SearchPlanets(planetQueries);
+            return searcher.SearchPlanets(planetQueries);
         }
 
         // Enviar lista para ConsoleClient
-        List<Star> SearchStars()
+        IEnumerable<Star> SearchStars()
         {
-
+            return searcher.SearchStars(starQueries);
         }
 
         // Enviar planet / estrela para UI
         Planet ViewPlanet(string name)
         {
-
+            return searcher.GetPlanet(name);
         }
 
         // Enviar planet / estrela para UI
         Star ViewStar(string name)
         {
-
+            return searcher.GetStar(name);
         }
     }
 }

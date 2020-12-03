@@ -12,5 +12,26 @@ namespace Astrofinder
             this.Planets = Planets;
             this.Stars = Stars;
         }
+
+        //TODO
+        public IEnumerable<Planet> SearchPlanets(PlanetQueryParams queries)
+        {
+            return new List<Planet>();
+        }
+
+        public IEnumerable<Star> SearchStars(StarQueryParams queries)
+        {
+            return new List<Star>();
+        }
+
+        public Planet GetPlanet(string name)
+        {
+            return new Planet();
+        }
+
+        public Star GetStar(string name)
+        {
+            return new Star();
+        }
     }
 }
