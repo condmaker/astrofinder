@@ -8,9 +8,23 @@ namespace Astrofinder
         private PlanetQueryParams planetQueries;
         private StarQueryParams starQueries;
 
+        //testing - delete
+        public Handler()
+        {
+            List<Planet> p = new List<Planet>();
+            p.Add(new Planet("Planeta 1", "star 1"));
+            p.Add(new Planet("Planet 2", "star 1", discY: 1980));
+            p.Add(new Planet("Planeta 3", "star 2"));
+            p.Add(new Planet("Args 1", "star 2"));
+            p.Add(new Planet("Args 2", "star 3"));
+
+            IEnumerable<Star> s = new List<Star>();
+            searcher = new Searcher(p, s);
+        }
+
 
         // receber filename de UI e invocar FileReader
-        void ReadFile(string path)
+        public void ReadFile(string path)
         {
             //FileReader fr = new FileReader(path);
             //searcher = new Searcher(); // falta os enumerables
@@ -21,7 +35,7 @@ namespace Astrofinder
         }
 
         // Receber QueryParams e value de consoleclient e atualizar query params
-        void UpdateParams(QueryParam param, string value)
+        public void UpdateParams(QueryParam param, string value)
         {
             if (param < QueryParam.S_NAME)
                 planetQueries.UpdateParam(param, value);
@@ -29,7 +43,7 @@ namespace Astrofinder
                 starQueries.UpdateParam(param, value);
         }
 
-        void UpdateParams(QueryParam param, short? value)
+        public void UpdateParams(QueryParam param, short? value)
         {
             if (param < QueryParam.S_NAME)
                 planetQueries.UpdateParam(param, value);
@@ -37,7 +51,7 @@ namespace Astrofinder
                 starQueries.UpdateParam(param, value);
         }
 
-        void UpdateParams(QueryParam param, float? value)
+        public void UpdateParams(QueryParam param, float? value)
         {
             if (param < QueryParam.S_NAME)
                 planetQueries.UpdateParam(param, value);
@@ -46,25 +60,25 @@ namespace Astrofinder
         }
 
         // Enviar lista para ConsoleClient
-        IEnumerable<Planet> SearchPlanets()
+        public IEnumerable<Planet> SearchPlanets()
         {
             return searcher.SearchPlanets(planetQueries);
         }
 
         // Enviar lista para ConsoleClient
-        IEnumerable<Star> SearchStars()
+        public IEnumerable<Star> SearchStars()
         {
             return searcher.SearchStars(starQueries);
         }
 
         // Enviar planet / estrela para UI
-        Planet ViewPlanet(string name)
+        public Planet ViewPlanet(string name)
         {
             return searcher.GetPlanet(name);
         }
 
         // Enviar planet / estrela para UI
-        Star ViewStar(string name)
+        public Star ViewStar(string name)
         {
             return searcher.GetStar(name);
         }

@@ -70,8 +70,6 @@ namespace Astrofinder
         //pl_eqt
         public short? EqTemp { get; private set; }
 
-
-        public Planet(){}
         
         //Don't really know y the "this" but without it there's an error
         //struct and properties shenanigans 
