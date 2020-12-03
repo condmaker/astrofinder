@@ -2,6 +2,7 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Astrofinder
 {
@@ -9,13 +10,43 @@ namespace Astrofinder
     public class FileReader
     {
         
+
+        private string path;
+
+        //Collection that stores the Planet data / CHANGE TO ICOLLECTION LATER
         private List<Planet> planetCol;
+        //Collection that stores the Star data / CHANGE TO ICOLLECTION LATER
+        //private List<Star> starCol;
+
+        //This Dictionary stores the parameters that can be found 
+        //and extracted from the file,
+        //as well as the index of the collumn they appear at
         private Dictionary<string, int?> par;
 
-        public FileReader()
+
+        /// <summary>
+        /// Construtor for the FileReader class. 
+        /// Takes the path for the file to read.
+        /// </summary>
+        
+        public FileReader(string path)
         {
+
+            //Check if the path given is an acceptable path
+            //Check if the file contains name and hostname
+            //Send message if not
+
+            //Save the path to use later 
+            this.path = path;
+
+            //Instatiates the collection that stores the Planets
             planetCol = new List<Planet>();
+            //Instatiates the collection that stores the Stars
+
+            //Instatiates the Dictionary that stores the parameters 
             par = new Dictionary<string, int?>();
+
+            //Adds all possible parameters related to the planets to the Dictionary
             par.Add("pl_name", null);
             par.Add("hostname", null);
             par.Add("discoverymethod", null);
@@ -25,10 +56,19 @@ namespace Astrofinder
             par.Add("pl_masse", null);
             par.Add("pl_eqt", null);
 
+            //Adds all possible parameters related to the stars to the Dictionary
+
+
+            //Reads the file
             ReadFile();
             
         }
 
+
+        /// <summary>
+        /// Opens the file that the user inputed and asigns each parameter to
+        /// 2 lists: 1 of Stars amd 1 of Planets  
+        /// </summary>
         public void ReadFile()
         {
             using (StreamReader sr = 
@@ -49,7 +89,7 @@ namespace Astrofinder
                     //First Row                   
                     if(firstLine)
                     {                                         
-                        //Asign existing parameters and their curresponding collumn numb
+                        //Asign existing parameters and their corresponding collumn numb
                         for(int i = 0; i < spltRow.Count; i++)
                         {
                             string s = spltRow[i].Trim();
@@ -63,32 +103,49 @@ namespace Astrofinder
                         continue;
                     }
 
+                    
+                    //Get current Planet name
+                    string planetName = FormatParToString(par["pl_name"], spltRow);
+                    
+                    //Create a temp Planet with an equal name 
+                    Planet tempPlanet = new Planet(planetName, "");
 
-                    //Create new Planet instance
-                    //Don't really like the Trim but going to keep it there for now
-                    //God this needs a rework
-                    Planet newPlanet = new Planet
-                    (
-                        name: 
-                            FormatParToString(par["pl_name"], spltRow),
-                        hostname: 
-                            FormatParToString(par["hostname"], spltRow),
-                        discM: 
-                            FormatParToString(par["discoverymethod"], spltRow),
-                        discY: 
-                            FormatPar<short>(par["disc_year"], spltRow),
-                        orber: 
-                            FormatPar<float>(par["pl_orber"], spltRow),
-                        radius:
-                            FormatPar<float>(par["pl_rade"], spltRow),
-                        mass:
-                            FormatPar<float>(par["pl_masse"], spltRow),
-                        eqTemp :  
-                            FormatPar<short>(par["pl_eqt"], spltRow)
-                    );
+                    //Check if a Planet with the same name already exits in the collection
+                    //Ignore Planet info 
+                    if(!planetCol.Contains(tempPlanet))
+                    {
+                        //Create new Planet instance
+                        Planet newPlanet = new Planet
+                        (
+                            name: 
+                                planetName,
+                            hostname: 
+                                FormatParToString(par["hostname"], spltRow),
+                            discM: 
+                                FormatParToString(par["discoverymethod"], spltRow),
+                            discY: 
+                                FormatPar<short>(par["disc_year"], spltRow),
+                            orber: 
+                                FormatPar<float>(par["pl_orber"], spltRow),
+                            radius:
+                                FormatPar<float>(par["pl_rade"], spltRow),
+                            mass:
+                                FormatPar<float>(par["pl_masse"], spltRow),
+                            eqTemp :  
+                                FormatPar<short>(par["pl_eqt"], spltRow)
+                        );
 
-                    //Asign new instance to a list
-                    planetCol.Add(newPlanet);
+                        
+                        //Add the new Planet to the planet list
+                        planetCol.Add(newPlanet);
+                    
+                    }
+                    //Create new Star instance
+
+
+
+
+                    //Add the new Start to the star list
 
                 }
 
@@ -96,10 +153,15 @@ namespace Astrofinder
 
             }
         
-        
-            Planet testplanet = planetCol[21];
-            Console.WriteLine(testplanet.Name + " -- " + testplanet.Mass
-            );
+            
+            //Testing stuff. DELETE LATER
+            // Planet testplanet = planetCol[28];
+            // Console.WriteLine(testplanet.Name + " -- " + testplanet.Mass
+            // );
+
+            /*foreach(Planet p in planetCol){
+                Console.WriteLine(p.Name);
+            }*/
         
         }
 
@@ -113,14 +175,14 @@ namespace Astrofinder
         /// <summary>
         /// Formats the received string into a string the program can utilize
         /// </summary>
-        /// <param name="par"></param>
-        /// <param name="row"></param>
+        /// <param name="index"> index of the wanted data</param>
+        /// <param name="row"> List that contains the data in a given order </param>
         /// <returns></returns>
-        private string FormatParToString(int? par, IList<string> row)
+        private string FormatParToString(int? index, IList<string> row)
         {
             if(par == null) return null;
 
-            int newPar = par ?? 0;
+            int newPar = index ?? 0;
             string value = row[newPar].Trim();
 
             return value;
@@ -130,16 +192,16 @@ namespace Astrofinder
         //https://stackoverflow.com/questions/209160/nullable-type-as-a-generic-parameter-possible
 
         /// <summary>
-        /// Formats the received string into a int the program can utilize
+        /// Formats the received string into the wanted struct type
         /// </summary>
-        /// <param name="par"></param>
-        /// <param name="row"></param>
+        /// <param name="index"> index of the wanted data </param>
+        /// <param name="row"> List that contains the data in a given order </param>
         /// <returns></returns>
-        private Nullable<T> FormatPar<T>(int? par, IList<string> row) 
+        private Nullable<T> FormatPar<T>(int? index, IList<string> row) 
             where T: struct
         { 
             //Get formated string
-            string val = FormatParToString(par, row);
+            string val = FormatParToString(index, row);
             if(val == null) return null;
             
             //Format T
@@ -147,11 +209,13 @@ namespace Astrofinder
         
             //https://stackoverflow.com/questions/2961656/generic-tryparse
             
+
+            //Parse the string into the wanted type
             try
-            {
+            { 
                 value = 
                     (T)TypeDescriptor.GetConverter(typeof(T))
-                        .ConvertFromString(val);         
+                        .ConvertFromString( null , culture: CultureInfo.InvariantCulture, val);         
             }
             catch 
             {

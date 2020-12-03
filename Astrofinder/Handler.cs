@@ -26,7 +26,7 @@ namespace Astrofinder
         // receber filename de UI e invocar FileReader
         public void ReadFile(string path)
         {
-            //FileReader fr = new FileReader(path);
+            FileReader fr = new FileReader(path);
             //searcher = new Searcher(); // falta os enumerables
 
             

@@ -201,4 +201,5 @@ namespace Astrofinder
         private short Lerp(short limA, short limB, short num ) 
             => (short) (limA * (1 - num) + limB * num);
     }
+    
 }

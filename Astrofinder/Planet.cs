@@ -2,7 +2,7 @@ using System;
 
 namespace Astrofinder
 {
-    public class Planet
+    public class Planet: IEquatable<Planet>
     {
         public static Comparison<Planet> CompareByName = 
             delegate (Planet p1, Planet p2)
@@ -70,9 +70,9 @@ namespace Astrofinder
         //pl_eqt
         public short? EqTemp { get; private set; }
 
-        
-        //Don't really know y the "this" but without it there's an error
-        //struct and properties shenanigans 
+
+        public Planet(){}
+
         public Planet(string name, string hostname, string discM = "",
         short? discY = null,  float? orber = null, float? radius = null,
         float? mass = null, short? eqTemp = null )
@@ -88,5 +88,10 @@ namespace Astrofinder
         }
 
         
+        public bool Equals(Planet other)
+        {
+            return this.Name == other.Name; 
+        }
+
     }
 }
