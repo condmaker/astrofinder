@@ -58,7 +58,8 @@ namespace Astrofinder
         }
 
         /// <summary>
-        /// 
+        /// Prints a screen to the user showcasing the main commands of the
+        /// program, that are available at every point.
         /// </summary>
         public void MainMenu()
         {
@@ -67,12 +68,19 @@ namespace Astrofinder
             Console.WriteLine("★------------");
             Console.WriteLine("| sp - Search for a planet.");
             Console.WriteLine("| ss - Search for a star.");
+            Console.WriteLine("| r  - Load another file.");
+            Console.WriteLine("| q  - Quit");
             Console.WriteLine("★---------------------------\n");
             Console.Write(">");
 
             Input = Console.ReadLine();
         }
 
+        /// <summary>
+        /// Prints a search list to the user, specifying the available inputs 
+        /// and storing them on the instance's Input. Can also lead to
+        /// SearchTutorial().
+        /// </summary>
         public void SearchList()
         {
             Console.WriteLine("★---------------------------");
@@ -104,6 +112,9 @@ namespace Astrofinder
             if (Input.ToLower() == "t") SearchTutorial();
         }
 
+        /// <summary>
+        /// Teaches the user how to filter his search.
+        /// </summary>
         public void SearchTutorial()
         {
             Console.WriteLine("★---------------------------");
