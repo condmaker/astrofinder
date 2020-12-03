@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Astrofinder
@@ -68,7 +70,8 @@ namespace Astrofinder
             Console.WriteLine("★------------");
             Console.WriteLine("| sp - Search for a planet.");
             Console.WriteLine("| ss - Search for a star.");
-            Console.WriteLine("| r  - Load another file.");
+            Console.WriteLine("| l  - Load another file.");
+            Console.WriteLine("| r  - Return");
             Console.WriteLine("| q  - Quit");
             Console.WriteLine("★---------------------------\n");
             Console.Write(">");
@@ -140,5 +143,63 @@ namespace Astrofinder
 
             SearchList();
         }
+
+        /// <summary>
+        /// Showcases a list of all the planets or starts searched by the user. 
+        /// The list is interactible and the user can select a planet/star to
+        /// observe it better. The list will be divided by pages, and there
+        /// will be 10 planets max. per page.
+        /// 
+        /// Need to implement single object viewer.
+        /// </summary>
+        /// <param name="pCol">The list of planets or starts.</param>
+        /// <typeparam name="T">The type of viewer-- either Planets or Stars.
+        /// </typeparam>
+        public void ListNavigation<T>(ICollection<T> pCol ) where T : Planets,
+            Stars
+        {
+            short index = 0;
+            IEnumerable<T> viewer;
+
+            // Legend goes here
+            Console.WriteLine("");
+            Console.WriteLine("★---------------------------");
+
+            do
+            {
+                if (Input == "UpArrow")
+                    index += 10;
+                else if (Input == "DownArrow")
+                    index -= 10;
+
+                // This may not work
+                index = Lerp(0, (short)(pCol.Count - (pCol.Count % 10)), index);
+
+                viewer = pCol.Skip(index).Take(10); 
+
+                foreach (T item in viewer)
+                    Console.WriteLine(item.ToString());
+
+                Input = Console.ReadKey(true).Key.ToString();
+
+                // This'll set the cursor position at the start of the line
+                // so that the next set of prints rewrite the current page.
+                Console.SetCursorPosition(
+                    Console.CursorLeft, Console.CursorTop - 10);
+
+            } while (Input != "r" || Input != "q");
+
+            // Puts the cursor where the legend is in order to overwrite it.
+            Console.SetCursorPosition(
+                Console.CursorLeft, Console.CursorTop - 2);
+
+        }
+
+        // Method based on
+        // https://stackoverflow.com/questions/33044848/c-sharp-lerping-from-position-to-position
+        // This maybe shouldn't be here.
+        private short Lerp(short limA, short limB, short num ) 
+            => (short) (limA * (1 - num) + limB * num);
+}
     }
 }
