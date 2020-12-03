@@ -5,9 +5,9 @@ namespace Astrofinder
         //hostname-- Assumi q isto vai ser assim
         public string Name { get; private set; }        
         //st_teff 
-        public short? Temperature { get; private set; }
+        public float? Temperature { get; private set; }
         //st_age 
-        public short? Age { get; private set; }
+        public float? Age { get; private set; }
         //st_vsin 
         public float? RotVelocity { get; private set; }
         //st_rotp 
@@ -18,5 +18,8 @@ namespace Astrofinder
         public float? Mass { get; private set; }
         //sy_dist 
         public float? SunDistance { get; private set; }
+
+        // planetas que a orbitam
+        public string OrbitingPlanets { get; private set; }
     }
 }

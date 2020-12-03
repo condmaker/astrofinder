@@ -13,7 +13,7 @@ namespace Astrofinder
         public static Comparison<Planet> CompareByHostName = 
             delegate (Planet p1, Planet p2)
         {
-            return String.Compare(p1.Host, p2.Host);
+            return String.Compare(p1.HostName, p2.HostName);
         };
 
         public static Comparison<Planet> CompareByDiscMethod = 
@@ -60,7 +60,6 @@ namespace Astrofinder
         //st_teff
         public string DiscMethod { get; private set; }
         //disc_year 
-<<<<<<< HEAD
         public short? DiscYear {get; set;}
         //pl_orber
         public short? OrbitalPeriod {get;set;}
@@ -70,29 +69,5 @@ namespace Astrofinder
         public float? Mass {get; set;}
         //pl_eqt
         public float? Temperature {get; set;}
-=======
-        public short? DiscYear { get; private set; }
-        //pl_orber
-        public float? OrbitalPeriod { get; private set; }
-        //pl_rade
-        public float? Radius { get; private set; }
-        //pl_masse
-        public float? Mass { get; private set ; }
-        //pl_eqt
-        public short? EqTemp { get; private set; }
-    
-        
-        //Don't really know y the "this" but without it there's an error
-        //struct and properties shenanigans 
-        public Planet(string name, string hostname, string discM = "") : this()
-        {
-            Name = name;
-            HostName = hostname;
-            DiscMethod = discM;
-
-        }
-
-        
->>>>>>> daniel_testing
     }
 }
