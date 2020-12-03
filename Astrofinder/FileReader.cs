@@ -2,6 +2,7 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Astrofinder
 {
@@ -9,12 +10,13 @@ namespace Astrofinder
     public class FileReader
     {
         
+
         private string path;
 
-        //Collection that stores the Planet data
+        //Collection that stores the Planet data / CHANGE TO ICOLLECTION LATER
         private List<Planet> planetCol;
-        //Collection that stores the Star data
-        private List<Star> starCol;
+        //Collection that stores the Star data / CHANGE TO ICOLLECTION LATER
+        //private List<Star> starCol;
 
         //This Dictionary stores the parameters that can be found 
         //and extracted from the file,
@@ -103,7 +105,7 @@ namespace Astrofinder
 
                     
                     //Check if a Planet with the same name already exits in the collection
-                    //Igonere Planet info 
+                    //Ignore Planet info 
 
                     //Create new Planet instance
                     Planet newPlanet = new Planet
@@ -141,8 +143,9 @@ namespace Astrofinder
 
             }
         
+            
             //Testing stuff. DELETE LATER
-            Planet testplanet = planetCol[21];
+            Planet testplanet = planetCol[28];
             Console.WriteLine(testplanet.Name + " -- " + testplanet.Mass
             );
         
@@ -195,10 +198,10 @@ namespace Astrofinder
 
             //Parse the string into the wanted type
             try
-            {
+            { 
                 value = 
                     (T)TypeDescriptor.GetConverter(typeof(T))
-                        .ConvertFromString(val);         
+                        .ConvertFromString( null , culture: CultureInfo.InvariantCulture, val);         
             }
             catch 
             {

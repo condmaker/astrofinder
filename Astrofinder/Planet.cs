@@ -2,7 +2,7 @@ using System;
 
 namespace Astrofinder
 {
-    public class Planet
+    public class Planet: IEquatable<Planet>
     {
         public static Comparison<Planet> CompareByName = 
             delegate (Planet p1, Planet p2)
@@ -88,5 +88,10 @@ namespace Astrofinder
         }
 
         
+        public bool Equals(Planet other)
+        {
+            return this.Name == other.Name; 
+        }
+
     }
 }
