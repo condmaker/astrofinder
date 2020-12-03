@@ -1,0 +1,34 @@
+namespace Astrofinder
+{
+    public enum QueryParam
+    {
+        P_NAME,
+        P_HOST_NAME,
+        P_DISC_METHOD,
+        P_MIN_DISC_YEAR,
+        P_MAX_DISC_YEAR,
+        P_MIN_ORBITAL_PERIOD,
+        P_MAX_ORBITAL_PERIOD,
+        P_MIN_RADIUS,
+        P_MAX_RADIUS,
+        P_MIN_MASS,
+        P_MAX_MASS,
+        P_MIN_TEMP,
+        P_MAX_TEMP,
+        S_NAME,
+        S_MIN_TEMP,
+        S_MAX_TEMP,
+        S_MIN_AGE,
+        S_MAX_AGE,
+        S_MIN_ROT_VEL,
+        S_MAX_ROT_VEL,
+        S_MIN_ROT_PERIOD,
+        S_MAX_ROT_PERIOD,
+        S_MIN_RADIUS,
+        S_MAX_RADIUS,
+        S_MIN_MASS,
+        S_MAX_MASS,
+        S_MIN_SUN_DISTANCE,
+        S_MAX_SUN_DISTANCE
+    }
+}

@@ -12,11 +12,12 @@ namespace Astrofinder
         // receber filename de UI e invocar FileReader
         void ReadFile(string path)
         {
-            FileReader f = new FileReader(path);
+            FileReader fr = new FileReader(path);
             searcher = new Searcher(); // falta os enumerables
         }
 
-        // Receber string de UI e atualizar query params
+        // Receber QueryParams
+         de UI e atualizar query params
         void UpdateParams(string filter)
         {
 

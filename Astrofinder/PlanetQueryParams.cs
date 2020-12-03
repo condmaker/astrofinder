@@ -32,17 +32,17 @@ namespace Astrofinder
 
         public float? MaxTemp { get; private set; }
 
-        public void UpdateParam(string param, string value)
+        public void UpdateParam(QueryParam param, string value)
         {
             switch (param)
             {
-                case "Name":
+                case QueryParam.P_NAME:
                     Name = value;
                     break;
-                case "HostName":
+                case QueryParam.P_HOST_NAME:
                     HostName = value;
                     break;
-                case "DiscMethod":
+                case QueryParam.P_DISC_METHOD:
                     DiscMethod = value;
                     break;
                 default:
@@ -50,23 +50,23 @@ namespace Astrofinder
             }
         }
 
-        public void UpdateParam(string param, short? value)
+        public void UpdateParam(QueryParam param, short? value)
         {
             switch (param)
             {
-                case "MinDiscYear":
+                case QueryParam.P_MIN_DISC_YEAR:
                     MinDiscYear = value;
                     break;
 
-                case "MaxDiscYear":
+                case QueryParam.P_MAX_DISC_YEAR:
                     MaxDiscYear = value;
                     break;
                 
-                case "MinOrbitalPeriod":
+                case QueryParam.P_MIN_ORBITAL_PERIOD:
                     MinOrbitalPeriod = value;
                     break;
 
-                case "MaxOrbitalPeriod":
+                case QueryParam.P_MAX_ORBITAL_PERIOD:
                     MaxOrbitalPeriod = value;
                     break;
                 default:
@@ -75,33 +75,34 @@ namespace Astrofinder
             }
         }
 
-            public void UpdateParam(string param, float? value)
+            public void UpdateParam(QueryParam param, float? value)
         {
             switch (param)
             {
-                case "MinRadius":
+                case QueryParam.P_MIN_RADIUS:
                     MinRadius = value;
                     break;
 
-                case "MaxRadius":
+                case QueryParam.P_MAX_RADIUS:
                     MaxRadius = value;
                     break;
                 
-                case "MinMass":
+                case QueryParam.P_MIN_MASS:
                     MinMass = value;
                     break;
 
-                case "MaxMass":
+                case QueryParam.P_MAX_MASS:
                     MaxMass = value;
                     break;
 
-                case "MinTemp":
+                case QueryParam.P_MIN_TEMP:
                     MinTemp = value;
                     break;
 
-                case "MaxTemp":
+                case QueryParam.P_MAX_TEMP:
                     MaxTemp = value;
                     break;
+                    
                 default:
                     break;
             }

@@ -32,11 +32,11 @@ namespace Astrofinder
 
         public float? MaxSunDist { get; private set; }
 
-        public void UpdateParam(string param, string value)
+        public void UpdateParam(QueryParam param, string value)
         {
             switch (param)
             {
-                case "Name":
+                case QueryParam.S_NAME:
                     Name = value;
                     break;
 
@@ -45,63 +45,63 @@ namespace Astrofinder
             }
         }
 
-        public void UpdateParam(string param, float? value)
+        public void UpdateParam(QueryParam param, float? value)
         {
             switch (param)
             {
-                case "MinTemp":
+                case QueryParam.S_MIN_TEMP:
                     MinTemp = value;
                     break;
 
-                case "MaxTemp":
+                case QueryParam.S_MAX_TEMP:
                     MaxTemp = value;
                     break;
                 
-                case "MinAge":
+                case QueryParam.S_MIN_AGE:
                     MinAge = value;
                     break;
 
-                case "MaxAge":
+                case QueryParam.S_MAX_AGE:
                     MaxAge = value;
                     break;
 
-                case "MinRotVel":
+                case QueryParam.S_MIN_ROT_VEL:
                     MinRotVel = value;
                     break;
 
-                case "MaxRotVel":
+                case QueryParam.S_MAX_ROT_VEL:
                     MaxRotVel = value;
                     break;
 
-                case "MinRotPer":
+                case QueryParam.S_MIN_ROT_PERIOD:
                     MinRotPer = value;
                     break;
 
-                case "MaxRotPer":
+                case QueryParam.S_MAX_ROT_PERIOD:
                     MaxRotPer = value;
                     break;
 
-                case "MinRadius":
+                case QueryParam.S_MIN_RADIUS:
                     MinRadius = value;
                     break;
 
-                case "MaxRadius":
+                case QueryParam.S_MAX_RADIUS:
                     MaxRadius = value;
                     break;
 
-                case "MinMass":
+                case QueryParam.S_MIN_MASS:
                     MinMass = value;
                     break;
 
-                case "MaxMass":
+                case QueryParam.S_MAX_MASS:
                     MaxMass = value;
                     break;
 
-                case "MinSunDist":
+                case QueryParam.S_MIN_SUN_DISTANCE:
                     MinSunDist = value;
                     break;
 
-                case "MaxSunDist":
+                case QueryParam.S_MAX_SUN_DISTANCE:
                     MaxSunDist = value;
                     break;
 
