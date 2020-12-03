@@ -12,5 +12,7 @@ namespace Astrofinder
             FileReader fr = new FileReader();
 
         }
+
+        
     }
 }

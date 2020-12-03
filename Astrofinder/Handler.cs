@@ -1,11 +1,19 @@
+using System.Collections.Generic;
+
 namespace Astrofinder
 {
     public class Handler
     {
+        private Searcher searcher;
+        private PlanetQueryParams planetQueries;
+        private StarQueryParams starQueries;
+
+
         // receber filename de UI e invocar FileReader
         void ReadFile(string path)
         {
-
+            FileReader f = new FileReader(path);
+            searcher = new Searcher(); // falta os enumerables
         }
 
         // Receber string de UI e atualizar query params
@@ -15,9 +23,9 @@ namespace Astrofinder
         }
 
         // Enviar lista para ConsoleClient
-        List<Planet> SearchPlanets()
+        IEnumerable<Planet> SearchPlanets()
         {
-
+            searcher.SearchPlanets(planetQueries);
         }
 
         // Enviar lista para ConsoleClient
@@ -35,7 +43,7 @@ namespace Astrofinder
         // Enviar planet / estrela para UI
         Star ViewStar(string name)
         {
-            
+
         }
     }
 }
