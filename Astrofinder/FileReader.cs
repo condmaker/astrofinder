@@ -67,7 +67,7 @@ namespace Astrofinder
 
         /// <summary>
         /// Opens the file that the user inputed and asigns each parameter to
-        /// a 2 list: 1 of Stars amd 1 of Planets  
+        /// 2 lists: 1 of Stars amd 1 of Planets  
         /// </summary>
         public void ReadFile()
         {
@@ -104,36 +104,46 @@ namespace Astrofinder
                     }
 
                     
+                    //Get current Planet name
+                    string planetName = FormatParToString(par["pl_name"], spltRow);
+                    
+                    //Create a temp Planet with an equal name 
+                    Planet tempPlanet = new Planet(planetName, "");
+
                     //Check if a Planet with the same name already exits in the collection
                     //Ignore Planet info 
+                    if(!planetCol.Contains(tempPlanet))
+                    {
+                        //Create new Planet instance
+                        Planet newPlanet = new Planet
+                        (
+                            name: 
+                                planetName,
+                            hostname: 
+                                FormatParToString(par["hostname"], spltRow),
+                            discM: 
+                                FormatParToString(par["discoverymethod"], spltRow),
+                            discY: 
+                                FormatPar<short>(par["disc_year"], spltRow),
+                            orber: 
+                                FormatPar<float>(par["pl_orber"], spltRow),
+                            radius:
+                                FormatPar<float>(par["pl_rade"], spltRow),
+                            mass:
+                                FormatPar<float>(par["pl_masse"], spltRow),
+                            eqTemp :  
+                                FormatPar<short>(par["pl_eqt"], spltRow)
+                        );
 
-                    //Create new Planet instance
-                    Planet newPlanet = new Planet
-                    (
-                        name: 
-                            FormatParToString(par["pl_name"], spltRow),
-                        hostname: 
-                            FormatParToString(par["hostname"], spltRow),
-                        discM: 
-                            FormatParToString(par["discoverymethod"], spltRow),
-                        discY: 
-                            FormatPar<short>(par["disc_year"], spltRow),
-                        orber: 
-                            FormatPar<float>(par["pl_orber"], spltRow),
-                        radius:
-                            FormatPar<float>(par["pl_rade"], spltRow),
-                        mass:
-                            FormatPar<float>(par["pl_masse"], spltRow),
-                        eqTemp :  
-                            FormatPar<short>(par["pl_eqt"], spltRow)
-                    );
-
+                        
+                        //Add the new Planet to the planet list
+                        planetCol.Add(newPlanet);
+                    
+                    }
                     //Create new Star instance
 
 
 
-                    //Add the new Planet to the planet list
-                    planetCol.Add(newPlanet);
 
                     //Add the new Start to the star list
 
@@ -145,9 +155,13 @@ namespace Astrofinder
         
             
             //Testing stuff. DELETE LATER
-            Planet testplanet = planetCol[28];
-            Console.WriteLine(testplanet.Name + " -- " + testplanet.Mass
-            );
+            // Planet testplanet = planetCol[28];
+            // Console.WriteLine(testplanet.Name + " -- " + testplanet.Mass
+            // );
+
+            /*foreach(Planet p in planetCol){
+                Console.WriteLine(p.Name);
+            }*/
         
         }
 
