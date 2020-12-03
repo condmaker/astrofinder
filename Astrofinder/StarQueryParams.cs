@@ -34,6 +34,8 @@ namespace Astrofinder
 
         public void UpdateParam(QueryParam param, string value)
         {
+            if(value != null)
+                value = value.ToLower();
             switch (param)
             {
                 case QueryParam.S_NAME:

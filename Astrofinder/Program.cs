@@ -21,11 +21,15 @@ namespace Astrofinder
             Console.WriteLine("Help =]");
 
             Handler handler = new Handler();
-            handler.UpdateParams(QueryParam.P_NAME, "planet");
+            handler.ReadFile("Test.csv");
+            handler.UpdateParams(QueryParam.P_MIN_DISC_YEAR, 2008);
+            handler.UpdateParams(QueryParam.P_MAX_DISC_YEAR, 2010);
+            handler.UpdateParams(QueryParam.P_HOST_NAME, "COROT");
+            handler.UpdateParams(QueryParam.P_HOST_NAME, (string)null);
             List<Planet> queryResult = new List<Planet>(handler.SearchPlanets());
             foreach (Planet p in queryResult)
             {
-                Console.WriteLine("{0} - {1}", p.Name, p.HostName);
+                Console.WriteLine("{0} - {1}", p.Name, p.DiscYear);
             }
         }
 

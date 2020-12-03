@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Astrofinder
 {
@@ -8,10 +9,12 @@ namespace Astrofinder
         private IEnumerable<Planet> Planets { get; }
         private IEnumerable<Star> Stars { get; }
 
-        public Searcher(IEnumerable<Planet> Planets, IEnumerable<Star> Stars)
+        public Searcher(IEnumerable<Planet> Planets)
         {
-            this.Planets = Planets;
-            this.Stars = Stars;
+            this.Planets = new List<Planet>(Planets);
+            
+            // todo
+            this.Stars = new List<Star>();
         }
 
         public IEnumerable<Planet> SearchPlanets(PlanetQueryParams q)

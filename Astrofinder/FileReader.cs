@@ -14,7 +14,7 @@ namespace Astrofinder
         private string path;
 
         //Collection that stores the Planet data / CHANGE TO ICOLLECTION LATER
-        private List<Planet> planetCol;
+        public List<Planet> planetCol;
         //Collection that stores the Star data / CHANGE TO ICOLLECTION LATER
         //private List<Star> starCol;
 
@@ -72,7 +72,7 @@ namespace Astrofinder
         public void ReadFile()
         {
             using (StreamReader sr = 
-                new StreamReader("PS_2020.11.24_00.43.49.csv"))
+                new StreamReader(path))
             {
                 bool firstLine = true;
 
@@ -81,6 +81,7 @@ namespace Astrofinder
                 {
 
                     //Ignore comments
+                    if (row.Length  <= 0) continue;
                     if(row[0] == '#')continue;
 
                     //Split row into a list of parameters
