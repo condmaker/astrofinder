@@ -1,6 +1,6 @@
 namespace Astrofinder
 {
-    public struct Star
+    public class Star
     {
         //hostname-- Assumi q isto vai ser assim
         public string Name { get; private set; }        
