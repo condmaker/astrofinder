@@ -18,5 +18,6 @@ namespace Astrofinder
         public float? Mass { get; private set; }
         //sy_dist 
         public float? SunDistance { get; private set; }
+       
     }
 }

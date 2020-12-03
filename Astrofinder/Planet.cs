@@ -6,7 +6,7 @@ namespace Astrofinder
         public string Name { get; private set; }
         //hostname
         public string HostName{ get;private set; }
-        //st_teff
+        //discoverymethod
         public string DiscMethod { get; private set; }
         //disc_year 
         public short? DiscYear { get; private set; }
@@ -22,12 +22,18 @@ namespace Astrofinder
         
         //Don't really know y the "this" but without it there's an error
         //struct and properties shenanigans 
-        public Planet(string name, string hostname, string discM = "") : this()
+        public Planet(string name, string hostname, string discM = "",
+        short? discY = null,  float? orber = null, float? radius = null,
+        float? mass = null, short? eqTemp = null ) : this()
         {
             Name = name;
             HostName = hostname;
             DiscMethod = discM;
-
+            DiscYear = discY;
+            OrbitalPeriod = orber;
+            Radius = radius;
+            Mass = mass;
+            EqTemp = eqTemp;
         }
 
         
