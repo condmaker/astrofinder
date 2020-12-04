@@ -237,8 +237,9 @@ namespace Astrofinder
         /// <param name="sunDis">Star's distancet to the sun.</param>
         public Star(string name, string planetName, float? temp = null,
         float? age = null,  float? rotVel = null, float? rotPer = null, 
-        float? radius = null, float? mass = null, short? sunDis = null)
+        float? radius = null, float? mass = null, float? sunDis = null)
         {
+            OrbitingPlanets = new List<string>();
             Name = name;
             Temperature = temp;
             Age = age;
@@ -246,6 +247,7 @@ namespace Astrofinder
             Radius = radius;
             Mass = mass;
             SunDistance = sunDis;
+            
             //Add new planet to the collection
             OrbitingPlanets.Add(planetName);
         }
