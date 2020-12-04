@@ -29,7 +29,8 @@ namespace Astrofinder
             List<Planet> queryResult = new List<Planet>(handler.SearchPlanets());
             foreach (Planet p in queryResult)
             {
-                Console.WriteLine("{0} - {1}", p.Name, p.DiscYear);
+
+                Console.WriteLine(p.ToString());
             }
         }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace Astrofinder
 {
@@ -87,10 +88,22 @@ namespace Astrofinder
             EqTemp = eqTemp;
         }
 
-        
         public bool Equals(Planet other)
         {
             return this.Name == other.Name; 
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(
+              $"{Name,-14}  {HostName,-14}  {DiscMethod,-14}  {DiscYear,-14}");
+            
+            sb.Append(
+              $"  {OrbitalPeriod,-14}  {Radius,-14}  {Mass,-14}  {EqTemp,-14}");
+
+            return sb.ToString();
         }
 
     }
