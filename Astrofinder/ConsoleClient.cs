@@ -12,7 +12,7 @@ namespace Astrofinder
     public class ConsoleClient
     {
         /// <summary>
-        /// The string that identifies the input for a UI instance.
+        /// The string that identifies the input for a instance.
         /// </summary>
         public string Input { get; private set; }
 
@@ -28,9 +28,11 @@ namespace Astrofinder
         /// load a file.
         /// </summary>
         public void StartingMessage()
+            => Console.WriteLine("★ Welcome to Astrofinder!");
+
+        public void LoadMessage()
         {
-            Console.WriteLine("★ Welcome to Astrofinder!");
-            Console.WriteLine("★ Please select a .csv file:");
+            Console.WriteLine("★ Please input a path to a .csv file:");
             Console.Write(">");
 
             Input = Console.ReadLine();
@@ -77,6 +79,8 @@ namespace Astrofinder
             Console.Write(">");
 
             Input = Console.ReadLine();
+
+            ClearScreen(10);
         }
 
         /// <summary>
@@ -112,6 +116,8 @@ namespace Astrofinder
 
             Input = Console.ReadLine();
 
+            ClearScreen(19);
+
             if (Input.ToLower() == "t") SearchTutorial();
         }
 
@@ -140,6 +146,8 @@ namespace Astrofinder
             Console.WriteLine(
                 "| min value with the '_MAX' and '_MIN' sufixes.");
             // Space here for implementing star search if we do the advanced
+
+            ClearScreen(12);
 
             SearchList();
         }
@@ -193,6 +201,27 @@ namespace Astrofinder
             Console.SetCursorPosition(
                 Console.CursorLeft, Console.CursorTop - 2);
 
+        }
+
+        public void EndMessage()
+        {
+            Console.WriteLine("★ Thank you for utilizing this program.");
+        }
+
+        /// <summary>
+        /// A method to clear the console screen.
+        /// </summary>
+        /// <param name="lines">Number of lines to clear.</param>
+        private void ClearScreen(short lines)
+        {
+            Console.SetCursorPosition(
+                    Console.CursorLeft, Console.CursorTop - lines);
+            
+            for (short i = 0; i < lines; i++)
+                Console.WriteLine();
+
+            Console.SetCursorPosition(
+                    Console.CursorLeft, Console.CursorTop - lines);
         }
 
         // Method based on
