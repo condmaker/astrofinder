@@ -247,12 +247,24 @@ namespace Astrofinder
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            string nS = "N/A";
 
+            // Obligatory Parameters, cannot be null
             sb.Append(
-              $"{Name,-14}  {HostName,-14}  {DiscMethod,-14}  {DiscYear,-14}");
-            
+              $"{Name.MaxLength(14),-14}  {HostName.MaxLength(14),-14}  ");
+            // Optional Parameters, can be null
             sb.Append(
-              $"  {OrbitalPeriod,-14}  {Radius,-14}  {Mass,-14}  {EqTemp,-14}");
+              $"{DiscMethod.MaxLength(14),-14}  ");
+            sb.Append(
+              $"{(DiscYear.HasValue ? DiscYear.ToString() : nS),-14}  ");
+            sb.Append(
+             $"{(OrbitalPeriod.HasValue ? OrbitalPeriod.ToString():nS),-14}  ");
+            sb.Append(
+              $"{(Radius.HasValue ? Radius.ToString() : nS),-14}  ");
+            sb.Append(
+              $"{(Mass.HasValue ? Mass.ToString() : nS),-14}  ");
+            sb.Append(
+              $"{(EqTemp.HasValue ? EqTemp.ToString() : nS),-14}");
 
             return sb.ToString();
         }
