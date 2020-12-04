@@ -17,7 +17,7 @@ namespace Astrofinder
         public ICollection<Planet> planetCol;
 
         //Collection that stores all the Star instances.
-        private IList<Star> starCol;
+        public IList<Star> starCol;
 
         //This Dictionary stores the parameters that can be found 
         //and extracted from the file,

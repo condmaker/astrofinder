@@ -27,12 +27,12 @@ namespace Astrofinder
         /// Constructor method, instantiates a new Searcher.
         /// </summary>
         /// <param name="Planets">Collection of Planets.</param>
-        public Searcher(IEnumerable<Planet> Planets)
+        /// <param name="Stars">Collection of Stars.</param>
+        public Searcher(IEnumerable<Planet> Planets, IEnumerable<Star> Stars)
         {
             this.Planets = new List<Planet>(Planets);
-            
-            // todo
-            this.Stars = new List<Star>();
+
+            this.Stars = new List<Star>(Stars);
         }
 
         /// <summary>
