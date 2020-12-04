@@ -155,49 +155,49 @@ namespace Astrofinder
 
         
         /// <summary>
-        /// Planet name. Read from pl_name column.
+        /// Planet name. Derived from pl_name column.
         /// </summary>
         /// <value>Planet's name.</value>
         public string Name { get; private set; }
         
         /// <summary>
-        /// Planet's host star's name. Read from hostname column.
+        /// Planet's host star's name. Derived from hostname column.
         /// </summary>
         /// <value>Planet's host star name.</value>
         public string HostName{ get;private set; }
 
         /// <summary>
-        /// Planet's discovery method. Read from discoverymethod column.
+        /// Planet's discovery method. Derived from discoverymethod column.
         /// </summary>
         /// <value>Planet's discovery method.</value>
         public string DiscMethod { get; private set; }
 
         /// <summary>
-        /// Planet's discovery year. Read from disc_year column.
+        /// Planet's discovery year. Derived from disc_year column.
         /// </summary>
         /// <value>Planet's discovery year.</value>
         public short? DiscYear {get; set;}
 
         /// <summary>
-        /// Planet's orbital period . Read from pl_orber column.
+        /// Planet's orbital period . Derived from pl_orber column.
         /// </summary>
         /// <value>Planet's orbital period (in days).</value>
         public float? OrbitalPeriod {get;set;}
         
         /// <summary>
-        /// Planet's radius relative to Earth. Read from pl_rade column.
+        /// Planet's radius relative to Earth. Derived from pl_rade column.
         /// </summary>
         /// <value>Planet's radius (relative to Earth).</value>
         public float? Radius {get; set;}
 
         /// <summary>
-        /// Planet's mass relative to Earth. Read from pl_masse column.
+        /// Planet's mass relative to Earth. Derived from pl_masse column.
         /// </summary>
         /// <value>Planet's mass (relative to Earth).</value>
         public float? Mass {get; set;}
 
         /// <summary>
-        /// Planet's temperature. Read from pl_eqt column.
+        /// Planet's temperature. Derived from pl_eqt column.
         /// </summary>
         /// <value>Planet's temperature (in Kelvin).</value>
         public short? EqTemp { get; private set; }
