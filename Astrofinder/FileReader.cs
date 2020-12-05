@@ -13,22 +13,23 @@ namespace Astrofinder
 
         private string path;
 
-        //Collection that stores the Planet data / CHANGE TO ICOLLECTION LATER
-        public List<Planet> planetCol;
-        //Collection that stores the Star data / CHANGE TO ICOLLECTION LATER
-        //private List<Star> starCol;
+        //Collection that stores all the Planet instances. 
+        public ICollection<Planet> planetCol;
+
+        //Collection that stores all the Star instances.
+        public IList<Star> starCol;
 
         //This Dictionary stores the parameters that can be found 
         //and extracted from the file,
-        //as well as the index of the collumn they appear at
+        //as well as the index of the collumn they appear at.
         private Dictionary<string, int?> par;
 
 
         /// <summary>
         /// Construtor for the FileReader class. 
-        /// Takes the path for the file to read.
+        /// Takes the path for the file to read. 
         /// </summary>
-        
+        /// <param name="path"></param>
         public FileReader(string path)
         {
 
@@ -42,7 +43,7 @@ namespace Astrofinder
             //Instatiates the collection that stores the Planets
             planetCol = new List<Planet>();
             //Instatiates the collection that stores the Stars
-
+            starCol = new List<Star>();
             //Instatiates the Dictionary that stores the parameters 
             par = new Dictionary<string, int?>();
 
@@ -57,7 +58,13 @@ namespace Astrofinder
             par.Add("pl_eqt", null);
 
             //Adds all possible parameters related to the stars to the Dictionary
-
+            par.Add("st_teff", null);
+            par.Add("st_age", null);
+            par.Add("st_vsin", null);
+            par.Add("st_rotp", null);
+            par.Add("st_rad", null);
+            par.Add("st_mass", null);
+            par.Add("sy_dist", null);
 
             //Reads the file
             ReadFile();
@@ -71,26 +78,29 @@ namespace Astrofinder
         /// </summary>
         public void ReadFile()
         {
-            using (StreamReader sr = 
-                new StreamReader(path))
+            //Open file to read
+            using (StreamReader sr = new StreamReader(path))
             {
                 bool firstLine = true;
-
                 string row;
+
+                //Loop through each line of the file
                 while((row = sr.ReadLine()) != null)
                 {
 
-                    //Ignore comments
+                    //Ignore comments and blank lines
                     if (row.Length  <= 0) continue;
-                    if(row[0] == '#')continue;
+                    if (row[0] == '#') continue;
 
                     //Split row into a list of parameters
                     IList<string> spltRow = row.Split(",");
 
-                    //First Row                   
+                    //Analize the first row of the file and organize  
+                    //the dictionary, with the parameters, accordingly                   
                     if(firstLine)
                     {                                         
-                        //Asign existing parameters and their corresponding collumn numb
+                        //Asign existing parameters and their 
+                        //corresponding collumn numb
                         for(int i = 0; i < spltRow.Count; i++)
                         {
                             string s = spltRow[i].Trim();
@@ -103,16 +113,16 @@ namespace Astrofinder
                         firstLine = false;
                         continue;
                     }
-
+            
+                    //Get the current Planet name
+                    string planetName = 
+                        FormatParToString(par["pl_name"], spltRow);
                     
-                    //Get current Planet name
-                    string planetName = FormatParToString(par["pl_name"], spltRow);
-                    
-                    //Create a temp Planet with an equal name 
+                    //Create a temporary Planet with an equal name 
                     Planet tempPlanet = new Planet(planetName, "");
 
-                    //Check if a Planet with the same name already exits in the collection
-                    //Ignore Planet info 
+                    //Check if a Planet with the same name already 
+                    //exits in the collection and Add one if thats not the case                    
                     if(!planetCol.Contains(tempPlanet))
                     {
                         //Create new Planet instance
@@ -141,17 +151,43 @@ namespace Astrofinder
                         planetCol.Add(newPlanet);
                     
                     }
+                    
                     //Create new Star instance
+                    Star newStar = new Star
+                    (
+                        name: 
+                            FormatParToString(par["hostname"], spltRow),
+                        planetName: 
+                            planetName,
+                        temp: 
+                            FormatPar<float>(par["st_teff"],spltRow),
+                        age: 
+                            FormatPar<float>(par["st_age"],spltRow),
+                        rotVel: 
+                            FormatPar<float>(par["st_vsin"],spltRow),
+                        rotPer: 
+                            FormatPar<float>(par["st_rotp"],spltRow),
+                        radius: 
+                            FormatPar<float>(par["st_rad"],spltRow),
+                        mass:
+                            FormatPar<float>(par["st_mass"],spltRow),
+                        sunDis:
+                            FormatPar<float>(par["sy_dist"],spltRow)                           
+                    );
 
-
-
-
-                    //Add the new Start to the star list
-
+                    //Check if a Stat with the same name already 
+                    //exits in the collection
+                    if(starCol.Contains(newStar)){
+                        //Update information of the current Star
+                        int index = starCol.IndexOf(newStar);
+                        starCol[index].UpdateStar(newStar, planetName);
+                    }
+                    else
+                    {
+                        //Add the new Start to the star list
+                        starCol.Add(newStar);
+                    }                   
                 }
-
-
-
             }
         
             
@@ -166,13 +202,6 @@ namespace Astrofinder
         
         }
 
-
-
-
-
-
-
-
         /// <summary>
         /// Formats the received string into a string the program can utilize
         /// </summary>
@@ -181,9 +210,13 @@ namespace Astrofinder
         /// <returns></returns>
         private string FormatParToString(int? index, IList<string> row)
         {
-            if(par == null) return null;
+            if(index == null) return null;
 
             int newPar = index ?? 0;
+
+            //Check if row is big enough to search the parameter
+            if(row.Count < newPar) return null;
+
             string value = row[newPar].Trim();
 
             return value;

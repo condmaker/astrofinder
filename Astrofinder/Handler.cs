@@ -48,7 +48,7 @@ namespace Astrofinder
         public void ReadFile(string path)
         {
             FileReader fr = new FileReader(path);
-            searcher = new Searcher(fr.planetCol); // falta os enumerables
+            searcher = new Searcher(fr.planetCol, fr.starCol);
 
             
             starQueries = new StarQueryParams();

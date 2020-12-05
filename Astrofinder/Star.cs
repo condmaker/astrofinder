@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Astrofinder
 {
@@ -201,10 +202,11 @@ namespace Astrofinder
         public float? SunDistance { get; private set; }
 
         /// <summary>
-        /// 
+        /// Names of the Planets that orbit the Star. 
+        /// Derived from pl_name column.
         /// </summary>
-        /// <value></value>
-        public string OrbitingPlanets { get; private set; }
+        /// <value>Collection with the names of the planets.</value>
+        public ICollection<string> OrbitingPlanets { get; private set; }
 
         /// <summary>
         /// Determines whether the specified Star is equal to the current 
@@ -218,5 +220,63 @@ namespace Astrofinder
         {
             return this.Name == other.Name; 
         }
+
+
+        /// <summary>
+        /// Constructor method. Instantiates a new Star.
+        /// </summary>
+        /// <param name="name">Star's unique name.</param>
+        /// <param name="planetName">The name of the Planet were the information 
+        /// was retrieved from.</param>
+        /// <param name="temp">Star's temperature.</param>
+        /// <param name="age">Star's age.</param>
+        /// <param name="rotVel">Star's rotation velocity.</param>
+        /// <param name="rotPer">Star's rotation period.</param>
+        /// <param name="radius">Star's radius.</param>
+        /// <param name="mass">Star's mass.</param>
+        /// <param name="sunDis">Star's distancet to the sun.</param>
+        public Star(string name, string planetName, float? temp = null,
+        float? age = null,  float? rotVel = null, float? rotPer = null, 
+        float? radius = null, float? mass = null, float? sunDis = null)
+        {
+            OrbitingPlanets = new List<string>();
+            Name = name;
+            Temperature = temp;
+            Age = age;
+            RotVelocity = rotVel;
+            Radius = radius;
+            Mass = mass;
+            SunDistance = sunDis;
+            
+            //Add new planet to the collection
+            OrbitingPlanets.Add(planetName);
+        }
+    
+        /// <summary>
+        /// Updates the Star with new information coming from a different Star.
+        /// </summary>
+        /// <param name="newInfo">New Star with different information</param>
+        /// <param name="planetName">The name of the Planet were the information 
+        /// was retrieved from.</param>
+        public void UpdateStar(Star newInfo, string planetName)
+        {           
+            Temperature = 
+                Temperature == null ? newInfo.Temperature: Temperature;                  
+            Age = 
+                Age == null ? newInfo.Age: Age ;            
+            RotVelocity = 
+                RotVelocity == null ? newInfo.RotVelocity: RotVelocity;          
+            Mass = 
+                Mass == null ? newInfo.Mass: Mass;
+            Radius = 
+                Radius == null ? newInfo.Radius: Radius;            
+            SunDistance = 
+                SunDistance == null ? newInfo.SunDistance: SunDistance;
+       
+            //Add new planet to the collection
+            OrbitingPlanets.Add(planetName);
+       
+        }
+
     }
 }
