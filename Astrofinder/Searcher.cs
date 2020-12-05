@@ -53,7 +53,8 @@ namespace Astrofinder
                         p.HostName.ToLower().Contains(q.HostName ?? "") &&
 
                         // Discovery method
-                        p.DiscMethod.ToLower().Contains(q.DiscMethod ?? "")  &&
+                        (p.DiscMethod.ToLower().Contains(q.DiscMethod ?? "") ||
+                        (p.DiscMethod == null && q.DiscMethod == null) ) &&
 
                         // Greater  or equal to minimun discovery year
                         (p.DiscYear >= (q.MinDiscYear ?? p.DiscYear) && 
