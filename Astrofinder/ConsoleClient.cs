@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Timers;
 using System.Linq;
 using System.Text;
 
@@ -33,9 +34,11 @@ namespace Astrofinder
         public void LoadMessage()
         {
             Console.WriteLine("★ Please input a path to a .csv file:");
-            Console.Write(">");
+            Console.Write("> ");
 
             Input = Console.ReadLine();
+
+            Console.Clear();
 
             // Sends the input to the handler (OUTSIDE OF CLASS, TO NOT BREAK
             // THE 'S' PRINCIPLE). )
@@ -49,15 +52,20 @@ namespace Astrofinder
         /// or not.</param>
         public void FileLoad(bool bl = false)
         {
-            if (!bl)
+            if (bl)
+            {
                 Console.WriteLine("★ File loaded successfully.");
+                Console.Clear();
+            }
             else
             {
                 Console.WriteLine(
                     "★ File couldn't be loaded. Please input again:");
-                Console.Write(">");
+                Console.Write("> ");
 
                 Input = Console.ReadLine();
+
+                Console.Clear();
             }
         }
 
@@ -76,11 +84,11 @@ namespace Astrofinder
             Console.WriteLine("| r  - Return");
             Console.WriteLine("| q  - Quit");
             Console.WriteLine("★---------------------------\n");
-            Console.Write(">");
+            Console.Write("> ");
 
             Input = Console.ReadLine();
 
-            ClearScreen(10);
+            Console.Clear();
         }
 
         /// <summary>
@@ -98,25 +106,25 @@ namespace Astrofinder
             Console.WriteLine("| General - ");
             Console.WriteLine(
                 "| NAME, STARNAME, DISCOVERYMETHOD, DISCOVERYYEAR");
-            Console.WriteLine("|");    
-            Console.WriteLine("| Planet Specific Commands - ");    
+            Console.WriteLine("|");
+            Console.WriteLine("| Planet Specific Commands - ");
             Console.WriteLine(
                 "| ORBITALPERIOD, PLANETRADIUS, PLANETMASS, PLANETTEMPERATURE");
-            Console.WriteLine("|");    
-            Console.WriteLine("| Star Specific Commands - ");        
+            Console.WriteLine("|");
+            Console.WriteLine("| Star Specific Commands - ");
             Console.WriteLine(
                 "| STARTEMPERATURE, STARRADIUS, STARMASS, STARAGE,");
             Console.WriteLine(
                 "| STARROTATIONVELOCITY, STARROTATIONPERIOD, STARDISTANCE");
-            Console.WriteLine("|");        
+            Console.WriteLine("|");
             Console.WriteLine("★------------");
             Console.WriteLine("| Input T to view how to utilize SEARCH.");
             Console.WriteLine("★------------");
-            Console.Write(">");
+            Console.Write("> ");
 
             Input = Console.ReadLine();
 
-            ClearScreen(19);
+            Console.Clear();
 
             if (Input.ToLower() == "t") SearchTutorial();
         }
@@ -145,90 +153,47 @@ namespace Astrofinder
                 "| Numerical filters (like YEARDISCOVERED) can have a max or");
             Console.WriteLine(
                 "| min value with the '_MAX' and '_MIN' sufixes.");
+            Console.WriteLine("|");
+            Console.WriteLine("| Press any key to go back.");
+            Console.WriteLine("★---------------------------");
+
+            Console.ReadKey(true);
             // Space here for implementing star search if we do the advanced
 
-            ClearScreen(12);
+            Console.Clear();
 
             SearchList();
         }
 
         /// <summary>
         /// Showcases a list of all the planets or starts searched by the user. 
-        /// The list is interactible and the user can select a planet/star to
-        /// observe it better. The list will be divided by pages, and there
-        /// will be 10 planets max. per page.
-        /// 
-        /// Need to implement single object viewer.
         /// </summary>
         /// <param name="pCol">The list of planets or starts.</param>
         /// <typeparam name="T">The type of viewer-- either Planets or Stars.
         /// </typeparam>
-        public void ListNavigation<T>(ICollection<T> pCol ) where T : Planet
-            //Star
+        public void ListShowcase<T>(IEnumerable<T> pCol) where T : Planet//, Star
         {
-            short index = 0;
-            IEnumerable<T> viewer;
+            foreach (T item in pCol)
+                Console.WriteLine(item.ToString());
 
-            // Legend goes here
-            Console.WriteLine("");
-            Console.WriteLine("★---------------------------");
+            Input = Console.ReadKey(true).Key.ToString();
 
-            do
-            {
-                if (Input == "UpArrow")
-                    index += 10;
-                else if (Input == "DownArrow")
-                    index -= 10;
-
-                // This may not work
-                index = Lerp(0, (short)(pCol.Count - (pCol.Count % 10)), index);
-
-                viewer = pCol.Skip(index).Take(10); 
-
-                foreach (T item in viewer)
-                    Console.WriteLine(item.ToString());
-
-                Input = Console.ReadKey(true).Key.ToString();
-
-                // This'll set the cursor position at the start of the line
-                // so that the next set of prints rewrite the current page.
-                Console.SetCursorPosition(
-                    Console.CursorLeft, Console.CursorTop - 10);
-
-            } while (Input != "r" || Input != "q");
-
-            // Puts the cursor where the legend is in order to overwrite it.
+            // This'll set the cursor position at the start of the line
+            // so that the next set of prints rewrite the current page.
             Console.SetCursorPosition(
-                Console.CursorLeft, Console.CursorTop - 2);
-
+                Console.CursorLeft, Console.CursorTop - 10);
         }
 
         public void EndMessage()
         {
             Console.WriteLine("★ Thank you for utilizing this program.");
         }
-
-        /// <summary>
-        /// A method to clear the console screen.
-        /// </summary>
-        /// <param name="lines">Number of lines to clear.</param>
-        private void ClearScreen(short lines)
-        {
-            Console.SetCursorPosition(
-                    Console.CursorLeft, Console.CursorTop - lines);
-            
-            for (short i = 0; i < lines; i++)
-                Console.WriteLine();
-
-            Console.SetCursorPosition(
-                    Console.CursorLeft, Console.CursorTop - lines);
-        }
-
+        
         // Method based on
         // https://stackoverflow.com/questions/33044848/c-sharp-lerping-from-position-to-position
         // This maybe shouldn't be here.
-        private short Lerp(short limA, short limB, short num ) 
-            => (short) (limA * (1 - num) + limB * num);
+        private short Lerp(short limA, short limB, short num)
+            => (short)(limA * (1 - num) + limB * num);
     }
-    
+
 }

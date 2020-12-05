@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace Astrofinder
 {
+    /// <summary>
+    /// A facade that connects Searcher and FileReader.
+    /// </summary>
     public class Handler
     {
         private Searcher searcher;
@@ -42,7 +45,6 @@ namespace Astrofinder
             else
                 starQueries.UpdateParam(param, value);
         }
-
         public void UpdateParams(QueryParam param, short? value)
         {
             if (param < QueryParam.S_NAME)
@@ -50,7 +52,6 @@ namespace Astrofinder
             else
                 starQueries.UpdateParam(param, value);
         }
-
         public void UpdateParams(QueryParam param, float? value)
         {
             if (param < QueryParam.S_NAME)
@@ -60,7 +61,7 @@ namespace Astrofinder
         }
 
         // Enviar lista para ConsoleClient
-        public IEnumerable<Planet> SearchPlanets()
+        public ICollection<Planet> SearchPlanets()
         {
             return searcher.SearchPlanets(planetQueries);
         }
