@@ -32,7 +32,7 @@ namespace Astrofinder
 
             LoadNewFile();
 
-            while (cc.Input != "q" || cc.Input != "r") 
+            while (cc.Input != "q" && cc.Input != "escape") 
             {
                 cc.MainMenu();
 
@@ -93,7 +93,7 @@ namespace Astrofinder
             // Will store the user's position on the collection.
             short index;
 
-            while (true)
+            while (cc.Input != "q" && cc.Input != "r" && cc.Input != "escape")
             {
                 index = 0;
 
@@ -103,8 +103,10 @@ namespace Astrofinder
                 // This will define filCol.
                 switch (cc.Input)
                 {
-                    case "":
-                        break;
+                    case "r":
+                        continue;
+                    case "q":
+                        continue;
                 }
 
                 // TESTING PURPOSES. DELETE LATER.
@@ -115,22 +117,25 @@ namespace Astrofinder
 
                 do
                 {
-                    if (cc.Input == "UpArrow")
+                    if (cc.Input == "uparrow")
                         index += 10;
-                    else if (cc.Input == "DownArrow")
+                    else if (cc.Input == "downarrow")
                         index -= 10;
 
-                    // This may not work
-                    index = Lerp(
-                        0, (short)(pCol.Count - (pCol.Count % 10)), index);
+                    index = (short) Math.Clamp(
+                        index, 0, (pCol.Count - (pCol.Count % 10)));
+
+                    Console.WriteLine(cc.Input);
+                    Console.WriteLine(index);
 
                     viewer = pCol.Skip(index).Take(10);
 
                     cc.ListShowcase<Planet>(viewer);
 
-                } while (cc.Input != "r" || cc.Input != "q");
+                } while (cc.Input != "r" && cc.Input != "q");
 
                 // Returns to the start of the search.
+                // Need to figure out how to go back to SEARCH.
                 if (cc.Input == "r")
                     continue;
                 // Quits the loops and consequentially the application.
@@ -147,13 +152,5 @@ namespace Astrofinder
         {
 
         }
-
-        // Method based on
-        // https://stackoverflow.com/questions/33044848/c-sharp-lerping-from-position-to-position
-        // Helps limit the index.
-        // This maybe shouldn't be here.
-        private short Lerp(short limA, short limB, short num)
-            => (short)(limA * (1 - num) + limB * num);
-
     }
 }

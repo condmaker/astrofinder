@@ -176,7 +176,7 @@ namespace Astrofinder
             foreach (T item in pCol)
                 Console.WriteLine(item.ToString());
 
-            Input = Console.ReadKey(true).Key.ToString();
+            Input = Console.ReadKey(true).Key.ToString().ToLower();
 
             Console.Clear();
         }
