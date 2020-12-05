@@ -83,7 +83,7 @@ namespace Astrofinder
             Console.WriteLine("| l  - Load another file.");
             Console.WriteLine("| r  - Return");
             Console.WriteLine("| q  - Quit");
-            Console.WriteLine("★---------------------------\n");
+            Console.WriteLine("★---------------------------");
             Console.Write("> ");
 
             Input = Console.ReadLine();
@@ -171,10 +171,36 @@ namespace Astrofinder
         /// <param name="pCol">The list of planets or starts.</param>
         /// <typeparam name="T">The type of viewer-- either Planets or Stars.
         /// </typeparam>
-        public void ListShowcase<T>(IEnumerable<T> pCol) where T : Planet//, Star
+        public void ListShowcase<T>(
+            IEnumerable<T> pCol, short page, short fPage, bool b) 
+            where T : Planet//, Star
         {
+            short jindex = 1;
+
+            // Needs to change between Planet and Star
+            if (b)
+            {
+                SearchLegend(true);
+            }
+            else
+            {
+                SearchLegend(false);
+            }
+
+
             foreach (T item in pCol)
+            {
+                Console.Write($"{jindex++, -4}");
                 Console.WriteLine(item.ToString());
+            }
+
+            Console.Write("\nPage ");
+            Console.Write((page / 10) + 1);
+            Console.Write("/");
+            Console.WriteLine((fPage / 10) + 1);
+            Console.Write("Press R to return or Q to leave. ");
+            Console.WriteLine(
+                "To view a planet in more detail, input it's number.");
 
             Input = Console.ReadKey(true).Key.ToString().ToLower();
 
@@ -184,6 +210,38 @@ namespace Astrofinder
         public void EndMessage()
         {
             Console.WriteLine("★ Thank you for utilizing this program.");
+        }
+
+        private void SearchLegend(bool b = true)
+        {
+            if (true)
+            {
+                Console.Write(
+                    "    Planet Name     Star Name       ");
+                Console.Write(
+                    "Discovery       Year of         ");
+                Console.Write(
+                    "Orbital Period  Orbital Radius  ");
+                Console.Write(
+                    "Mass           Eq.Temp.\n");
+
+                // Line 2
+                Console.Write(
+                    "\t\t\t\t\t\t    Discovery\t    (Days)\t    (vs Earth)");
+                Console.WriteLine(
+                    "\t    (vs Earth)\t   (Kelvin)");
+
+                Console.Write(
+                    "    ----------------------------------------------------");
+                Console.Write(
+                    "--------------------------------------------------------");
+                Console.WriteLine(
+                    "-----------");
+            }
+            else
+            {
+
+            }
         }
 
         // Method based on

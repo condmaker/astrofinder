@@ -65,7 +65,7 @@ namespace Astrofinder
         {
             cc.LoadMessage();
 
-            while (true)
+            while (cc.Input != "q")
             {
                 // Very rudimentary.
                 try
@@ -74,6 +74,8 @@ namespace Astrofinder
                 }
                 catch (System.IO.FileNotFoundException i)
                 {
+                    if (cc.Input == "q") continue;
+
                     cc.FileLoad();
                     continue;
                 }
@@ -85,14 +87,21 @@ namespace Astrofinder
         }
 
         /// <summary>
-        /// 
+        /// The method that is responsible for the user to filter and search
+        /// for the respective planets.
         /// </summary>
         public void SearchPlanet()
         {
+            // An IEnumerable to store the collection to be printed on
+            // the screen.
             IEnumerable<Planet> viewer;
+
             // Will store the user's position on the collection.
             short index;
+            // The index upper limit.
+            short pCount;
 
+            // The main search loop.
             while (cc.Input != "q" && cc.Input != "r" && cc.Input != "escape")
             {
                 index = 0;
@@ -115,6 +124,8 @@ namespace Astrofinder
                 handler.UpdateParams(QueryParam.P_HOST_NAME, (string)null);
                 pCol = new HashSet<Planet>(handler.SearchPlanets());
 
+                pCount = (short) (pCol.Count - (pCol.Count % 10));
+
                 do
                 {
                     if (cc.Input == "uparrow")
@@ -122,15 +133,11 @@ namespace Astrofinder
                     else if (cc.Input == "downarrow")
                         index -= 10;
 
-                    index = (short) Math.Clamp(
-                        index, 0, (pCol.Count - (pCol.Count % 10)));
-
-                    Console.WriteLine(cc.Input);
-                    Console.WriteLine(index);
+                    index = (short) Math.Clamp(index, (short) 0, pCount);
 
                     viewer = pCol.Skip(index).Take(10);
 
-                    cc.ListShowcase<Planet>(viewer);
+                    cc.ListShowcase<Planet>(viewer, index, pCount, true);
 
                 } while (cc.Input != "r" && cc.Input != "q");
 
