@@ -40,7 +40,7 @@ namespace Astrofinder
         /// Collection and returning the results as IEnumerable<Planet>.
         /// </summary>
         /// <param name="q">Query Parameters.</param>
-        /// <returns>Collection of Query Results.</returns>
+        /// <returns>Collection of Planets resulting from the query.</returns>
         public IEnumerable<Planet> SearchPlanets(PlanetQueryParams q)
         {
             IEnumerable<Planet> queriedPlanets = 
@@ -111,7 +111,7 @@ namespace Astrofinder
         /// Collection and returning the results as IEnumerable<Star>.
         /// </summary>
         /// <param name="q">Query Parameters.</param>
-        /// <returns>Collection of Query Results.</returns>
+        /// <returns>Collection of Stars resulting from the query.</returns>
         public IEnumerable<Star> SearchStars(StarQueryParams q)
         {
             
@@ -202,6 +202,50 @@ namespace Astrofinder
         {
             Star s = Stars.First<Star>(star => star.Name.Equals(name));
             return s;
+        }
+
+        /// <summary>
+        /// Method responsible for executing a complex query on the Planet 
+        /// collection, filtering parameters from both Planets and Stars, and 
+        /// returning the results as IEnumerable<planet>.
+        /// </summary>
+        /// <param name="sq">Query parameters for the Stars.</param>
+        /// <param name="pq">Query parameters for the planets</param>
+        /// <returns>Collection of Planets resulting from the query.</returns>
+        public IEnumerable<Planet> complexPlanetSearch(StarQueryParams sq, 
+            PlanetQueryParams pq)
+        {
+            IEnumerable<Star> stars = SearchStars(sq);
+            IEnumerable<Planet> planets = SearchPlanets(pq);
+
+            IEnumerable<Planet> query =
+                from s in stars
+                join p in planets on s.Name equals p.HostName
+                select p;
+
+            return query;
+        }
+
+        /// <summary>
+        /// Method responsible for executing a complex query on the Star 
+        /// collection, filtering parameters from both Planets and Stars, and 
+        /// returning the results as IEnumerable<planet>.
+        /// </summary>
+        /// <param name="sq">Query parameters for the Stars.</param>
+        /// <param name="pq">Query parameters for the planets</param>
+        /// <returns>Collection of Stars resulting from the query.</returns>
+        public IEnumerable<Star> complexStarSearch(StarQueryParams sq, 
+            PlanetQueryParams pq)
+        {
+            IEnumerable<Star> stars = SearchStars(sq);
+            IEnumerable<Planet> planets = SearchPlanets(pq);
+
+            IEnumerable<Star> query =
+                from s in stars
+                join p in planets on s.Name equals p.HostName
+                select s;
+
+            return query;
         }
     }
 }

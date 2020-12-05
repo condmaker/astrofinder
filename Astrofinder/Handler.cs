@@ -135,5 +135,25 @@ namespace Astrofinder
         {
             return searcher.GetStar(name);
         }
+
+        /// <summary>
+        /// Returns a Planet Colletion containing the results from the complex 
+        /// query with the stored parameters.
+        /// </summary>
+        /// <returns>An IEnumerable<Star> object with the results from the 
+        /// query.</returns>
+        public IEnumerable<Planet> AdvancedSearchPlanets(){
+            return searcher.complexPlanetSearch(starQueries, planetQueries);
+        }
+
+        /// <summary>
+        /// Returns a Star Colletion containing the results from the complex 
+        /// query with the stored parameters.
+        /// </summary>
+        /// <returns>An IEnumerable<Star> object with the results from the 
+        /// query.</returns>
+        public IEnumerable<Star> AdvancedSearchStars(){
+            return searcher.complexStarSearch(starQueries, planetQueries);
+        }
     }
 }
