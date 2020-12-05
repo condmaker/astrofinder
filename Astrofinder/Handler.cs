@@ -61,7 +61,7 @@ namespace Astrofinder
         }
 
         // Enviar lista para ConsoleClient
-        public ICollection<Planet> SearchPlanets()
+        public IEnumerable<Planet> SearchPlanets()
         {
             return searcher.SearchPlanets(planetQueries);
         }

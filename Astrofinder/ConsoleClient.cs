@@ -178,17 +178,14 @@ namespace Astrofinder
 
             Input = Console.ReadKey(true).Key.ToString();
 
-            // This'll set the cursor position at the start of the line
-            // so that the next set of prints rewrite the current page.
-            Console.SetCursorPosition(
-                Console.CursorLeft, Console.CursorTop - 10);
+            Console.Clear();
         }
 
         public void EndMessage()
         {
             Console.WriteLine("★ Thank you for utilizing this program.");
         }
-        
+
         // Method based on
         // https://stackoverflow.com/questions/33044848/c-sharp-lerping-from-position-to-position
         // This maybe shouldn't be here.

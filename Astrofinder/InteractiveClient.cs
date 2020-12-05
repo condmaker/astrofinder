@@ -111,7 +111,7 @@ namespace Astrofinder
                 handler.UpdateParams(QueryParam.P_MIN_DISC_YEAR, 2008);
                 handler.UpdateParams(QueryParam.P_MAX_DISC_YEAR, 2010);
                 handler.UpdateParams(QueryParam.P_HOST_NAME, (string)null);
-                pCol = handler.SearchPlanets();
+                pCol = new HashSet<Planet>(handler.SearchPlanets());
 
                 do
                 {

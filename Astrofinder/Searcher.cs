@@ -17,7 +17,7 @@ namespace Astrofinder
             this.Stars = new List<Star>();
         }
 
-        public ICollection<Planet> SearchPlanets(PlanetQueryParams q)
+        public IEnumerable<Planet> SearchPlanets(PlanetQueryParams q)
         {
             IEnumerable<Planet> queriedPlanets = 
                 from p in Planets
@@ -44,7 +44,7 @@ namespace Astrofinder
                         )
                 select p;
 
-            return queriedPlanets as ICollection<Planet>;
+            return queriedPlanets;
         }
 
         public IEnumerable<Star> SearchStars(StarQueryParams q)
