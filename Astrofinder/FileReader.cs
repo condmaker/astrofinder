@@ -10,15 +10,19 @@ namespace Astrofinder
     public class FileReader
     {
         
-
+        //Directory path to the file imputed by the user  
         private string path;
 
+        //Number of columns in the first line
+        //The program expects that all lines have this numbers of columns
+        private short totalColNumb; 
+
         //Collection that stores all the Planet instances. 
-        public ICollection<Planet> planetCol;
+        public ICollection<Planet> planetCol{get; private set;}
 
         //Collection that stores all the Star instances.
-        private IList<Star> starCol;
-
+        public IList<Star> starCol{get; private set;} 
+ 
         //This Dictionary stores the parameters that can be found 
         //and extracted from the file,
         //as well as the index of the collumn they appear at.
@@ -29,14 +33,9 @@ namespace Astrofinder
         /// Construtor for the FileReader class. 
         /// Takes the path for the file to read. 
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">Directory path to the file imputed by the user</param>
         public FileReader(string path)
         {
-
-            //Check if the path given is an acceptable path
-            //Check if the file contains name and hostname
-            //Send message if not
-
             //Save the path to use later 
             this.path = path;
 
@@ -73,7 +72,7 @@ namespace Astrofinder
 
 
         /// <summary>
-        /// Opens the file that the user inputed and asigns each parameter to
+        /// Opens the file that the user imputed and asigns each parameter to
         /// 2 lists: 1 of Stars amd 1 of Planets  
         /// </summary>
         public void ReadFile()
@@ -88,7 +87,7 @@ namespace Astrofinder
                 while((row = sr.ReadLine()) != null)
                 {
 
-                    //Ignore comments and blank lines
+                    //Ignore comments and empty lines
                     if (row.Length  <= 0) continue;
                     if (row[0] == '#') continue;
 
@@ -110,10 +109,30 @@ namespace Astrofinder
                             }
                         }
                         
+                        
+                        //Check if the file contains name and hostname
+                        //Send message if not
+                        if(par["hostname"] == null && par["pl_name"] == null)
+                        {
+                            //Send Message
+                            return;
+                        }
+
+                        totalColNumb = (short)spltRow.Count;
+
                         firstLine = false;
                         continue;
                     }
             
+
+                    //Check if line as the expected number of columns
+                    if(spltRow.Count != totalColNumb)
+                    {
+                        //Send Message
+                        return;
+                    }
+
+
                     //Get the current Planet name
                     string planetName = 
                         FormatParToString(par["pl_name"], spltRow);
@@ -213,9 +232,6 @@ namespace Astrofinder
             if(index == null) return null;
 
             int newPar = index ?? 0;
-
-            //Check if row is big enough to search the parameter
-            if(row.Count < newPar) return null;
 
             string value = row[newPar].Trim();
 
