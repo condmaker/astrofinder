@@ -10,22 +10,22 @@ namespace Astrofinder
     public class FileReader
     {
         
-        //Directory path to the file imputed by the user  
+        // Directory path to the file imputed by the user  
         private string path;
 
-        //Number of columns in the first line
-        //The program expects that all lines have this numbers of columns
+        // Number of columns in the first line
+        // The program expects that all lines have this numbers of columns
         private short totalColNumb; 
 
-        //Collection that stores all the Planet instances. 
+        // Collection that stores all the Planet instances. 
         public ICollection<Planet> planetCol{get; private set;}
 
-        //Collection that stores all the Star instances.
-        public IList<Star> starCol{get; private set;} 
+        // Collection that stores all the Star instances.
+        public List<Star> starCol{get; private set;} 
  
-        //This Dictionary stores the parameters that can be found 
-        //and extracted from the file,
-        //as well as the index of the collumn they appear at.
+        // This Dictionary stores the parameters that can be found 
+        // and extracted from the file,
+        // as well as the index of the collumn they appear at.
         private Dictionary<string, int?> par;
 
 
@@ -33,15 +33,16 @@ namespace Astrofinder
         /// Construtor for the FileReader class. 
         /// Takes the path for the file to read. 
         /// </summary>
-        /// <param name="path">Directory path to the file imputed by the user</param>
+        /// <param name="path">Directory path to the file imputed by the 
+        /// user</param>
         public FileReader(string path)
         {
-            //Save the path to use later 
+            // Save the path to use later 
             this.path = path;
 
-            //Instatiates the collection that stores the Planets
+            // Instatiates the collection that stores the Planets
             planetCol = new List<Planet>();
-            //Instatiates the collection that stores the Stars
+            // Instatiates the collection that stores the Stars
             starCol = new List<Star>();
             //Instatiates the Dictionary that stores the parameters 
             par = new Dictionary<string, int?>();
@@ -77,29 +78,29 @@ namespace Astrofinder
         /// </summary>
         public void ReadFile()
         {
-            //Open file to read
+            // Open file to read
             using (StreamReader sr = new StreamReader(path))
             {
                 bool firstLine = true;
                 string row;
 
-                //Loop through each line of the file
+                // Loop through each line of the file
                 while((row = sr.ReadLine()) != null)
                 {
 
-                    //Ignore comments and empty lines
+                    // Ignore comments and empty lines
                     if (row.Length  <= 0) continue;
                     if (row[0] == '#') continue;
 
-                    //Split row into a list of parameters
+                    // Split row into a list of parameters
                     IList<string> spltRow = row.Split(",");
 
-                    //Analize the first row of the file and organize  
-                    //the dictionary, with the parameters, accordingly                   
+                    // Analyze the first row of the file and organize  
+                    // the dictionary, with the parameters, accordingly                   
                     if(firstLine)
                     {                                         
-                        //Asign existing parameters and their 
-                        //corresponding collumn numb
+                        // Asign existing parameters and their 
+                        // corresponding collumn numb
                         for(int i = 0; i < spltRow.Count; i++)
                         {
                             string s = spltRow[i].Trim();
@@ -110,38 +111,37 @@ namespace Astrofinder
                         }
                         
                         
-                        //Check if the file contains name and hostname
-                        //Send message if not
+                        // Check if the file contains name and hostname
+                        // Send message if not
                         if(par["hostname"] == null && par["pl_name"] == null)
                         {
-                            //Send Message
+                            // Send Message
                             return;
                         }
 
-                        totalColNumb = (short)spltRow.Count;
+                        totalColNumb = (short) spltRow.Count;
 
                         firstLine = false;
                         continue;
                     }
             
-
-                    //Check if line as the expected number of columns
+                    // Check if line has the expected number of columns
                     if(spltRow.Count != totalColNumb)
                     {
-                        //Send Message
+                        // Send Message
                         return;
                     }
 
 
-                    //Get the current Planet name
+                    // Get the current Planet name
                     string planetName = 
                         FormatParToString(par["pl_name"], spltRow);
                     
-                    //Create a temporary Planet with an equal name 
+                    // Create a temporary Planet with an equal name 
                     Planet tempPlanet = new Planet(planetName, "");
 
-                    //Check if a Planet with the same name already 
-                    //exits in the collection and Add one if thats not the case                    
+                    // Check if a Planet with the same name already 
+                    // exits in the collection and add one if thats not the case                    
                     if(!planetCol.Contains(tempPlanet))
                     {
                         //Create new Planet instance
@@ -150,19 +150,26 @@ namespace Astrofinder
                             name: 
                                 planetName,
                             hostname: 
-                                FormatParToString(par["hostname"], spltRow),
+                                FormatParToString(
+                                    par["hostname"], spltRow),
                             discM: 
-                                FormatParToString(par["discoverymethod"], spltRow),
+                                FormatParToString(
+                                    par["discoverymethod"], spltRow),
                             discY: 
-                                FormatPar<short>(par["disc_year"], spltRow),
+                                FormatPar<short>(
+                                    par["disc_year"], spltRow),
                             orber: 
-                                FormatPar<float>(par["pl_orber"], spltRow),
+                                FormatPar<float>(
+                                    par["pl_orber"], spltRow),
                             radius:
-                                FormatPar<float>(par["pl_rade"], spltRow),
+                                FormatPar<float>(
+                                    par["pl_rade"], spltRow),
                             mass:
-                                FormatPar<float>(par["pl_masse"], spltRow),
+                                FormatPar<float>(
+                                    par["pl_masse"], spltRow),
                             eqTemp :  
-                                FormatPar<short>(par["pl_eqt"], spltRow)
+                                FormatPar<short>(
+                                    par["pl_eqt"], spltRow)
                         );
 
                         
@@ -194,16 +201,16 @@ namespace Astrofinder
                             FormatPar<float>(par["sy_dist"],spltRow)                           
                     );
 
-                    //Check if a Stat with the same name already 
-                    //exits in the collection
+                    // Check if a Star with the same name already 
+                    // exits in the collection
                     if(starCol.Contains(newStar)){
-                        //Update information of the current Star
+                        // Update information of the current Star
                         int index = starCol.IndexOf(newStar);
                         starCol[index].UpdateStar(newStar, planetName);
                     }
                     else
                     {
-                        //Add the new Start to the star list
+                        // Add the new Star to the star list
                         starCol.Add(newStar);
                     }                   
                 }
@@ -225,7 +232,8 @@ namespace Astrofinder
         /// Formats the received string into a string the program can utilize
         /// </summary>
         /// <param name="index"> index of the wanted data</param>
-        /// <param name="row"> List that contains the data in a given order </param>
+        /// <param name="row"> List that contains the data in a given order 
+        /// </param>
         /// <returns></returns>
         private string FormatParToString(int? index, IList<string> row)
         {
@@ -239,12 +247,13 @@ namespace Astrofinder
         }
 
 
-        //https://stackoverflow.com/questions/209160/nullable-type-as-a-generic-parameter-possible
+        //  https://stackoverflow.com/questions/209160/nullable-type-as-a-generic-parameter-possible
         /// <summary>
         /// Formats the received string into the wanted struct type
         /// </summary>
         /// <param name="index"> index of the wanted data </param>
-        /// <param name="row"> List that contains the data in a given order </param>
+        /// <param name="row"> List that contains the data in a given order 
+        /// </param>
         /// <returns></returns>
         private Nullable<T> FormatPar<T>(int? index, IList<string> row) 
             where T: struct
@@ -257,8 +266,6 @@ namespace Astrofinder
             T value;       
         
             // https://stackoverflow.com/questions/2961656/generic-tryparse
-            
-
             // Parse the string into the wanted type
             try
             { 
