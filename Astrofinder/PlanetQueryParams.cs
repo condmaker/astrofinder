@@ -117,8 +117,9 @@ namespace Astrofinder
                 case QueryParam.P_DISC_METHOD:
                     DiscMethod = value;
                     break;
+
                 default:
-                    break;
+                    throw (new InvalidValueException("This parameter doesn't accept strings."));
             }
         }
 
@@ -146,8 +147,9 @@ namespace Astrofinder
                 case QueryParam.P_MAX_ORBITAL_PERIOD:
                     MaxOrbPeriod = value;
                     break;
+
                 default:
-                    break;
+                    throw (new InvalidValueException("This parameter doesn't accept short values."));
                     
             }
         }
@@ -186,7 +188,7 @@ namespace Astrofinder
                     break;
                     
                 default:
-                    break;
+                    throw (new InvalidValueException("This parameter doesn't accept float values."));
             }
         }
     }
