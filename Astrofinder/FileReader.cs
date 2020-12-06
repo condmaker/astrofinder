@@ -10,7 +10,7 @@ namespace Astrofinder
     public class FileReader
     {
         
-        //Directory path to the file inputed by the user  
+        //Directory path to the file imputed by the user  
         private string path;
 
         //Number of columns in the first line
@@ -18,11 +18,11 @@ namespace Astrofinder
         private short totalColNumb; 
 
         //Collection that stores all the Planet instances. 
-        public ICollection<Planet> planetCol;
+        public ICollection<Planet> planetCol{get; private set;}
 
         //Collection that stores all the Star instances.
-        public IList<Star> starCol;
-
+        public IList<Star> starCol{get; private set;} 
+ 
         //This Dictionary stores the parameters that can be found 
         //and extracted from the file,
         //as well as the index of the collumn they appear at.
@@ -33,7 +33,7 @@ namespace Astrofinder
         /// Construtor for the FileReader class. 
         /// Takes the path for the file to read. 
         /// </summary>
-        /// <param name="path">Directory path to the file inputed by the user</param>
+        /// <param name="path">Directory path to the file imputed by the user</param>
         public FileReader(string path)
         {
             //Save the path to use later 
@@ -72,7 +72,7 @@ namespace Astrofinder
 
 
         /// <summary>
-        /// Opens the file that the user inputed and asigns each parameter to
+        /// Opens the file that the user imputed and asigns each parameter to
         /// 2 lists: 1 of Stars amd 1 of Planets  
         /// </summary>
         public void ReadFile()
