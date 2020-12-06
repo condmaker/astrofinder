@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Astrofinder
 {
     /// <summary>
-    /// 
+    /// The class where the program runs. Includes the main loop.
     /// </summary>
     public class InteractiveClient
     {
@@ -15,7 +15,7 @@ namespace Astrofinder
         private ICollection<Star> sCol;
 
         /// <summary>
-        /// 
+        /// Class constructor. Instantiates a new Console Client and a Handler.
         /// </summary>
         public InteractiveClient()
         {
@@ -24,7 +24,7 @@ namespace Astrofinder
         }
 
         /// <summary>
-        /// 
+        /// The main loop of the program. Everything branches out from here.
         /// </summary>
         public void MainLoop()
         {
@@ -32,7 +32,7 @@ namespace Astrofinder
 
             LoadNewFile();
 
-            while (cc.Input != "q" && cc.Input != "escape") 
+            while (cc.Input != "q" && cc.Input != "escape")
             {
                 cc.MainMenu();
 
@@ -59,9 +59,9 @@ namespace Astrofinder
         }
 
         /// <summary>
-        /// 
+        /// Method that attempts to load a file by reading the user's input.
         /// </summary>
-        public void LoadNewFile()
+        private void LoadNewFile()
         {
             cc.LoadMessage();
 
@@ -76,8 +76,12 @@ namespace Astrofinder
                 {
                     if (cc.Input == "q") continue;
 
-                    cc.FileLoad();
+                    cc.FileLoad(e:i);
                     continue;
+                }
+                catch (Exception h)
+                {
+                    cc.FileLoad(e:h);
                 }
 
                 cc.FileLoad(true);
@@ -90,7 +94,7 @@ namespace Astrofinder
         /// The method that is responsible for the user to filter and search
         /// for the respective planets.
         /// </summary>
-        public void SearchPlanet()
+        private void SearchPlanet()
         {
             // An IEnumerable to store the collection to be printed on
             // the screen.
@@ -110,21 +114,17 @@ namespace Astrofinder
                 cc.SearchList();
 
                 // This will define filCol.
-                switch (cc.Input)
-                {
-                    case "q":
-                        continue;
-                }
+                ConvertParams();
 
                 if (cc.Input == "r") break;
 
                 // TESTING PURPOSES. DELETE LATER.
                 handler.UpdateParams(QueryParam.P_MIN_DISC_YEAR, 2008);
-                handler.UpdateParams(QueryParam.P_MAX_DISC_YEAR, 2010); 
+                handler.UpdateParams(QueryParam.P_MAX_DISC_YEAR, 2010);
                 handler.UpdateParams(QueryParam.P_HOST_NAME, (string)null);
                 pCol = new HashSet<Planet>(handler.SearchPlanets());
 
-                pCount = (short) (pCol.Count - (pCol.Count % 10));
+                pCount = (short)(pCol.Count - (pCol.Count % 10));
 
                 do
                 {
@@ -133,7 +133,7 @@ namespace Astrofinder
                     else if (cc.Input == "downarrow")
                         index -= 10;
 
-                    index = (short) Math.Clamp(index, (short) 0, pCount);
+                    index = (short)Math.Clamp(index, (short)0, pCount);
 
                     viewer = pCol.Skip(index).Take(10);
 
@@ -155,9 +155,25 @@ namespace Astrofinder
         }
 
         /// <summary>
+        /// Method that converts the user's input to valid parameters.
+        /// </summary>
+        private void ConvertParams()
+        {
+            switch (cc.Input)
+            {
+                case "q":
+                    break;
+                case "j":
+                    break;
+                default: 
+                    break;
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
-        public void SearchStar()
+        private void SearchStar()
         {
 
         }

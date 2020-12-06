@@ -49,7 +49,7 @@ namespace Astrofinder
         /// </summary>
         /// <param name="bl">Defines if the file was successfully loaded 
         /// or not.</param>
-        public void FileLoad(bool bl = false)
+        public void FileLoad(bool bl = false, Exception e = null)
         {
             if (bl)
             {
@@ -58,8 +58,16 @@ namespace Astrofinder
             }
             else
             {
-                Console.WriteLine(
-                    "★ File couldn't be loaded. Please input again:");
+                if (e is System.IO.FileNotFoundException )
+                {
+                    Console.WriteLine(
+                        "★ File couldn't be loaded. Please input again:");
+                }
+                else if (e is Exception)
+                {
+                    Console.WriteLine(
+                        "★ Invalid file. Please input again:");
+                }
                 Console.Write("> ");
 
                 Input = Console.ReadLine();
