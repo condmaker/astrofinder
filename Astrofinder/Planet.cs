@@ -92,10 +92,10 @@ namespace Astrofinder
         /// <paramref name="p2">, 0 if <paramref name="p1"> equals 
         /// <paramref name="p2">, and greater than 0 if <paramref name="p1">
         /// is greater than <paramref name="p2">.</returns>
-        public static Comparison<Planet> CompareByOrbitalPeriod =
+        public static Comparison<Planet> CompareByOrbPeriod =
             delegate (Planet p1, Planet p2)
         {
-            return p1?.OrbitalPeriod?.CompareTo(p2.OrbitalPeriod) ?? -1;
+            return p1?.OrbPeriod?.CompareTo(p2.OrbPeriod) ?? -1;
         };
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace Astrofinder
         /// Planet's orbital period . Derived from pl_orber column.
         /// </summary>
         /// <value>Planet's orbital period (in days).</value>
-        public float? OrbitalPeriod { get; set; }
+        public float? OrbPeriod { get; set; }
 
         /// <summary>
         /// Planet's radius relative to Earth. Derived from pl_rade column.
@@ -221,7 +221,7 @@ namespace Astrofinder
             HostName = hostname;
             DiscMethod = discM;
             DiscYear = discY;
-            OrbitalPeriod = orber;
+            OrbPeriod = orber;
             Radius = radius;
             Mass = mass;
             EqTemp = eqTemp;
@@ -258,7 +258,7 @@ namespace Astrofinder
             sb.Append(
              $"{(DiscYear.HasValue ? DiscYear.ToString() : nS),-14}  ");
             sb.Append(
-             $"{(OrbitalPeriod.HasValue ? OrbitalPeriod.ToString() : nS),-14}  ");
+             $"{(OrbPeriod.HasValue ? OrbPeriod.ToString() : nS),-14}  ");
             sb.Append(
              $"{(Radius.HasValue ? Radius.ToString() : nS),-14}  ");
             sb.Append(
@@ -284,7 +284,7 @@ namespace Astrofinder
             sb.Append(
              $"Orbital Period (Days): ");
             sb.Append(
-             $"{(OrbitalPeriod.HasValue ? OrbitalPeriod.ToString() : nS), -14}\n");
+             $"{(OrbPeriod.HasValue ? OrbPeriod.ToString() : nS), -14}\n");
             sb.Append(
              $"Radius (vs Earth): ");
             sb.Append(
