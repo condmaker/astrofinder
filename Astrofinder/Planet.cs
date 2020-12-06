@@ -6,7 +6,7 @@ namespace Astrofinder
     /// <summary>
     /// Class responsible for storing data from a Planet.
     /// </summary>
-    public class Planet: IEquatable<Planet>
+    public class Planet : IEquatable<Planet>
     {
         /// <summary>
         /// Compares two specified Planet objetcts and returns an integer
@@ -20,7 +20,7 @@ namespace Astrofinder
         /// <paramref name="p2">, 0 if <paramref name="p1"> equals 
         /// <paramref name="p2">, and greater than 0 if <paramref name="p1">
         /// is greater than <paramref name="p2">.</returns>
-        public static Comparison<Planet> CompareByName = 
+        public static Comparison<Planet> CompareByName =
             delegate (Planet p1, Planet p2)
         {
             return String.Compare(p1.Name, p2.Name);
@@ -38,7 +38,7 @@ namespace Astrofinder
         /// <paramref name="p2">, 0 if <paramref name="p1"> equals 
         /// <paramref name="p2">, and greater than 0 if <paramref name="p1">
         /// is greater than <paramref name="p2">.</returns>
-        public static Comparison<Planet> CompareByHostName = 
+        public static Comparison<Planet> CompareByHostName =
             delegate (Planet p1, Planet p2)
         {
             return String.Compare(p1.HostName, p2.HostName);
@@ -56,7 +56,7 @@ namespace Astrofinder
         /// <paramref name="p2">, 0 if <paramref name="p1"> equals 
         /// <paramref name="p2">, and greater than 0 if <paramref name="p1">
         /// is greater than <paramref name="p2">.</returns>
-        public static Comparison<Planet> CompareByDiscMethod = 
+        public static Comparison<Planet> CompareByDiscMethod =
             delegate (Planet p1, Planet p2)
         {
             return String.Compare(p1.DiscMethod, p2.DiscMethod);
@@ -74,7 +74,7 @@ namespace Astrofinder
         /// <paramref name="p2">, 0 if <paramref name="p1"> equals 
         /// <paramref name="p2">, and greater than 0 if <paramref name="p1">
         /// is greater than <paramref name="p2">.</returns>
-        public static Comparison<Planet> CompareByDiscYear = 
+        public static Comparison<Planet> CompareByDiscYear =
             delegate (Planet p1, Planet p2)
         {
             return p1?.DiscYear?.CompareTo(p2.DiscYear) ?? -1;
@@ -92,7 +92,7 @@ namespace Astrofinder
         /// <paramref name="p2">, 0 if <paramref name="p1"> equals 
         /// <paramref name="p2">, and greater than 0 if <paramref name="p1">
         /// is greater than <paramref name="p2">.</returns>
-        public static Comparison<Planet> CompareByOrbitalPeriod = 
+        public static Comparison<Planet> CompareByOrbitalPeriod =
             delegate (Planet p1, Planet p2)
         {
             return p1?.OrbitalPeriod?.CompareTo(p2.OrbitalPeriod) ?? -1;
@@ -110,7 +110,7 @@ namespace Astrofinder
         /// <paramref name="p2">, 0 if <paramref name="p1"> equals 
         /// <paramref name="p2">, and greater than 0 if <paramref name="p1">
         /// is greater than <paramref name="p2">.</returns>
-        public static Comparison<Planet> CompareByRadius = 
+        public static Comparison<Planet> CompareByRadius =
             delegate (Planet p1, Planet p2)
         {
             return p1?.Radius?.CompareTo(p2.Radius) ?? -1;
@@ -128,7 +128,7 @@ namespace Astrofinder
         /// <paramref name="p2">, 0 if <paramref name="p1"> equals 
         /// <paramref name="p2">, and greater than 0 if <paramref name="p1">
         /// is greater than <paramref name="p2">.</returns>
-        public static Comparison<Planet> CompareByMass = 
+        public static Comparison<Planet> CompareByMass =
             delegate (Planet p1, Planet p2)
         {
             return p1?.Mass?.CompareTo(p2.Mass) ?? -1;
@@ -146,25 +146,25 @@ namespace Astrofinder
         /// <paramref name="p2">, 0 if <paramref name="p1"> equals 
         /// <paramref name="p2">, and greater than 0 if <paramref name="p1">
         /// is greater than <paramref name="p2">.</returns>
-        public static Comparison<Planet> CompareByTemperature = 
+        public static Comparison<Planet> CompareByTemperature =
             delegate (Planet p1, Planet p2)
         {
             return p1?.EqTemp?.CompareTo(p2.EqTemp) ?? -1;
         };
 
 
-        
+
         /// <summary>
         /// Planet name. Derived from pl_name column.
         /// </summary>
         /// <value>Planet's name.</value>
         public string Name { get; private set; }
-        
+
         /// <summary>
         /// Planet's host star's name. Derived from hostname column.
         /// </summary>
         /// <value>Planet's host star name.</value>
-        public string HostName{ get;private set; }
+        public string HostName { get; private set; }
 
         /// <summary>
         /// Planet's discovery method. Derived from discoverymethod column.
@@ -176,25 +176,25 @@ namespace Astrofinder
         /// Planet's discovery year. Derived from disc_year column.
         /// </summary>
         /// <value>Planet's discovery year.</value>
-        public short? DiscYear {get; set;}
+        public short? DiscYear { get; set; }
 
         /// <summary>
         /// Planet's orbital period . Derived from pl_orber column.
         /// </summary>
         /// <value>Planet's orbital period (in days).</value>
-        public float? OrbitalPeriod {get;set;}
-        
+        public float? OrbitalPeriod { get; set; }
+
         /// <summary>
         /// Planet's radius relative to Earth. Derived from pl_rade column.
         /// </summary>
         /// <value>Planet's radius (relative to Earth).</value>
-        public float? Radius {get; set;}
+        public float? Radius { get; set; }
 
         /// <summary>
         /// Planet's mass relative to Earth. Derived from pl_masse column.
         /// </summary>
         /// <value>Planet's mass (relative to Earth).</value>
-        public float? Mass {get; set;}
+        public float? Mass { get; set; }
 
         /// <summary>
         /// Planet's temperature. Derived from pl_eqt column.
@@ -214,8 +214,8 @@ namespace Astrofinder
         /// <param name="mass">Planet's mass.</param>
         /// <param name="eqTemp">Planet's temperature.</param>
         public Planet(string name, string hostname, string discM = "",
-        short? discY = null,  float? orber = null, float? radius = null,
-        float? mass = null, short? eqTemp = null )
+        short? discY = null, float? orber = null, float? radius = null,
+        float? mass = null, short? eqTemp = null)
         {
             Name = name;
             HostName = hostname;
@@ -237,7 +237,7 @@ namespace Astrofinder
         /// current Planet; otherwise <c>false</c>.</returns>
         public bool Equals(Planet other)
         {
-            return this.Name == other.Name; 
+            return this.Name == other.Name;
         }
 
         /// <summary>
@@ -251,20 +251,52 @@ namespace Astrofinder
 
             // Obligatory Parameters, cannot be null
             sb.Append(
-              $"{Name.MaxLength(14),-14}  {HostName.MaxLength(14),-14}  ");
+             $"{Name.MaxLength(14),-14}  {HostName.MaxLength(14),-14}  ");
             // Optional Parameters, can be null
             sb.Append(
-              $"{DiscMethod.MaxLength(14),-14}  ");
+             $"{DiscMethod.MaxLength(14),-14}  ");
             sb.Append(
-              $"{(DiscYear.HasValue ? DiscYear.ToString() : nS),-14}  ");
+             $"{(DiscYear.HasValue ? DiscYear.ToString() : nS),-14}  ");
             sb.Append(
-             $"{(OrbitalPeriod.HasValue ? OrbitalPeriod.ToString():nS),-14}  ");
+             $"{(OrbitalPeriod.HasValue ? OrbitalPeriod.ToString() : nS),-14}  ");
             sb.Append(
-              $"{(Radius.HasValue ? Radius.ToString() : nS),-14}  ");
+             $"{(Radius.HasValue ? Radius.ToString() : nS),-14}  ");
             sb.Append(
-              $"{(Mass.HasValue ? Mass.ToString() : nS),-14}  ");
+             $"{(Mass.HasValue ? Mass.ToString() : nS),-14}  ");
             sb.Append(
-              $"{(EqTemp.HasValue ? EqTemp.ToString() : nS),-14}");
+             $"{(EqTemp.HasValue ? EqTemp.ToString() : nS),-14}");
+
+            return sb.ToString();
+        }
+        public string ToStringDetailed()
+        {
+            StringBuilder sb = new StringBuilder();
+            string nS = "N/A";
+
+            sb.Append(
+             $"Name: {Name, -14}\nStar Name: {HostName, -14}\n");
+            sb.Append(
+             $"Discovery Method: {DiscMethod, -14}\n");
+            sb.Append(
+             $"Discovery Year: ");
+            sb.Append(
+             $"{(DiscYear.HasValue ? DiscYear.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Orbital Period (Days): ");
+            sb.Append(
+             $"{(OrbitalPeriod.HasValue ? OrbitalPeriod.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Radius (vs Earth): ");
+            sb.Append(
+             $"{(Radius.HasValue ? Radius.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Mass (vs Earth): ");
+            sb.Append(
+             $"{(Mass.HasValue ? Mass.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Eq. Temperature (Kelvin): ");
+            sb.Append(
+             $"{(EqTemp.HasValue ? EqTemp.ToString() : nS), -14}\n");
 
             return sb.ToString();
         }

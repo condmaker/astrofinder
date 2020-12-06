@@ -1,8 +1,6 @@
 using System;
+using System.Globalization;
 using System.Collections.Generic;
-using System.Timers;
-using System.Linq;
-using System.Text;
 
 namespace Astrofinder
 {
@@ -38,7 +36,7 @@ namespace Astrofinder
 
             Input = Console.ReadLine();
 
-            Console.Clear();
+            ClearScreen();
 
             // Sends the input to the handler (OUTSIDE OF CLASS, TO NOT BREAK
             // THE 'S' PRINCIPLE). )
@@ -172,46 +170,99 @@ namespace Astrofinder
         /// <typeparam name="T">The type of viewer-- either Planets or Stars.
         /// </typeparam>
         public void ListShowcase<T>(
-            IEnumerable<T> pCol, short page, short fPage, bool b) 
+            IEnumerable<T> pCol, short page, short fPage, bool b)
             where T : Planet//, Star
         {
-            short jindex = 1;
+            short jindex = 0;
+            short num;
+            ConsoleKey? eInput = null;
 
-            // Needs to change between Planet and Star
-            if (b)
+            while (Input != "q")
             {
-                SearchLegend(true);
+                // Needs to change between Planet and Star
+                if (b)
+                {
+                    SearchLegend(true);
+                }
+                else
+                {
+                    SearchLegend(false);
+                }
+
+
+                foreach (T item in pCol)
+                {
+                    Console.Write($"{jindex++,-4}");
+                    Console.WriteLine(item.ToString());
+                }
+
+                Console.Write("\nPage ");
+                Console.Write((page / 10) + 1);
+                Console.Write("/");
+                Console.WriteLine((fPage / 10) + 1);
+                Console.Write("Press R to return or Q to leave. ");
+                Console.WriteLine(
+                    "To view a planet in more detail, input it's number.");
+
+                eInput = Console.ReadKey(true).Key;
+
+                if (eInput >= ConsoleKey.D0 && eInput <= ConsoleKey.D9)
+                {
+                    // This last .ToString() is very bad.
+                    if (short.TryParse(
+                        eInput.ToString()[1].ToString(),
+                        NumberStyles.Any, CultureInfo.InvariantCulture,
+                        out num))
+                    {
+                        short hindex = 0;
+                        foreach (T item in pCol)
+                        {
+                            if (hindex == num)
+                            {
+                                Console.Clear();
+
+                                Console.WriteLine(item.ToStringDetailed());
+                                Console.WriteLine("Press any key to return.");
+
+                                break;
+                            }
+
+                            hindex++;
+                        }
+
+                        eInput = Console.ReadKey(true).Key;
+                        Input = eInput.ToString().ToLower();
+                        Console.Clear();
+
+                        jindex = 0;
+
+                        continue;
+                    }
+                    else
+                        break;
+                }
+
+                break;
+
             }
-            else
-            {
-                SearchLegend(false);
-            }
 
-
-            foreach (T item in pCol)
-            {
-                Console.Write($"{jindex++, -4}");
-                Console.WriteLine(item.ToString());
-            }
-
-            Console.Write("\nPage ");
-            Console.Write((page / 10) + 1);
-            Console.Write("/");
-            Console.WriteLine((fPage / 10) + 1);
-            Console.Write("Press R to return or Q to leave. ");
-            Console.WriteLine(
-                "To view a planet in more detail, input it's number.");
-
-            Input = Console.ReadKey(true).Key.ToString().ToLower();
+            Input = eInput?.ToString().ToLower();
 
             Console.Clear();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void EndMessage()
         {
             Console.WriteLine("★ Thank you for utilizing this program.");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="b"></param>
         private void SearchLegend(bool b = true)
         {
             if (true)
@@ -244,11 +295,13 @@ namespace Astrofinder
             }
         }
 
-        // Method based on
-        // https://stackoverflow.com/questions/33044848/c-sharp-lerping-from-position-to-position
-        // This maybe shouldn't be here.
-        private short Lerp(short limA, short limB, short num)
-            => (short)(limA * (1 - num) + limB * num);
+        private void ClearScreen()
+        {
+            System.IO.Stream output = Console.OpenStandardInput();
+
+            if (output != System.IO.Stream.Null)
+                Console.Clear();
+        }
     }
 
 }
