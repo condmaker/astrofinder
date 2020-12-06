@@ -29,6 +29,10 @@ namespace Astrofinder
         public void StartingMessage()
             => Console.WriteLine("★ Welcome to Astrofinder!");
 
+        /// <summary>
+        /// Prints the message asking for the user to input a path for 
+        /// the file to be opened.
+        /// </summary>
         public void LoadMessage()
         {
             Console.WriteLine("★ Please input a path to a .csv file:");
@@ -36,10 +40,7 @@ namespace Astrofinder
 
             Input = Console.ReadLine();
 
-            ClearScreen();
-
-            // Sends the input to the handler (OUTSIDE OF CLASS, TO NOT BREAK
-            // THE 'S' PRINCIPLE). )
+            Console.Clear();
         }
 
 
@@ -156,6 +157,7 @@ namespace Astrofinder
             Console.WriteLine("★---------------------------");
 
             Console.ReadKey(true);
+
             // Space here for implementing star search if we do the advanced
 
             Console.Clear();
@@ -179,7 +181,7 @@ namespace Astrofinder
 
             while (Input != "q")
             {
-                // Needs to change between Planet and Star
+                // Changes the legend between Planet and Star
                 if (b)
                 {
                     SearchLegend(true);
@@ -189,7 +191,7 @@ namespace Astrofinder
                     SearchLegend(false);
                 }
 
-
+                // Prints the current page on the Collection
                 foreach (T item in pCol)
                 {
                     Console.Write($"{jindex++,-4}");
@@ -204,8 +206,11 @@ namespace Astrofinder
                 Console.WriteLine(
                     "To view a planet in more detail, input it's number.");
 
+                // Reads the user's key press
                 eInput = Console.ReadKey(true).Key;
 
+                // Verifies if the keypress is on the range of numbers, and
+                // if it is, showcases the number's planet in more detail
                 if (eInput >= ConsoleKey.D0 && eInput <= ConsoleKey.D9)
                 {
                     // This last .ToString() is very bad.
@@ -252,7 +257,7 @@ namespace Astrofinder
         }
 
         /// <summary>
-        /// 
+        /// Message for when the program ends.
         /// </summary>
         public void EndMessage()
         {
@@ -260,9 +265,9 @@ namespace Astrofinder
         }
 
         /// <summary>
-        /// 
+        /// Prints the legend for Planet/Star search.
         /// </summary>
-        /// <param name="b"></param>
+        /// <param name="b">Will switch between Planet and Star modes.</param>
         private void SearchLegend(bool b = true)
         {
             if (true)
@@ -295,13 +300,6 @@ namespace Astrofinder
             }
         }
 
-        private void ClearScreen()
-        {
-            System.IO.Stream output = Console.OpenStandardInput();
-
-            if (output != System.IO.Stream.Null)
-                Console.Clear();
-        }
     }
 
 }
