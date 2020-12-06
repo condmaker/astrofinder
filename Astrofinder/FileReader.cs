@@ -240,7 +240,6 @@ namespace Astrofinder
 
 
         //https://stackoverflow.com/questions/209160/nullable-type-as-a-generic-parameter-possible
-
         /// <summary>
         /// Formats the received string into the wanted struct type
         /// </summary>
@@ -250,22 +249,23 @@ namespace Astrofinder
         private Nullable<T> FormatPar<T>(int? index, IList<string> row) 
             where T: struct
         { 
-            //Get formated string
+            // Get formated string
             string val = FormatParToString(index, row);
             if(val == null) return null;
             
-            //Format T
+            // Format T
             T value;       
         
-            //https://stackoverflow.com/questions/2961656/generic-tryparse
+            // https://stackoverflow.com/questions/2961656/generic-tryparse
             
 
-            //Parse the string into the wanted type
+            // Parse the string into the wanted type
             try
             { 
                 value = 
                     (T)TypeDescriptor.GetConverter(typeof(T))
-                        .ConvertFromString( null , culture: CultureInfo.InvariantCulture, val);         
+                        .ConvertFromString(
+                            null , culture: CultureInfo.InvariantCulture, val);         
             }
             catch 
             {

@@ -102,7 +102,7 @@ namespace Astrofinder
             short pCount;
 
             // The main search loop.
-            while (cc.Input != "q" && cc.Input != "r" && cc.Input != "escape")
+            while (cc.Input != "q")
             {
                 index = 0;
 
@@ -112,11 +112,11 @@ namespace Astrofinder
                 // This will define filCol.
                 switch (cc.Input)
                 {
-                    case "r":
-                        continue;
                     case "q":
                         continue;
                 }
+
+                if (cc.Input == "r") break;
 
                 // TESTING PURPOSES. DELETE LATER.
                 handler.UpdateParams(QueryParam.P_MIN_DISC_YEAR, 2008);
@@ -144,7 +144,9 @@ namespace Astrofinder
                 // Returns to the start of the search.
                 // Need to figure out how to go back to SEARCH.
                 if (cc.Input == "r")
+                {
                     continue;
+                }
                 // Quits the loops and consequentially the application.
                 else if (cc.Input == "q")
                     break;
