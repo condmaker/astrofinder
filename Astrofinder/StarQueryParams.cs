@@ -126,7 +126,7 @@ namespace Astrofinder
                     break;
 
                 default:
-                    break;
+                    throw (new InvalidValueException("This parameter doesn't accept strings."));
             }
         }
 
@@ -196,7 +196,7 @@ namespace Astrofinder
                     break;
 
                 default:
-                    break;
+                    throw (new InvalidValueException("This parameter doesn't accept float values."));
                     
             }
         }
