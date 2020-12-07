@@ -192,5 +192,25 @@ namespace Astrofinder
                         "This parameter doesn't accept float values."));
             }
         }
+
+        /// <summary>
+        /// Clears all of the params on the current instance.
+        /// </summary>
+        public void ClearParams()
+        {
+            Name = null;
+            HostName = null;
+            DiscMethod = null;
+            MinDiscYear = null;
+            MaxDiscYear = null;
+            MinOrbPeriod = null;
+            MaxOrbPeriod = null;
+            MinRadius = null;
+            MaxRadius = null;
+            MinMass = null;
+            MaxMass = null;
+            MinTemp = null;
+            MaxTemp = null;
+        }
     }
 }

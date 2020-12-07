@@ -196,9 +196,32 @@ namespace Astrofinder
                     break;
 
                 default:
-                    throw (new InvalidValueException("This parameter doesn't accept float values."));
+                    throw (new InvalidValueException(
+                        "This parameter doesn't accept float values."));
                     
             }
+        }
+
+        /// <summary>
+        /// Clears all of the params on the current instance.
+        /// </summary>
+        public void ClearParams()
+        {
+            Name = null;
+            MinAge = null;
+            MaxAge = null;
+            MinRotVel = null;
+            MaxRotVel = null;
+            MinRotPer = null;
+            MaxRotPer = null;
+            MinSunDist = null;
+            MaxSunDist = null;
+            MinRadius = null;
+            MaxRadius = null;
+            MinMass = null;
+            MaxMass = null;
+            MinTemp = null;
+            MaxTemp = null;
         }
     }
 }
