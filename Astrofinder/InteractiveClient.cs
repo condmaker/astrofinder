@@ -137,9 +137,9 @@ namespace Astrofinder
 
                 do
                 {
-                    if (cc.Input == "uparrow")
+                    if (cc.Input == "downarrow")
                         index += 10;
-                    else if (cc.Input == "downarrow")
+                    else if (cc.Input == "uparrow")
                         index -= 10;
 
                     index = (short)Math.Clamp(index, (short)0, pCount);
