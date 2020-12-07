@@ -58,7 +58,7 @@ namespace Astrofinder
             }
             else
             {
-                if (e is System.IO.FileNotFoundException )
+                if (e is System.IO.FileNotFoundException)
                 {
                     Console.WriteLine(
                         "★ File couldn't be loaded. Please input again:");
@@ -274,7 +274,7 @@ namespace Astrofinder
         /// Prints a message that points to the user that his search was
         /// invalid.
         /// </summary>
-        public void InvalidSearch() => 
+        public void InvalidSearch() =>
             Console.WriteLine(
                 "One or more commands in your search were not valid.");
 

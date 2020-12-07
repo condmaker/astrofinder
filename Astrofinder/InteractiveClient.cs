@@ -117,19 +117,18 @@ namespace Astrofinder
                 try
                 {
                     ConvertParamsPlanet();
+                    pCol = new HashSet<Planet>(handler.SearchPlanets());
                 }
                 catch (Exception i)
                 {
+                    Console.WriteLine(i.ToString());
                     continue;
                 }
 
                 if (cc.Input == "r") break;
 
                 // TESTING PURPOSES. DELETE LATER.
-                handler.UpdateParams(QueryParam.P_MIN_DISC_YEAR, 2008);
-                handler.UpdateParams(QueryParam.P_MAX_DISC_YEAR, 2010);
-                handler.UpdateParams(QueryParam.P_HOST_NAME, (string)null);
-                pCol = new HashSet<Planet>(handler.SearchPlanets());
+                
 
                 pCount = (short)(pCol.Count - (pCol.Count % 10));
 
@@ -184,14 +183,12 @@ namespace Astrofinder
 
             for (short i = 0; i < s.Length; i++)
             {
-                try
-                {
-                    sLoop = s[i].Split(" ")[0].Split("_");
-                }
-                catch (Exception j)
-                {
-                    sLoop = s[i].Split(" ", 1);
-                }
+
+                sLoop = s[i].Split(" ")[0].Split("_");
+                    
+                if (sLoop.Length == 1)
+                    sLoop = s[i].Split(" ");
+
                 switch (sLoop[0])
                 {
                     case "name":
@@ -204,14 +201,139 @@ namespace Astrofinder
                         ParamUpdate(QueryParam.P_DISC_METHOD, sLoop[1], ref v);
                         break;
                     case "discoveryyear":
+                        if (sLoop[1] == "min")
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MIN_DISC_YEAR, 
+                                sLoop[1].Split(" ", 1)[1],
+                                ref v);
+                        }
+                        else if (sLoop[1] == "max")
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MAX_DISC_YEAR, 
+                                sLoop[1].Split(" ", 1)[1],
+                                ref v);
+                        }
+                        else
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MIN_DISC_YEAR, 
+                                sLoop[1],
+                                ref v);
+                            ParamUpdate(
+                                QueryParam.P_MAX_DISC_YEAR, 
+                                sLoop[1],
+                                ref v);
+                        }
                         break;
                     case "orbitalperiod":
+                        if (sLoop[1] == "min")
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MIN_ORBITAL_PERIOD, 
+                                sLoop[1].Split(" ", 1)[1],
+                                ref v);
+                        }
+                        else if (sLoop[1] == "max")
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MAX_ORBITAL_PERIOD, 
+                                sLoop[1].Split(" ", 1)[1],
+                                ref v);
+                        }
+                        else
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MIN_ORBITAL_PERIOD, 
+                                sLoop[1],
+                                ref v);
+                            ParamUpdate(
+                                QueryParam.P_MAX_ORBITAL_PERIOD, 
+                                sLoop[1],
+                                ref v);
+                        }
                         break;
                     case "planetradius":
+                        if (sLoop[1] == "min")
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MIN_RADIUS, 
+                                sLoop[1].Split(" ", 1)[1],
+                                ref v);
+                        }
+                        else if (sLoop[1] == "max")
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MAX_RADIUS, 
+                                sLoop[1].Split(" ", 1)[1],
+                                ref v);
+                        }
+                        else
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MIN_RADIUS, 
+                                sLoop[1],
+                                ref v);
+                            ParamUpdate(
+                                QueryParam.P_MAX_RADIUS, 
+                                sLoop[1],
+                                ref v);
+                        }
                         break;
                     case "planetmass":
+                        if (sLoop[1] == "min")
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MIN_MASS, 
+                                sLoop[1].Split(" ", 1)[1],
+                                ref v);
+                        }
+                        else if (sLoop[1] == "max")
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MAX_MASS, 
+                                sLoop[1].Split(" ", 1)[1],
+                                ref v);
+                        }
+                        else
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MIN_MASS, 
+                                sLoop[1],
+                                ref v);
+                            ParamUpdate(
+                                QueryParam.P_MAX_MASS, 
+                                sLoop[1],
+                                ref v);
+                        }
                         break;
                     case "planettemperature":
+                        if (sLoop[1] == "min")
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MIN_TEMP, 
+                                sLoop[1].Split(" ", 1)[1],
+                                ref v);
+                        }
+                        else if (sLoop[1] == "max")
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MAX_TEMP, 
+                                sLoop[1].Split(" ", 1)[1],
+                                ref v);
+                        }
+                        else
+                        {
+                            ParamUpdate(
+                                QueryParam.P_MIN_TEMP, 
+                                sLoop[1],
+                                ref v);
+                            ParamUpdate(
+                                QueryParam.P_MAX_TEMP, 
+                                sLoop[1],
+                                ref v);
+                        }
                         break;
                     default:
                         cc.InvalidSearch();
