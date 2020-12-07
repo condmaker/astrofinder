@@ -125,8 +125,8 @@ namespace Astrofinder
                     // Check if line has the expected number of columns
                     if(spltRow.Count != totalColNumb)
                     {
-                        // Send Message
-                        return;
+                        throw( new InvalidFileConfiguration("This file doesn't"
+                        + " contain columns of the same length."));
                     }
 
 
@@ -215,10 +215,10 @@ namespace Astrofinder
                  
             // Check if the file contains name and hostname
             // Send message if not
-            if(par["hostname"] == null && par["pl_name"] == null)
+            if(par["hostname"] == null || par["pl_name"] == null)
             {
-                // Send Message
-                return;
+                throw( new InvalidFileConfiguration("This file lacks"
+                        + " the required params 'hostname' and 'name'."));
             }
         }
 

@@ -62,12 +62,17 @@ namespace Astrofinder
                 {
                     Console.WriteLine(
                         "★ File couldn't be loaded. Please input again:");
+                }        
+                else if (e is InvalidFileConfiguration){
+                    Console.WriteLine(
+                        "★ " + e.Message + " Please input again:");
                 }
-                else if (e is Exception)
+                 else if (e is Exception)
                 {
                     Console.WriteLine(
                         "★ Invalid file. Please input again:");
                 }
+                    
                 Console.Write("> ");
 
                 Input = Console.ReadLine();

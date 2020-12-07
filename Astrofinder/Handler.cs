@@ -14,6 +14,12 @@ namespace Astrofinder
         private Searcher searcher;
 
         /// <summary>
+        /// File Reader object which open a file and distributes its data to the 
+        /// searcher
+        /// </summary>
+        private FileReader fileReader;
+
+        /// <summary>
         /// PlanetQueryParams object which stores the current query parameters 
         /// for searching planets.
         /// </summary>
@@ -32,8 +38,8 @@ namespace Astrofinder
         /// <param name="path">Path to the specified .csv file.</param>
         public void ReadFile(string path)
         {
-            FileReader fr = new FileReader(path);
-            searcher = new Searcher(fr.planetCol, fr.starCol);
+            fileReader = new FileReader(path);
+            searcher = new Searcher(fileReader.planetCol, fileReader.starCol);
 
             
             starQueries = new StarQueryParams();
