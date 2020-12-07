@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text;
 using System.Collections.Generic;
 
 namespace Astrofinder
@@ -117,18 +118,20 @@ namespace Astrofinder
                 try
                 {
                     ConvertParamsPlanet();
-                    pCol = new HashSet<Planet>(handler.SearchPlanets());
                 }
                 catch (Exception i)
                 {
-                    Console.WriteLine(i.ToString());
+                    cc.PrintError(i);
                     continue;
                 }
 
+                pCol = new HashSet<Planet>(handler.SearchPlanets());
+
                 if (cc.Input == "r") break;
+                else if (cc.Input == "q") break;
 
                 // TESTING PURPOSES. DELETE LATER.
-                
+
 
                 pCount = (short)(pCol.Count - (pCol.Count % 10));
 
@@ -139,7 +142,7 @@ namespace Astrofinder
                     else if (cc.Input == "downarrow")
                         index -= 10;
 
-                    index = (short) Math.Clamp(index, (short)0, pCount);
+                    index = (short)Math.Clamp(index, (short)0, pCount);
 
                     viewer = pCol.Skip(index).Take(10);
 
@@ -166,6 +169,7 @@ namespace Astrofinder
         private void ConvertParamsPlanet()
         {
             string[] s, sLoop;
+            string sNumLoop = null;
             bool v = true;
 
             // Maximum number of strings on the array.
@@ -174,7 +178,7 @@ namespace Astrofinder
             // Splits the user's input into various strings.
             try
             {
-                s = cc.Input.ToLower().Split(",");
+                s = cc.Input.ToLower().Split(", ");
             }
             catch (Exception i)
             {
@@ -183,12 +187,28 @@ namespace Astrofinder
 
             for (short i = 0; i < s.Length; i++)
             {
-
+                // Catch the current query's parameters
                 sLoop = s[i].Split(" ")[0].Split("_");
-                    
+                // Observes if the user's input can be separated, and if it
+                // can't observes if said input is to return/leave
+                try
+                {
+                    sNumLoop = s[i].Split(" ")[1];
+                }
+                catch (IndexOutOfRangeException h)
+                {
+                    if (cc.Input.Trim() == "r" || 
+                        cc.Input.Trim() == "q" || cc.Input.Trim() == "")
+                        return;
+                }
+
+                // If query doesn't have a _MAX or _MIN affix, it simply 
+                // splits the string into two.
                 if (sLoop.Length == 1)
                     sLoop = s[i].Split(" ");
 
+                // Observes the current parameter and updates the handler based
+                // on it.
                 switch (sLoop[0])
                 {
                     case "name":
@@ -201,142 +221,31 @@ namespace Astrofinder
                         ParamUpdate(QueryParam.P_DISC_METHOD, sLoop[1], ref v);
                         break;
                     case "discoveryyear":
-                        if (sLoop[1] == "min")
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MIN_DISC_YEAR, 
-                                sLoop[1].Split(" ", 1)[1],
-                                ref v);
-                        }
-                        else if (sLoop[1] == "max")
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MAX_DISC_YEAR, 
-                                sLoop[1].Split(" ", 1)[1],
-                                ref v);
-                        }
-                        else
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MIN_DISC_YEAR, 
-                                sLoop[1],
-                                ref v);
-                            ParamUpdate(
-                                QueryParam.P_MAX_DISC_YEAR, 
-                                sLoop[1],
-                                ref v);
-                        }
+                        NumParamUpdate(sLoop, sNumLoop, 
+                            QueryParam.P_MIN_DISC_YEAR, 
+                            QueryParam.P_MAX_DISC_YEAR, ref v);
                         break;
                     case "orbitalperiod":
-                        if (sLoop[1] == "min")
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MIN_ORBITAL_PERIOD, 
-                                sLoop[1].Split(" ", 1)[1],
-                                ref v);
-                        }
-                        else if (sLoop[1] == "max")
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MAX_ORBITAL_PERIOD, 
-                                sLoop[1].Split(" ", 1)[1],
-                                ref v);
-                        }
-                        else
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MIN_ORBITAL_PERIOD, 
-                                sLoop[1],
-                                ref v);
-                            ParamUpdate(
-                                QueryParam.P_MAX_ORBITAL_PERIOD, 
-                                sLoop[1],
-                                ref v);
-                        }
+                        NumParamUpdate(sLoop, sNumLoop,
+                            QueryParam.P_MIN_ORBITAL_PERIOD, 
+                            QueryParam.P_MAX_ORBITAL_PERIOD, ref v);
                         break;
                     case "planetradius":
-                        if (sLoop[1] == "min")
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MIN_RADIUS, 
-                                sLoop[1].Split(" ", 1)[1],
-                                ref v);
-                        }
-                        else if (sLoop[1] == "max")
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MAX_RADIUS, 
-                                sLoop[1].Split(" ", 1)[1],
-                                ref v);
-                        }
-                        else
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MIN_RADIUS, 
-                                sLoop[1],
-                                ref v);
-                            ParamUpdate(
-                                QueryParam.P_MAX_RADIUS, 
-                                sLoop[1],
-                                ref v);
-                        }
+                        NumParamUpdate(sLoop, sNumLoop, 
+                            QueryParam.P_MIN_RADIUS, 
+                            QueryParam.P_MAX_RADIUS, ref v);
                         break;
                     case "planetmass":
-                        if (sLoop[1] == "min")
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MIN_MASS, 
-                                sLoop[1].Split(" ", 1)[1],
-                                ref v);
-                        }
-                        else if (sLoop[1] == "max")
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MAX_MASS, 
-                                sLoop[1].Split(" ", 1)[1],
-                                ref v);
-                        }
-                        else
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MIN_MASS, 
-                                sLoop[1],
-                                ref v);
-                            ParamUpdate(
-                                QueryParam.P_MAX_MASS, 
-                                sLoop[1],
-                                ref v);
-                        }
+                        NumParamUpdate(sLoop, sNumLoop,
+                            QueryParam.P_MIN_MASS, 
+                            QueryParam.P_MAX_MASS, ref v);
                         break;
                     case "planettemperature":
-                        if (sLoop[1] == "min")
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MIN_TEMP, 
-                                sLoop[1].Split(" ", 1)[1],
-                                ref v);
-                        }
-                        else if (sLoop[1] == "max")
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MAX_TEMP, 
-                                sLoop[1].Split(" ", 1)[1],
-                                ref v);
-                        }
-                        else
-                        {
-                            ParamUpdate(
-                                QueryParam.P_MIN_TEMP, 
-                                sLoop[1],
-                                ref v);
-                            ParamUpdate(
-                                QueryParam.P_MAX_TEMP, 
-                                sLoop[1],
-                                ref v);
-                        }
+                        NumParamUpdate(sLoop, sNumLoop,
+                            QueryParam.P_MIN_TEMP, 
+                            QueryParam.P_MAX_TEMP, ref v);  
                         break;
                     default:
-                        cc.InvalidSearch();
                         v = false;
                         break;
                 }
@@ -344,7 +253,8 @@ namespace Astrofinder
                 if (!v)
                 {
                     handler.ClearPlanetParams();
-                    break;
+                    throw new InvalidValueException(
+                        "One or more commands in your search were not valid.");
                 }
             }
         }
@@ -355,6 +265,52 @@ namespace Astrofinder
         private void SearchStar()
         {
 
+        }
+
+        private void NumParamUpdate(
+            string[] input, string sNum, QueryParam paramF, QueryParam paramS, 
+            ref bool v)
+        {
+            StringBuilder sb;
+            float num;
+            bool numVerif;
+
+            sb = new StringBuilder();
+            numVerif = float.TryParse(sNum, out num);
+
+            if (!numVerif)
+            {
+                sb.Append("The number you entered on '");
+                sb.Append(input[0]);
+                sb.Append("' was invalid.");
+                throw new InvalidValueException(sb.ToString());
+            }
+
+            if (input[1] == "min")
+            {
+                ParamUpdate(
+                    paramF,
+                    num,
+                    ref v);
+            }
+            else if (input[1] == "max")
+            {
+                ParamUpdate(
+                    paramS,
+                    num,
+                    ref v);
+            }
+            else
+            {
+                ParamUpdate(
+                    paramF,
+                    num,
+                    ref v);
+                ParamUpdate(
+                    paramS,
+                    num,
+                    ref v);
+            }
         }
 
         /// <summary>
@@ -384,7 +340,7 @@ namespace Astrofinder
         /// <param name="s">The parameter itself.</param>
         /// <param name="val">A bool that will update if the parameter
         /// update is unsuccessful.</param>
-        private void ParamUpdate(QueryParam param, short? s, ref bool val)
+        private void ParamUpdate(QueryParam param, float? s, ref bool val)
         {
             try
             {

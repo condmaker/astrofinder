@@ -268,15 +268,7 @@ namespace Astrofinder
         /// Prints the message of an exception.
         /// </summary>
         /// <param name="i">Said exception.</param>
-        public void PrintError(Exception i) => Console.WriteLine(i.ToString());
-
-        /// <summary>
-        /// Prints a message that points to the user that his search was
-        /// invalid.
-        /// </summary>
-        public void InvalidSearch() =>
-            Console.WriteLine(
-                "One or more commands in your search were not valid.");
+        public void PrintError(Exception i) => Console.WriteLine(i.Message);
 
         /// <summary>
         /// Message for when the program ends.
