@@ -25,21 +25,6 @@ namespace Astrofinder
         /// </summary>
         private StarQueryParams starQueries;
 
-        //testing - delete
-        public Handler()
-        {
-            // List<Planet> p = new List<Planet>();
-            // p.Add(new Planet("Planeta 1", "star 1"));
-            // p.Add(new Planet("Planet 2", "star 1", discY: 1980));
-            // p.Add(new Planet("Planeta 3", "star 2"));
-            // p.Add(new Planet("Args 1", "star 2"));
-            // p.Add(new Planet("Args 2", "star 3"));
-
-            // IEnumerable<Star> s = new List<Star>();
-            // searcher = new Searcher(p, s);
-        }
-
-
         /// <summary>
         /// Method responsible for receiving a specified .csv file and storing 
         /// it's contents into the Searcher object.
