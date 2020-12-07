@@ -95,6 +95,16 @@ namespace Astrofinder
         }
 
         /// <summary>
+        /// Clears the current planet parameters set by the user.
+        /// </summary>
+        public void ClearPlanetParams() => planetQueries.ClearParams();
+
+        /// <summary>
+        /// Clears the current star parameters set by the user.
+        /// </summary>
+        public void ClearStarParams() => starQueries.ClearParams();
+
+        /// <summary>
         /// Returns a Planet Colletion containing the results from the query 
         /// with the stored parameters.
         /// </summary>

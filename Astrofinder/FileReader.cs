@@ -18,10 +18,10 @@ namespace Astrofinder
         private short totalColNumb; 
 
         // Collection that stores all the Planet instances. 
-        public ICollection<Planet> planetCol{get; private set;}
+        public ICollection<Planet> planetCol { get; private set; }
 
         // Collection that stores all the Star instances.
-        public List<Star> starCol{get; private set;} 
+        public List<Star> starCol { get; private set; } 
  
         // This Dictionary stores the parameters that can be found 
         // and extracted from the file,
@@ -44,10 +44,11 @@ namespace Astrofinder
             planetCol = new List<Planet>();
             // Instatiates the collection that stores the Stars
             starCol = new List<Star>();
-            //Instatiates the Dictionary that stores the parameters 
+            // Instatiates the Dictionary that stores the parameters 
             par = new Dictionary<string, int?>();
 
-            //Adds all possible parameters related to the planets to the Dictionary
+            // Adds all possible parameters related to the planets to the
+            // Dictionary
             par.Add("pl_name", null);
             par.Add("hostname", null);
             par.Add("discoverymethod", null);
@@ -57,7 +58,8 @@ namespace Astrofinder
             par.Add("pl_masse", null);
             par.Add("pl_eqt", null);
 
-            //Adds all possible parameters related to the stars to the Dictionary
+            // Adds all possible parameters related to the stars to the 
+            // Dictionary
             par.Add("st_teff", null);
             par.Add("st_age", null);
             par.Add("st_vsin", null);

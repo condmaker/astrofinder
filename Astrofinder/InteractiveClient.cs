@@ -76,12 +76,12 @@ namespace Astrofinder
                 {
                     if (cc.Input == "q") continue;
 
-                    cc.FileLoad(e:i);
+                    cc.FileLoad(e: i);
                     continue;
                 }
                 catch (Exception h)
                 {
-                    cc.FileLoad(e:h);
+                    cc.FileLoad(e: h);
                 }
 
                 cc.FileLoad(true);
@@ -114,7 +114,14 @@ namespace Astrofinder
                 cc.SearchList();
 
                 // This will define filCol.
-                ConvertParams();
+                try
+                {
+                    ConvertParamsPlanet();
+                }
+                catch (Exception i)
+                {
+                    continue;
+                }
 
                 if (cc.Input == "r") break;
 
@@ -133,7 +140,7 @@ namespace Astrofinder
                     else if (cc.Input == "downarrow")
                         index -= 10;
 
-                    index = (short)Math.Clamp(index, (short)0, pCount);
+                    index = (short) Math.Clamp(index, (short)0, pCount);
 
                     viewer = pCol.Skip(index).Take(10);
 
@@ -157,16 +164,66 @@ namespace Astrofinder
         /// <summary>
         /// Method that converts the user's input to valid parameters.
         /// </summary>
-        private void ConvertParams()
+        private void ConvertParamsPlanet()
         {
-            switch (cc.Input)
+            string[] s, sLoop;
+            bool v = true;
+
+            // Maximum number of strings on the array.
+            s = new string[8];
+
+            // Splits the user's input into various strings.
+            try
             {
-                case "q":
+                s = cc.Input.ToLower().Split(",");
+            }
+            catch (Exception i)
+            {
+                s.Append(cc.Input.ToLower());
+            }
+
+            for (short i = 0; i < s.Length; i++)
+            {
+                try
+                {
+                    sLoop = s[i].Split(" ")[0].Split("_");
+                }
+                catch (Exception j)
+                {
+                    sLoop = s[i].Split(" ", 1);
+                }
+                switch (sLoop[0])
+                {
+                    case "name":
+                        ParamUpdate(QueryParam.P_NAME, sLoop[1], ref v);
+                        break;
+                    case "starname":
+                        ParamUpdate(QueryParam.P_HOST_NAME, sLoop[1], ref v);
+                        break;
+                    case "discoverymethod":
+                        ParamUpdate(QueryParam.P_DISC_METHOD, sLoop[1], ref v);
+                        break;
+                    case "discoveryyear":
+                        break;
+                    case "orbitalperiod":
+                        break;
+                    case "planetradius":
+                        break;
+                    case "planetmass":
+                        break;
+                    case "planettemperature":
+                        break;
+                    default:
+                        cc.InvalidSearch();
+                        v = false;
+                        break;
+                }
+
+                if (!v)
+                {
+                    handler.ClearPlanetParams();
                     break;
-                case "j":
-                    break;
-                default: 
-                    break;
+                }
             }
         }
 
@@ -176,6 +233,47 @@ namespace Astrofinder
         private void SearchStar()
         {
 
+        }
+
+        /// <summary>
+        /// Updates the current query parameters.
+        /// </summary>
+        /// <param name="param">The parameter to update.</param>
+        /// <param name="s">The parameter itself.</param>
+        /// <param name="val">A bool that will update if the parameter
+        /// update is unsuccessful.</param>
+        private void ParamUpdate(QueryParam param, string s, ref bool val)
+        {
+            try
+            {
+                handler.UpdateParams(
+                    param, s);
+            }
+            catch (InvalidValueException v)
+            {
+                cc.PrintError(v);
+                val = false;
+            }
+        }
+        /// <summary>
+        /// Updates the current query parameters.
+        /// </summary>
+        /// <param name="param">The parameter to update.</param>
+        /// <param name="s">The parameter itself.</param>
+        /// <param name="val">A bool that will update if the parameter
+        /// update is unsuccessful.</param>
+        private void ParamUpdate(QueryParam param, short? s, ref bool val)
+        {
+            try
+            {
+                handler.UpdateParams(
+                    param, s);
+            }
+            catch (InvalidValueException v)
+            {
+                cc.PrintError(v);
+                val = false;
+            }
         }
     }
 }
