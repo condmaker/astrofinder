@@ -349,8 +349,16 @@ namespace Astrofinder
             }
             catch (InvalidValueException v)
             {
-                cc.PrintError(v);
-                val = false;
+                try 
+                {
+                    handler.UpdateParams(
+                    param, (short?) s);
+                }
+                catch (InvalidValueException h)
+                {
+                    cc.PrintError(v);
+                    val = false;
+                }
             }
         }
     }

@@ -212,7 +212,7 @@ namespace Astrofinder
                 Console.WriteLine((fPage / 10) + 1);
                 Console.Write("Press R to return or Q to leave. ");
                 Console.WriteLine(
-                    "To view a planet in more detail, input it's number.");
+                    "To view a planet in more detail, input its number.");
 
                 // Reads the user's key press
                 eInput = Console.ReadKey(true).Key;
