@@ -138,10 +138,10 @@ namespace Astrofinder
                         q.MinAge == null && q.MaxAge == null)) &&
 
                         // Greater  or equal to minimun rotation velocity
-                        (star.RotVelocity >= (q.MinRotVel ?? star.RotVelocity) &&
+                        (star.RotVelocity >= (q.MinRotVel ?? star.RotVelocity)&&
                         // Less or equal ot maximun rotation velocity
                         star.RotVelocity <= (q.MaxRotVel ?? star.RotVelocity) ||
-                        // Any Rot velocity and star has no recorded rot velocity
+                        // Any Rot velocity and star has no recorded rotvelocity
                         (star.RotVelocity == null &&
                         q.MinRotVel == null && q.MaxRotVel == null)) &&
 
@@ -153,7 +153,7 @@ namespace Astrofinder
                         (star.RotPeriod == null &&
                         q.MinRotPer == null && q.MaxRotPer == null)) &&
 
-                        // Greater  or equal to minimun radius
+                        // Greater or equal to minimun radius
                         (star.Radius >= (q.MinRadius ?? star.Radius) &&
                         // Less or equal ot maximun age
                         star.Radius <= (q.MaxRadius ?? star.Radius)||
@@ -161,7 +161,7 @@ namespace Astrofinder
                         (star.Radius == null &&
                         q.MinRadius == null && q.MaxRadius == null)) &&
 
-                        // Greater  or equal to minimun mass
+                        // Greater or equal to minimun mass
                         (star.Mass >= (q.MinMass ?? star.Mass) &&
                         // Less or equal ot maximun age
                         star.Mass <= (q.MaxMass ?? star.Mass) ||
@@ -170,10 +170,11 @@ namespace Astrofinder
                         q.MinMass == null && q.MaxMass == null)) &&
 
                         // Greater  or equal to minimun distance to Sun
-                        (star.SunDistance >= (q.MinSunDist ?? star.SunDistance) &&
+                        (star.SunDistance >=(q.MinSunDist ?? star.SunDistance)&&
                         // Less or equal ot maximun age
-                        star.SunDistance <= (q.MaxSunDist ?? star.SunDistance) ||
-                        // Any dist. to sun and star has no recorded dist. to sun
+                        star.SunDistance <= (q.MaxSunDist ?? star.SunDistance)||
+                        // Any dist. to sun and star has no recorded dist. to 
+                        // sun
                         (star.SunDistance == null &&
                         q.MinSunDist ==null && q.MaxSunDist == null))
                     ) // end where
@@ -212,7 +213,7 @@ namespace Astrofinder
         /// <param name="sq">Query parameters for the Stars.</param>
         /// <param name="pq">Query parameters for the planets</param>
         /// <returns>Collection of Planets resulting from the query.</returns>
-        public IEnumerable<Planet> complexPlanetSearch(StarQueryParams sq, 
+        public IEnumerable<Planet> ComplexPlanetSearch(StarQueryParams sq, 
             PlanetQueryParams pq)
         {
             IEnumerable<Star> stars = SearchStars(sq);
@@ -234,7 +235,7 @@ namespace Astrofinder
         /// <param name="sq">Query parameters for the Stars.</param>
         /// <param name="pq">Query parameters for the planets</param>
         /// <returns>Collection of Stars resulting from the query.</returns>
-        public IEnumerable<Star> complexStarSearch(StarQueryParams sq, 
+        public IEnumerable<Star> ComplexStarSearch(StarQueryParams sq, 
             PlanetQueryParams pq)
         {
             IEnumerable<Star> stars = SearchStars(sq);

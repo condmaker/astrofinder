@@ -143,7 +143,7 @@ namespace Astrofinder
         /// <returns>An IEnumerable<Star> object with the results from the 
         /// query.</returns>
         public IEnumerable<Planet> AdvancedSearchPlanets(){
-            return searcher.complexPlanetSearch(starQueries, planetQueries);
+            return searcher.ComplexPlanetSearch(starQueries, planetQueries);
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Astrofinder
         /// <returns>An IEnumerable<Star> object with the results from the 
         /// query.</returns>
         public IEnumerable<Star> AdvancedSearchStars(){
-            return searcher.complexStarSearch(starQueries, planetQueries);
+            return searcher.ComplexStarSearch(starQueries, planetQueries);
         }
     }
 }
