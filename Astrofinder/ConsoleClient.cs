@@ -181,7 +181,7 @@ namespace Astrofinder
         /// </typeparam>
         public void ListShowcase<T>(
             IEnumerable<T> pCol, short page, short fPage, bool b)
-            where T : Planet
+            where T : ICelestialBody
         {
             short jindex = 0;
             short num;

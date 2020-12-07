@@ -6,7 +6,7 @@ namespace Astrofinder
     /// <summary>
     /// Class responsible for storing data from a Planet.
     /// </summary>
-    public class Planet : IEquatable<Planet>
+    public class Planet : IEquatable<Planet>, ICelestialBody
     {
         /// <summary>
         /// Compares two specified Planet objetcts and returns an integer

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
 
 namespace Astrofinder
@@ -6,7 +7,7 @@ namespace Astrofinder
     /// <summary>
     /// Class responsible for storing data from a Star.
     /// </summary>
-    public class Star : IEquatable<Star>
+    public class Star : IEquatable<Star>, ICelestialBody
     {
         /// <summary>
         /// Compares two specified Star objetcts and returns an integer
@@ -276,6 +277,73 @@ namespace Astrofinder
             //Add new planet to the collection
             OrbitingPlanets.Add(planetName);
        
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            string nS = "N/A";
+
+            // Obligatory Parameters, cannot be null
+            sb.Append(
+             $"{Name.MaxLength(14),-14}  ");
+            // Optional Parameters, can be null
+            sb.Append(
+             $"{(Age.HasValue ? Age.ToString() : nS),-14}  ");
+            sb.Append(
+             $"{(SunDistance.HasValue ? SunDistance.ToString() : nS),-14}  ");
+            sb.Append(
+             $"{(RotVelocity.HasValue ? RotVelocity.ToString() : nS),-14}  ");
+            sb.Append(
+             $"{(RotPeriod.HasValue ? RotPeriod.ToString() : nS),-14}  ");
+            sb.Append(
+             $"{(Radius.HasValue ? Radius.ToString() : nS),-14}  ");
+            sb.Append(
+             $"{(Mass.HasValue ? Mass.ToString() : nS),-14}  ");
+            sb.Append(
+             $"{(Temperature.HasValue ? Temperature.ToString() : nS),-14}");
+
+            return sb.ToString();
+        }
+        public string ToStringDetailed()
+        {
+            StringBuilder sb = new StringBuilder();
+            string nS = "N/A";
+
+            sb.Append(
+             $"Name: {Name, -14}\n");
+            sb.Append(
+             $"Star Age: {(Age.HasValue ? Age.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Distance to the Sun: ");
+            sb.Append(
+             $"{(SunDistance.HasValue ? SunDistance.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Rotational Velocity (km/s): ");
+            sb.Append(
+             $"{(RotVelocity.HasValue ? RotVelocity.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Rotational Period (days): ");
+            sb.Append(
+             $"{(RotPeriod.HasValue ? RotPeriod.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Radius (vs Earth): ");
+            sb.Append(
+             $"{(Radius.HasValue ? Radius.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Mass (vs Earth): ");
+            sb.Append(
+             $"{(Mass.HasValue ? Mass.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Efective Star Temperature (Kelvin): ");
+            sb.Append(
+             $"{(Temperature.HasValue ? Temperature.ToString() : nS), -14}\n");
+
+            return sb.ToString();
         }
 
     }
