@@ -82,7 +82,10 @@ namespace Astrofinder
                 }
                 catch (Exception h)
                 {
+                    if (cc.Input == "q") continue;
+
                     cc.FileLoad(e: h);
+                    continue;
                 }
 
                 cc.FileLoad(true);

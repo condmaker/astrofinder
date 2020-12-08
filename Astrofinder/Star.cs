@@ -10,7 +10,7 @@ namespace Astrofinder
     public class Star : IEquatable<Star>, ICelestialBody
     {
         /// <summary>
-        /// Compares two specified Star objetcts and returns an integer
+        /// Compares two specified Star objects and returns an integer
         /// that indicates their relative position in the sort order,
         /// based by their Names.
         /// </summary>
