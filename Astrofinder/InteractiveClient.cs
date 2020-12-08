@@ -40,10 +40,10 @@ namespace Astrofinder
                 switch (cc.Input.ToLower())
                 {
                     case "sp":
-                        SearchPlanet();
+                        SearchCelestialBody<Planet>();
                         continue;
                     case "ss":
-                        SearchStar();
+                        SearchCelestialBody<Star>();
                         continue;
                     case "l":
                         LoadNewFile();
@@ -95,16 +95,25 @@ namespace Astrofinder
         /// The method that is responsible for the user to filter and search
         /// for the respective planets.
         /// </summary>
-        private void SearchPlanet()
+        private void SearchCelestialBody<T>() where T : ICelestialBody
         {
             // An IEnumerable to store the collection to be printed on
             // the screen.
-            IEnumerable<Planet> viewer;
+            IEnumerable<T> viewer;
 
             // Will store the user's position on the collection.
             short index;
             // The index upper limit.
-            short pCount;
+            short count;
+            //
+            bool typeCheck = false;
+
+            if (typeof(T) == typeof(Planet))
+                typeCheck = true;
+            else if (typeof(T) == typeof(Star))
+                typeCheck = false;
+            else
+                return;
 
             // The main search loop.
             while (cc.Input != "q")
@@ -117,7 +126,10 @@ namespace Astrofinder
                 // This will define filCol.
                 try
                 {
-                    ConvertParamsPlanet();
+                    if (typeCheck)
+                        ConvertParamsPlanet();
+                    else
+                        ConvertParamsStar();
                 }
                 catch (Exception i)
                 {
@@ -125,15 +137,20 @@ namespace Astrofinder
                     continue;
                 }
 
-                pCol = new HashSet<Planet>(handler.SearchPlanets());
+                if (typeCheck)
+                    pCol = new HashSet<Planet>(handler.SearchPlanets());
+                else
+                    sCol = new HashSet<Star>(handler.SearchStars());
 
                 if (cc.Input == "r") break;
                 else if (cc.Input == "q") break;
 
                 // TESTING PURPOSES. DELETE LATER.
 
-
-                pCount = (short)(pCol.Count - (pCol.Count % 10));
+                if (typeCheck)
+                    count = (short)(pCol.Count - (pCol.Count % 10));
+                else
+                    count = (short)(sCol.Count - (sCol.Count % 10));
 
                 do
                 {
@@ -142,11 +159,14 @@ namespace Astrofinder
                     else if (cc.Input == "uparrow")
                         index -= 10;
 
-                    index = (short)Math.Clamp(index, (short)0, pCount);
+                    index = (short)Math.Clamp(index, (short)0, count);
 
-                    viewer = pCol.Skip(index).Take(10);
+                    if (typeCheck)
+                        viewer = pCol.Skip(index).Take(10).Cast<T>();
+                    else
+                        viewer = sCol.Skip(index).Take(10).Cast<T>();
 
-                    cc.ListShowcase<Planet>(viewer, index, pCount, true);
+                    cc.ListShowcase<T>(viewer, index, count, true);
 
                 } while (cc.Input != "r" && cc.Input != "q");
 
@@ -260,11 +280,99 @@ namespace Astrofinder
         }
 
         /// <summary>
-        /// 
+        /// Method that converts the user's input to valid parameters.
         /// </summary>
-        private void SearchStar()
+        private void ConvertParamsStar()
         {
+            string[] s, sLoop;
+            string sNumLoop = null;
+            bool v = true;
 
+            // Maximum number of strings on the array.
+            s = new string[8];
+
+            // Splits the user's input into various strings.
+            try
+            {
+                s = cc.Input.ToLower().Split(", ");
+            }
+            catch (Exception i)
+            {
+                s.Append(cc.Input.ToLower());
+            }
+
+            for (short i = 0; i < s.Length; i++)
+            {
+                // Catch the current query's parameters
+                sLoop = s[i].Split(" ")[0].Split("_");
+                // Observes if the user's input can be separated, and if it
+                // can't observes if said input is to return/leave
+                try
+                {
+                    sNumLoop = s[i].Split(" ")[1];
+                }
+                catch (IndexOutOfRangeException h)
+                {
+                    if (cc.Input.Trim() == "r" || 
+                        cc.Input.Trim() == "q" || cc.Input.Trim() == "")
+                        return;
+                }
+
+                // If query doesn't have a _MAX or _MIN affix, it simply 
+                // splits the string into two.
+                if (sLoop.Length == 1)
+                    sLoop = s[i].Split(" ");
+
+                // Observes the current parameter and updates the handler based
+                // on it.
+                switch (sLoop[0])
+                {
+                    case "name":
+                        ParamUpdate(QueryParam.P_NAME, sLoop[1], ref v);
+                        break;
+                    case "starname":
+                        ParamUpdate(QueryParam.P_HOST_NAME, sLoop[1], ref v);
+                        break;
+                    case "discoverymethod":
+                        ParamUpdate(QueryParam.P_DISC_METHOD, sLoop[1], ref v);
+                        break;
+                    case "discoveryyear":
+                        NumParamUpdate(sLoop, sNumLoop, 
+                            QueryParam.P_MIN_DISC_YEAR, 
+                            QueryParam.P_MAX_DISC_YEAR, ref v);
+                        break;
+                    case "orbitalperiod":
+                        NumParamUpdate(sLoop, sNumLoop,
+                            QueryParam.P_MIN_ORBITAL_PERIOD, 
+                            QueryParam.P_MAX_ORBITAL_PERIOD, ref v);
+                        break;
+                    case "planetradius":
+                        NumParamUpdate(sLoop, sNumLoop, 
+                            QueryParam.P_MIN_RADIUS, 
+                            QueryParam.P_MAX_RADIUS, ref v);
+                        break;
+                    case "planetmass":
+                        NumParamUpdate(sLoop, sNumLoop,
+                            QueryParam.P_MIN_MASS, 
+                            QueryParam.P_MAX_MASS, ref v);
+                        break;
+                    case "planettemperature":
+                        NumParamUpdate(sLoop, sNumLoop,
+                            QueryParam.P_MIN_TEMP, 
+                            QueryParam.P_MAX_TEMP, ref v);  
+                        break;
+                    default:
+                        v = false;
+                        break;
+                }
+
+                if (!v)
+                {
+                    handler.ClearPlanetParams();
+                    throw new InvalidValueException(
+                        "One or more commands in your search were not valid.");
+                }
+            }
         }
 
         private void NumParamUpdate(
