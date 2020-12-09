@@ -316,8 +316,11 @@ namespace Astrofinder
             StringBuilder sb = new StringBuilder();
             string nS = "N/A";
 
+            // Obligatory Parameter, cannot be null
             sb.Append(
              $"Name: {Name, -14}\n");
+
+            // Optional Parameters, can be null
             sb.Append(
              $"Star Age: {(Age.HasValue ? Age.ToString() : nS), -14}\n");
             sb.Append(
@@ -344,6 +347,8 @@ namespace Astrofinder
              $"Efective Star Temperature (Kelvin): ");
             sb.Append(
              $"{(Temperature.HasValue ? Temperature.ToString() : nS), -14}\n");
+             
+            // Obligatory Parameter, cannot be null
             sb.Append(
              $"Number of Planets Orbiting: {OrbitingPlanets.Count, -14}\n"); 
 

@@ -254,7 +254,7 @@ namespace Astrofinder
              $"{Name.MaxLength(14),-14}  {HostName.MaxLength(14),-14}  ");
             // Optional Parameters, can be null
             sb.Append(
-             $"{DiscMethod.MaxLength(14),-14}  ");
+             $"{(DiscMethod != null ? DiscMethod.MaxLength(14) : nS),-14}  ");
             sb.Append(
              $"{(DiscYear.HasValue ? DiscYear.ToString() : nS),-14}  ");
             sb.Append(
