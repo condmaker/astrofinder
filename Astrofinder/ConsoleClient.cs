@@ -112,17 +112,15 @@ namespace Astrofinder
             Console.WriteLine("|");
             Console.WriteLine("| General - ");
             Console.WriteLine(
-                "| NAME, STARNAME, DISCOVERYMETHOD, DISCOVERYYEAR");
+                "| NAME, RADIUS, MASS, TEMPERATURE");
             Console.WriteLine("|");
             Console.WriteLine("| Planet Specific Commands - ");
             Console.WriteLine(
-                "| ORBITALPERIOD, PLANETRADIUS, PLANETMASS, PLANETTEMPERATURE");
+                "| STARNAME, DISCOVERYMETHOD, DISCOVERYYEAR, ORBITALPERIOD,");
             Console.WriteLine("|");
             Console.WriteLine("| Star Specific Commands - ");
             Console.WriteLine(
-                "| STARTEMPERATURE, STARRADIUS, STARMASS, STARAGE,");
-            Console.WriteLine(
-                "| STARROTATIONVELOCITY, STARROTATIONPERIOD, STARDISTANCE");
+                "| STARAGE, SUNDISTANCE, ROTVELOCITY, ROTPERIOD,");
             Console.WriteLine("|");
             Console.WriteLine("★------------");
             Console.WriteLine("| Input T to view how to utilize SEARCH.");
@@ -180,7 +178,7 @@ namespace Astrofinder
         /// <typeparam name="T">The type of viewer-- either Planets or Stars.
         /// </typeparam>
         public void ListShowcase<T>(
-            IEnumerable<T> pCol, short page, short fPage, bool b)
+            IEnumerable<T> pCol, short page, short fPage)
             where T : ICelestialBody
         {
             short jindex = 0;
@@ -190,7 +188,7 @@ namespace Astrofinder
             while (Input != "q")
             {
                 // Changes the legend between Planet and Star
-                if (b)
+                if (typeof(T) == typeof(Planet))
                 {
                     SearchLegend(true);
                 }
@@ -284,7 +282,7 @@ namespace Astrofinder
         /// <param name="b">Will switch between Planet and Star modes.</param>
         private void SearchLegend(bool b = true)
         {
-            if (true)
+            if (b == true)
             {
                 Console.Write(
                     "    Planet Name     Star Name       ");
@@ -310,7 +308,29 @@ namespace Astrofinder
             }
             else
             {
+                Console.Write(
+                    "    Name            Star Age        ");
+                Console.Write(
+                    "Distance to     Rotational      ");
+                Console.Write(
+                    "Rotational      Radius         ");
+                Console.Write(
+                    "Mass            Temperature\n");
 
+                // Line 2
+                Console.Write(
+                    "\t\t\t\t    the Sun\t    Velocity (km/s) ");
+                Console.Write(
+                    "Period (days)");
+                Console.WriteLine(
+                    "\t\t   (vs Earth)\t   (Kelvin)");
+
+                Console.Write(
+                    "    ----------------------------------------------------");
+                Console.Write(
+                    "--------------------------------------------------------");
+                Console.WriteLine(
+                    "-----------");
             }
         }
 
