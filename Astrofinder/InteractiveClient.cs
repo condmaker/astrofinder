@@ -10,9 +10,22 @@ namespace Astrofinder
     /// </summary>
     public class InteractiveClient
     {
+        /// <summary>
+        /// An instance of a ConsoleClient for user inputs and console screen
+        /// management.
+        /// </summary>
         private ConsoleClient cc;
+        /// <summary>
+        /// An instance of a Handler to manage searches and files.
+        /// </summary>
         private Handler handler;
+        /// <summary>
+        /// The collection of planets that the user has/will filter.
+        /// </summary>
         private ICollection<Planet> pCol;
+        /// <summary>
+        /// The collection of stars that the user has/will filter.
+        /// </summary>
         private ICollection<Star> sCol;
 
         /// <summary>
@@ -29,11 +42,12 @@ namespace Astrofinder
         /// </summary>
         public void MainLoop()
         {
+            // Shows a starting message to the user and attempts to load a file
             cc.StartingMessage();
-
             LoadNewFile();
 
-            while (cc.Input != "q" && cc.Input != "escape")
+            // If the file load is successful, it enters the main loop.
+            while (cc.Input != "q")
             {
                 cc.MainMenu();
 
@@ -55,6 +69,8 @@ namespace Astrofinder
                 }
             }
 
+            // Gives the user an goodbye message and returns, effectively 
+            // ending the program.
             cc.EndMessage();
             return;
         }
@@ -64,11 +80,13 @@ namespace Astrofinder
         /// </summary>
         private void LoadNewFile()
         {
+            // Gives the user a message and asks his input to load a file.
             cc.LoadMessage();
 
             while (cc.Input != "q")
             {
-                // Very rudimentary.
+                // Tries to read the file and handles the exceptions if there
+                // are any
                 try
                 {
                     handler.ReadFile(cc.Input);
@@ -108,7 +126,7 @@ namespace Astrofinder
             short index;
             // The index upper limit.
             short count;
-            //
+            // A switch between the two types of celestial bodies.
             bool typeCheck = false;
 
             // Observes if the type inputted is Planet or Star.
@@ -132,7 +150,7 @@ namespace Astrofinder
                 // Prints the legend for the search.
                 cc.SearchList();
 
-                // This will define filCol.
+                // Tries to convert the user parameters.
                 try
                 {
                     if (typeCheck)
@@ -154,8 +172,6 @@ namespace Astrofinder
 
                 if (cc.Input == "r") break;
                 else if (cc.Input == "q") break;
-
-                // TESTING PURPOSES. DELETE LATER.
 
                 if (typeCheck)
                     count = (short)(pCol.Count - (pCol.Count % 10));
@@ -181,11 +197,8 @@ namespace Astrofinder
                 } while (cc.Input != "r" && cc.Input != "q");
 
                 // Returns to the start of the search.
-                // Need to figure out how to go back to SEARCH.
                 if (cc.Input == "r")
-                {
                     continue;
-                }
                 // Quits the loops and consequentially the application.
                 else if (cc.Input == "q")
                     break;
@@ -253,6 +266,14 @@ namespace Astrofinder
             }
         }
 
+        /// <summary>
+        /// Updates multiple planet parameters according to user input.
+        /// </summary>
+        /// <param name="sLoop">The user input.</param>
+        /// <param name="sNumLoop">Additional input if the user wrote a
+        /// numerical parameter.</param>
+        /// <param name="v">An reference bool that will be set to false
+        /// if one or more commands are invalid</param>
         private void ParamSwitchPlanet(string[] sLoop, string sNumLoop, 
             ref bool v)
         {
@@ -298,6 +319,14 @@ namespace Astrofinder
             }
         }
 
+        /// <summary>
+        /// Updates multiple star parameters according to user input.
+        /// </summary>
+        /// <param name="sLoop">The user input.</param>
+        /// <param name="sNumLoop">Additional input if the user wrote a
+        /// numerical parameter.</param>
+        /// <param name="v">An reference bool that will be set to false
+        /// if one or more commands are invalid</param>
         private void ParamSwitchStar(string[] sLoop, string sNumLoop, 
             ref bool v)
         {
@@ -347,7 +376,16 @@ namespace Astrofinder
             }
         }
 
-        
+        /// <summary>
+        /// Updates a specific numerical parameter.
+        /// </summary>
+        /// <param name="input">The user input</param>
+        /// <param name="sNum">The number to filter, inputted by the user,
+        ///  on string format</param>
+        /// <param name="paramF">The 'min' parameter</param>
+        /// <param name="paramS">The 'max' parameter</param>
+        /// <param name="v">An reference bool that will be set to false
+        /// if one or more commands are invalid</param>
         private void NumParamUpdate(
             string[] input, string sNum, QueryParam paramF, QueryParam paramS,
             ref bool v)
@@ -357,8 +395,10 @@ namespace Astrofinder
             bool numVerif;
 
             sb = new StringBuilder();
+            // Attempts to parse the number the user inputted on sNum
             numVerif = float.TryParse(sNum, out num);
 
+            // Returns an exception in case the parsing was unsuccessful
             if (!numVerif)
             {
                 sb.Append("The number you entered on '");
@@ -367,6 +407,7 @@ namespace Astrofinder
                 throw new InvalidValueException(sb.ToString());
             }
 
+            // Updates the parameter(s) accordingly.
             if (input[1] == "min")
             {
                 ParamUpdate(
@@ -398,7 +439,8 @@ namespace Astrofinder
         /// Updates the current query parameters.
         /// </summary>
         /// <param name="param">The parameter to update.</param>
-        /// <param name="s">The parameter itself.</param>
+        /// <param name="s">The parameter itself. In this case, a 
+        /// string.</param>
         /// <param name="val">A bool that will update if the parameter
         /// update is unsuccessful.</param>
         private void ParamUpdate(QueryParam param, string s, ref bool val)
@@ -417,7 +459,8 @@ namespace Astrofinder
         /// <summary>
         /// Updates the current query parameters.
         /// </summary>
-        /// <param name="param">The parameter to update.</param>
+        /// <param name="param">The parameter to update. In this case, a 
+        /// float.</param>
         /// <param name="s">The parameter itself.</param>
         /// <param name="val">A bool that will update if the parameter
         /// update is unsuccessful.</param>
