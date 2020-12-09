@@ -27,7 +27,10 @@ namespace Astrofinder
         /// load a file.
         /// </summary>
         public void StartingMessage()
-            => Console.WriteLine("★ Welcome to Astrofinder!");
+        {
+            Console.Clear();
+            Console.WriteLine("★ Welcome to Astrofinder!");    
+        }
 
         /// <summary>
         /// Prints the message asking for the user to input a path for 
