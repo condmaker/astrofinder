@@ -323,7 +323,7 @@ namespace Astrofinder
                 Console.Write(
                     "Rotational      Radius         ");
                 Console.Write(
-                    "Mass            Temperature\n");
+                    "Mass            Temperature    Planets\n");
 
                 // Line 2
                 Console.Write(
@@ -338,7 +338,7 @@ namespace Astrofinder
                 Console.Write(
                     "--------------------------------------------------------");
                 Console.WriteLine(
-                    "-----------");
+                    "-------------------------");
             }
         }
 

@@ -306,6 +306,8 @@ namespace Astrofinder
              $"{(Mass.HasValue ? Mass.ToString() : nS),-14}  ");
             sb.Append(
              $"{(Temperature.HasValue ? Temperature.ToString() : nS),-14}");
+            sb.Append(
+             $"{OrbitingPlanets.Count,-14}");
 
             return sb.ToString();
         }
