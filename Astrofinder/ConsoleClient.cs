@@ -29,7 +29,7 @@ namespace Astrofinder
         public void StartingMessage()
         {
             Console.Clear();
-            Console.WriteLine("★ Welcome to Astrofinder!");    
+            Console.WriteLine("★ Welcome to Astrofinder!");
         }
 
         /// <summary>
@@ -65,17 +65,18 @@ namespace Astrofinder
                 {
                     Console.WriteLine(
                         "★ File couldn't be loaded. Please input again:");
-                }        
-                else if (e is InvalidFileConfiguration){
+                }
+                else if (e is InvalidFileConfiguration)
+                {
                     Console.WriteLine(
                         "★ " + e.Message + " Please input again:");
                 }
-                 else if (e is Exception)
+                else if (e is Exception)
                 {
                     Console.WriteLine(
                         "★ Invalid file. Please input again:");
                 }
-                    
+
                 Console.Write("> ");
 
                 Input = Console.ReadLine();
@@ -113,39 +114,49 @@ namespace Astrofinder
         /// </summary>
         public void SearchList()
         {
-            Console.WriteLine("★---------------------------");
-            Console.WriteLine("| SEARCH");
-            Console.WriteLine("★------------");
-            Console.WriteLine("| Available Commands: ");
-            Console.WriteLine("|");
-            Console.WriteLine("| Planet Specific Commands - ");
-            Console.WriteLine(
+
+            while (Input != "q")
+            {
+                Console.WriteLine("★---------------------------");
+                Console.WriteLine("| SEARCH");
+                Console.WriteLine("★------------");
+                Console.WriteLine("| Available Commands: ");
+                Console.WriteLine("|");
+                Console.WriteLine("| Planet Specific Commands - ");
+                Console.WriteLine(
                 "| PLANETNAME, HOSTNAME, DISCOVERYMETHOD, DISCOVERYYEAR,");
-            Console.WriteLine(
+                Console.WriteLine(
                 "| ORBITALPERIOD, PLANETRADIUS, PLANETMASS, PLANETTEMPERATURE");
-            Console.WriteLine("|");
-            Console.WriteLine("| Star Specific Commands - ");
-            Console.WriteLine(
+                Console.WriteLine("|");
+                Console.WriteLine("| Star Specific Commands - ");
+                Console.WriteLine(
                 "| STARNAME, STARAGE, SUNDISTANCE, ROTVELOCITY, ROTPERIOD,");
-            Console.WriteLine(
+                Console.WriteLine(
                 "| STARRADIUS, STARMASS, STARTEMPERATURE, PLANETNUM");
-            Console.WriteLine("|");
-            Console.WriteLine("★------------");
-            Console.WriteLine("| Input T to view how to utilize SEARCH.");
-            Console.WriteLine("★------------");
-            Console.Write("> ");
+                Console.WriteLine("|");
+                Console.WriteLine("★------------");
+                Console.WriteLine("| Input T to view how to utilize SEARCH.");
+                Console.WriteLine("★------------");
+                Console.Write("> ");
 
-            Input = Console.ReadLine();
+                Input = Console.ReadLine();
 
-            Console.Clear();
+                Console.Clear();
 
-            if (Input.ToLower() == "t") SearchTutorial();
+                if (Input.ToLower() == "t") 
+                {
+                    SearchTutorial();
+                    continue;
+                }
+                else 
+                    break;
+            }
         }
 
         /// <summary>
         /// Teaches the user how to filter his search.
         /// </summary>
-        public void SearchTutorial()
+        private void SearchTutorial()
         {
             Console.WriteLine("★---------------------------");
             Console.Write(
@@ -160,23 +171,31 @@ namespace Astrofinder
                 "| commas. For example:");
             Console.WriteLine("|");
             Console.Write("| STARNAME 11 Com, DISCOVERRYYEAR_MAX 1998,");
-            Console.WriteLine(" TEMP_MIN 3000");
+            Console.WriteLine(" STARTEMPERATURE_MIN 3000");
             Console.WriteLine("|");
             Console.WriteLine(
                 "| Numerical filters (like DISCOVERYYEAR) can have a max or");
             Console.WriteLine(
                 "| min value with the '_MAX' and '_MIN' sufixes.");
             Console.WriteLine("|");
+            Console.WriteLine(
+                "| You can also search planets with star parameters and vice");
+            Console.WriteLine(
+                "| versa, for example, when searching for a planet:");
+            Console.WriteLine("|");
+            Console.WriteLine("| PLANETNAME EPIC, STARAGE_MIN 300");
+            Console.WriteLine("|");
+            Console.WriteLine(
+                "| This will search all the planets with 'EPIC' on the name");
+            Console.WriteLine(
+                "| and whose star has at least 300 giga-years.");
+            Console.WriteLine("|");
             Console.WriteLine("| Press any key to go back.");
             Console.WriteLine("★---------------------------");
 
-            Console.ReadKey(true);
-
-            // Space here for implementing star search if we do the advanced
+            Input = Console.ReadKey(true).Key.ToString().ToLower();
 
             Console.Clear();
-
-            SearchList();
         }
 
         /// <summary>
@@ -317,7 +336,7 @@ namespace Astrofinder
             else
             {
                 Console.Write(
-                    "    Name            Star Age        ");
+                    "    Star Name       Star Age        ");
                 Console.Write(
                     "Distance to     Rotational      ");
                 Console.Write(
