@@ -344,6 +344,8 @@ namespace Astrofinder
              $"Efective Star Temperature (Kelvin): ");
             sb.Append(
              $"{(Temperature.HasValue ? Temperature.ToString() : nS), -14}\n");
+            sb.Append(
+             $"Number of Planets Orbiting: {OrbitingPlanets.Count, -14}\n"); 
 
             return sb.ToString();
         }
