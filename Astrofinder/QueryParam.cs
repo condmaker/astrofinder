@@ -116,6 +116,14 @@ namespace Astrofinder
         /// <summary>
         /// Star maximun distance to the Sun.
         /// </summary>
-        S_MAX_SUN_DISTANCE
+        S_MAX_SUN_DISTANCE,
+        /// <summary>
+        /// Star minumum number of planets.
+        /// </summary>
+        S_MIN_NUM_PLANETS,
+        /// <summary>
+        /// Star maximum number of planets.
+        /// </summary>
+        S_MAX_NUM_PLANETS,
     }
 }

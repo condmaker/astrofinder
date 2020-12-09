@@ -166,9 +166,9 @@ namespace Astrofinder
 
                 // Creates a collection depending on the type of search.
                 if (typeCheck)
-                    pCol = new HashSet<Planet>(handler.SearchPlanets());
+                    pCol = new HashSet<Planet>(handler.AdvancedSearchPlanets());
                 else
-                    sCol = new HashSet<Star>(handler.SearchStars());
+                    sCol = new HashSet<Star>(handler.AdvancedSearchStars());
 
                 if (cc.Input == "r") break;
                 else if (cc.Input == "q") break;
@@ -252,10 +252,7 @@ namespace Astrofinder
 
                 // Observes the current parameter and updates the handler based
                 // on it.
-                if (typeof(T) == typeof(Planet))
-                    ParamSwitchPlanet(sLoop, sNumLoop, ref v);
-                else if (typeof(T) == typeof(Star))
-                    ParamSwitchStar(sLoop, sNumLoop, ref v);
+                ParamSwitch(sLoop, sNumLoop, ref v);
 
                 if (!v)
                 {
@@ -274,15 +271,15 @@ namespace Astrofinder
         /// numerical parameter.</param>
         /// <param name="v">An reference bool that will be set to false
         /// if one or more commands are invalid</param>
-        private void ParamSwitchPlanet(string[] sLoop, string sNumLoop, 
+        private void ParamSwitch(string[] sLoop, string sNumLoop, 
             ref bool v)
         {
             switch (sLoop[0])
             {
-                case "name":
+                case "planetname":
                     ParamUpdate(QueryParam.P_NAME, sLoop[1], ref v);
                     break;
-                case "starname":
+                case "hostname":
                     ParamUpdate(QueryParam.P_HOST_NAME, sLoop[1], ref v);
                     break;
                 case "discoverymethod":
@@ -298,41 +295,22 @@ namespace Astrofinder
                         QueryParam.P_MIN_ORBITAL_PERIOD,
                         QueryParam.P_MAX_ORBITAL_PERIOD, ref v);
                     break;
-                case "radius":
+                case "planetradius":
                     NumParamUpdate(sLoop, sNumLoop,
                         QueryParam.P_MIN_RADIUS,
                         QueryParam.P_MAX_RADIUS, ref v);
                     break;
-                case "mass":
+                case "planetmass":
                     NumParamUpdate(sLoop, sNumLoop,
                         QueryParam.P_MIN_MASS,
                         QueryParam.P_MAX_MASS, ref v);
                     break;
-                case "temperature":
+                case "planettemperature":
                     NumParamUpdate(sLoop, sNumLoop,
                         QueryParam.P_MIN_TEMP,
                         QueryParam.P_MAX_TEMP, ref v);
                     break;
-                default:
-                    v = false;
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Updates multiple star parameters according to user input.
-        /// </summary>
-        /// <param name="sLoop">The user input.</param>
-        /// <param name="sNumLoop">Additional input if the user wrote a
-        /// numerical parameter.</param>
-        /// <param name="v">An reference bool that will be set to false
-        /// if one or more commands are invalid</param>
-        private void ParamSwitchStar(string[] sLoop, string sNumLoop, 
-            ref bool v)
-        {
-            switch (sLoop[0])
-            {
-                case "name":
+                case "starname":
                     ParamUpdate(QueryParam.S_NAME, sLoop[1], ref v);
                     break;
                 case "starage":
@@ -355,20 +333,25 @@ namespace Astrofinder
                         QueryParam.S_MIN_ROT_PERIOD,
                         QueryParam.S_MAX_ROT_PERIOD, ref v);
                     break;
-                case "radius":
+                case "starradius":
                     NumParamUpdate(sLoop, sNumLoop,
                         QueryParam.S_MIN_RADIUS,
                         QueryParam.S_MAX_RADIUS, ref v);
                     break;
-                case "mass":
+                case "starmass":
                     NumParamUpdate(sLoop, sNumLoop,
                         QueryParam.S_MIN_MASS,
                         QueryParam.S_MAX_MASS, ref v);
                     break;
-                case "temperature":
+                case "startemperature":
                     NumParamUpdate(sLoop, sNumLoop,
                         QueryParam.S_MIN_TEMP,
                         QueryParam.S_MAX_TEMP, ref v);
+                    break;
+                case "planetnum":
+                    NumParamUpdate(sLoop, sNumLoop,
+                        QueryParam.S_MIN_NUM_PLANETS,
+                        QueryParam.S_MAX_NUM_PLANETS, ref v);
                     break;
                 default:
                     v = false;

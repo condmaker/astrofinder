@@ -111,6 +111,20 @@ namespace Astrofinder
         public float? MaxSunDist { get; private set; }
 
         /// <summary>
+        /// Auto implemented property which represents the star's maximun 
+        /// distance to the sun.
+        /// </summary>
+        /// <value>The star's maximun distance to the sun.</value>
+        public float? MinNumPlanets { get; private set; }
+
+        /// <summary>
+        /// Auto implemented property which represents the star's maximun 
+        /// distance to the sun.
+        /// </summary>
+        /// <value>The star's maximun distance to the sun.</value>
+        public float? MaxNumPlanets { get; private set; }
+
+        /// <summary>
         /// Updates a specified parameter with a specified value.
         /// </summary>
         /// <param name="param">The specified Param to update.</param>
@@ -126,7 +140,8 @@ namespace Astrofinder
                     break;
 
                 default:
-                    throw (new InvalidValueException("This parameter doesn't accept strings."));
+                    throw (new InvalidValueException(
+                        "This parameter doesn't accept strings."));
             }
         }
 
@@ -193,6 +208,14 @@ namespace Astrofinder
 
                 case QueryParam.S_MAX_SUN_DISTANCE:
                     MaxSunDist = value;
+                    break;
+
+                case QueryParam.S_MIN_NUM_PLANETS:
+                    MinNumPlanets = value;
+                    break;
+
+                case QueryParam.S_MAX_NUM_PLANETS:
+                    MaxNumPlanets = value;
                     break;
 
                 default:

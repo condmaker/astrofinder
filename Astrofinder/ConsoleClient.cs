@@ -118,17 +118,17 @@ namespace Astrofinder
             Console.WriteLine("★------------");
             Console.WriteLine("| Available Commands: ");
             Console.WriteLine("|");
-            Console.WriteLine("| General - ");
-            Console.WriteLine(
-                "| NAME, RADIUS, MASS, TEMPERATURE");
-            Console.WriteLine("|");
             Console.WriteLine("| Planet Specific Commands - ");
             Console.WriteLine(
-                "| STARNAME, DISCOVERYMETHOD, DISCOVERYYEAR, ORBITALPERIOD,");
+                "| PLANETNAME, HOSTNAME, DISCOVERYMETHOD, DISCOVERYYEAR,");
+            Console.WriteLine(
+                "| ORBITALPERIOD, PLANETRADIUS, PLANETMASS, PLANETTEMPERATURE");
             Console.WriteLine("|");
             Console.WriteLine("| Star Specific Commands - ");
             Console.WriteLine(
-                "| STARAGE, SUNDISTANCE, ROTVELOCITY, ROTPERIOD,");
+                "| STARNAME, STARAGE, SUNDISTANCE, ROTVELOCITY, ROTPERIOD,");
+            Console.WriteLine(
+                "| STARRADIUS, STARMASS, STARTEMPERATURE, PLANETNUM");
             Console.WriteLine("|");
             Console.WriteLine("★------------");
             Console.WriteLine("| Input T to view how to utilize SEARCH.");
@@ -159,11 +159,11 @@ namespace Astrofinder
             Console.WriteLine(
                 "| commas. For example:");
             Console.WriteLine("|");
-            Console.Write("| STARNAME 11 Com, YEARDISCOVERED_MAX 1998,");
+            Console.Write("| STARNAME 11 Com, DISCOVERRYYEAR_MAX 1998,");
             Console.WriteLine(" TEMP_MIN 3000");
             Console.WriteLine("|");
             Console.WriteLine(
-                "| Numerical filters (like YEARDISCOVERED) can have a max or");
+                "| Numerical filters (like DISCOVERYYEAR) can have a max or");
             Console.WriteLine(
                 "| min value with the '_MAX' and '_MIN' sufixes.");
             Console.WriteLine("|");

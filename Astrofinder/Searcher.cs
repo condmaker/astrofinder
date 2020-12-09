@@ -176,7 +176,17 @@ namespace Astrofinder
                         // Any dist. to sun and star has no recorded dist. to 
                         // sun
                         (star.SunDistance == null &&
-                        q.MinSunDist ==null && q.MaxSunDist == null))
+                        q.MinSunDist == null && q.MaxSunDist == null)) &&
+
+                        // Greater  or equal to minimum number of planets
+                        (star.OrbitingPlanets.Count 
+                           >= (q.MinNumPlanets ?? star.OrbitingPlanets.Count) &&
+                        // Less or equal to maximum number of planets
+                        star.OrbitingPlanets.Count 
+                           <= (q.MaxNumPlanets ?? star.OrbitingPlanets.Count) ||
+                        // Null check
+                        (star.OrbitingPlanets.Count == null &&
+                        q.MinNumPlanets == null && q.MaxNumPlanets == null))
                     ) // end where
                 select star;
 
