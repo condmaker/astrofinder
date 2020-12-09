@@ -7,6 +7,9 @@ using System.Globalization;
 namespace Astrofinder
 {
 
+    /// <summary>
+    /// Class responsible for reading and saving the data from a file 
+    /// </summary>
     public class FileReader
     {
         
@@ -112,14 +115,6 @@ namespace Astrofinder
                             }
                         }
                         
-                        
-                        // Check if the file contains name and hostname
-                        // Send message if not
-                        if(par["hostname"] == null && par["pl_name"] == null)
-                        {
-                            // Send Message
-                            return;
-                        }
 
                         totalColNumb = (short) spltRow.Count;
 
@@ -130,8 +125,8 @@ namespace Astrofinder
                     // Check if line has the expected number of columns
                     if(spltRow.Count != totalColNumb)
                     {
-                        // Send Message
-                        return;
+                        throw( new InvalidFileConfiguration("This file doesn't"
+                        + " contain columns of the same length."));
                     }
 
 
@@ -216,18 +211,15 @@ namespace Astrofinder
                         starCol.Add(newStar);
                     }                   
                 }
+            }       
+                 
+            // Check if the file contains name and hostname
+            // Send message if not
+            if(par["hostname"] == null || par["pl_name"] == null)
+            {
+                throw( new InvalidFileConfiguration("This file lacks"
+                        + " the required params 'hostname' and 'name'."));
             }
-        
-            
-            //Testing stuff. DELETE LATER
-            // Planet testplanet = planetCol[28];
-            // Console.WriteLine(testplanet.Name + " -- " + testplanet.Mass
-            // );
-
-            /*foreach(Planet p in planetCol){
-                Console.WriteLine(p.Name);
-            }*/
-        
         }
 
         /// <summary>

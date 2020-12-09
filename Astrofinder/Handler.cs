@@ -14,6 +14,12 @@ namespace Astrofinder
         private Searcher searcher;
 
         /// <summary>
+        /// File Reader object which open a file and distributes its data to the 
+        /// searcher
+        /// </summary>
+        private FileReader fileReader;
+
+        /// <summary>
         /// PlanetQueryParams object which stores the current query parameters 
         /// for searching planets.
         /// </summary>
@@ -25,21 +31,6 @@ namespace Astrofinder
         /// </summary>
         private StarQueryParams starQueries;
 
-        //testing - delete
-        public Handler()
-        {
-            // List<Planet> p = new List<Planet>();
-            // p.Add(new Planet("Planeta 1", "star 1"));
-            // p.Add(new Planet("Planet 2", "star 1", discY: 1980));
-            // p.Add(new Planet("Planeta 3", "star 2"));
-            // p.Add(new Planet("Args 1", "star 2"));
-            // p.Add(new Planet("Args 2", "star 3"));
-
-            // IEnumerable<Star> s = new List<Star>();
-            // searcher = new Searcher(p, s);
-        }
-
-
         /// <summary>
         /// Method responsible for receiving a specified .csv file and storing 
         /// it's contents into the Searcher object.
@@ -47,8 +38,8 @@ namespace Astrofinder
         /// <param name="path">Path to the specified .csv file.</param>
         public void ReadFile(string path)
         {
-            FileReader fr = new FileReader(path);
-            searcher = new Searcher(fr.planetCol, fr.starCol);
+            fileReader = new FileReader(path);
+            searcher = new Searcher(fileReader.planetCol, fileReader.starCol);
 
             
             starQueries = new StarQueryParams();
