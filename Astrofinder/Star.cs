@@ -42,7 +42,11 @@ namespace Astrofinder
         public static Comparison<Star> CompareByTemperature = 
             delegate (Star s1, Star s2)
         {
-            return s1?.Temperature?.CompareTo(s2.Temperature) ?? -1;
+            if (s1.Temperature == null & s2.Temperature == null)
+                return 0;
+            if (s2.Temperature == null)
+                return -1;
+            return s1?.Temperature?.CompareTo(s2.Temperature) ?? 1;
         };
 
         /// <summary>
@@ -60,7 +64,11 @@ namespace Astrofinder
         public static Comparison<Star> CompareByRadius = 
             delegate (Star s1, Star s2)
         {
-            return s1?.Radius?.CompareTo(s2.Radius) ?? -1;
+            if (s1.Radius == null & s2.Radius == null)
+                return 0;
+            if (s2.Radius == null)
+                return -1;
+            return s1?.Radius?.CompareTo(s2.Radius) ?? 1;
         };
 
         /// <summary>
@@ -78,7 +86,11 @@ namespace Astrofinder
         public static Comparison<Star> CompareByMass = 
             delegate (Star s1, Star s2)
         {
-            return s1?.Mass?.CompareTo(s2.Mass) ?? -1;
+            if (s1.Mass == null & s2.Mass == null)
+                return 0;
+            if (s2.Mass == null)
+                return -1;
+            return s1?.Mass?.CompareTo(s2.Mass) ?? 1;
         };
 
         /// <summary>
@@ -96,7 +108,11 @@ namespace Astrofinder
         public static Comparison<Star> CompareByAge = 
             delegate (Star s1, Star s2)
         {
-            return s1?.Age?.CompareTo(s2.Age) ?? -1;
+            if (s1.Age == null & s2.Age == null)
+                return 0;
+            if (s2.Age == null)
+                return -1;
+            return s1?.Age?.CompareTo(s2.Age) ?? 1;
         };
 
         /// <summary>
@@ -114,7 +130,11 @@ namespace Astrofinder
         public static Comparison<Star> CompareByRotVelocity = 
             delegate (Star s1, Star s2)
         {
-            return s1?.RotVelocity?.CompareTo(s2.RotVelocity) ?? -1;
+            if (s1.RotVelocity == null & s2.RotVelocity == null)
+                return 0;
+            if (s2.RotVelocity == null)
+                return -1;
+            return s1?.RotVelocity?.CompareTo(s2.RotVelocity) ?? 1;
         };
 
         /// <summary>
@@ -132,7 +152,11 @@ namespace Astrofinder
         public static Comparison<Star> CompareByRotPeriod = 
             delegate (Star s1, Star s2)
         {
-            return s1?.RotPeriod?.CompareTo(s2.RotPeriod) ?? -1;
+            if (s1.RotPeriod == null & s2.RotPeriod == null)
+                return 0;
+            if (s2.RotPeriod == null)
+                return -1;
+            return s1?.RotPeriod?.CompareTo(s2.RotPeriod) ?? 1;
         };
 
         /// <summary>
@@ -150,7 +174,11 @@ namespace Astrofinder
         public static Comparison<Star> CompareBySunDistance = 
             delegate (Star s1, Star s2)
         {
-            return s1?.SunDistance?.CompareTo(s2.SunDistance) ?? -1;
+            if (s1.SunDistance == null & s2.SunDistance == null)
+                return 0;
+            if (s2.SunDistance == null)
+                return -1;
+            return s1?.SunDistance?.CompareTo(s2.SunDistance) ?? 1;
         };
 
         /// <summary>

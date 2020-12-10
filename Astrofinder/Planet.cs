@@ -77,7 +77,11 @@ namespace Astrofinder
         public static Comparison<Planet> CompareByDiscYear =
             delegate (Planet p1, Planet p2)
         {
-            return p1?.DiscYear?.CompareTo(p2.DiscYear) ?? -1;
+            if (p1.DiscYear == null & p2.DiscYear == null)
+                return 0;
+            if (p2.DiscYear == null)
+                return -1;
+            return p1?.DiscYear?.CompareTo(p2.DiscYear) ?? 1;
         };
 
         /// <summary>
@@ -95,7 +99,11 @@ namespace Astrofinder
         public static Comparison<Planet> CompareByOrbPeriod =
             delegate (Planet p1, Planet p2)
         {
-            return p1?.OrbPeriod?.CompareTo(p2.OrbPeriod) ?? -1;
+            if (p1.OrbPeriod == null & p2.OrbPeriod == null)
+                return 0;
+            if (p2.OrbPeriod == null)
+                return -1;
+            return p1?.OrbPeriod?.CompareTo(p2.OrbPeriod) ?? 1;
         };
 
         /// <summary>
@@ -113,7 +121,11 @@ namespace Astrofinder
         public static Comparison<Planet> CompareByRadius =
             delegate (Planet p1, Planet p2)
         {
-            return p1?.Radius?.CompareTo(p2.Radius) ?? -1;
+            if (p1.Radius == null & p2.Radius == null)
+                return 0;
+            if (p2.Radius == null)
+                return -1;
+            return p1?.Radius?.CompareTo(p2.Radius) ?? 1;
         };
 
         /// <summary>
@@ -131,7 +143,11 @@ namespace Astrofinder
         public static Comparison<Planet> CompareByMass =
             delegate (Planet p1, Planet p2)
         {
-            return p1?.Mass?.CompareTo(p2.Mass) ?? -1;
+            if (p1.Mass == null & p2.Mass == null)
+                return 0;
+            if (p2.Mass == null)
+                return -1;
+            return p1?.Mass?.CompareTo(p2.Mass) ?? 1;
         };
 
         /// <summary>
@@ -149,7 +165,11 @@ namespace Astrofinder
         public static Comparison<Planet> CompareByTemperature =
             delegate (Planet p1, Planet p2)
         {
-            return p1?.EqTemp?.CompareTo(p2.EqTemp) ?? -1;
+            if (p1.EqTemp == null & p2.EqTemp == null)
+                return 0;
+            if (p2.EqTemp == null)
+                return -1;
+            return p1?.EqTemp?.CompareTo(p2.EqTemp) ?? 1;
         };
 
 
