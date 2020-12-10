@@ -33,11 +33,11 @@ Marco Domingos.
 
 Toda esta classe foi realizada por Marco Domingos.
 
-#### *XML*
+### *XML*
 
 Marco fez a maioria dos comentários e *XML* nas suas próprias classes.
 
-#### Relatório
+### *Relatório*
 
 Todo o relatório, com exceção da sua criação inicial, da Autoria e das
 Referencias (feito por Daniel Fernandes), foi feito por Marco Domingos.
