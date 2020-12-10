@@ -19,14 +19,6 @@ namespace Astrofinder
         /// An instance of a Handler to manage searches and files.
         /// </summary>
         private Handler handler;
-        /// <summary>
-        /// The collection of planets that the user has/will filter.
-        /// </summary>
-        private ICollection<Planet> pCol;
-        /// <summary>
-        /// The collection of stars that the user has/will filter.
-        /// </summary>
-        private ICollection<Star> sCol;
 
         /// <summary>
         /// Class constructor. Instantiates a new Console Client and a Handler.
@@ -121,6 +113,10 @@ namespace Astrofinder
             // An IEnumerable to store the collection to be printed on
             // the screen.
             IEnumerable<T> viewer;
+            // The collection of planets that the user has/will filter.
+            ICollection<Planet> pCol;
+            // The collection of stars that the user has/will filter.
+            ICollection<Star> sCol;
 
             // Will store the user's position on the collection.
             short index;
@@ -166,9 +162,9 @@ namespace Astrofinder
 
                 // Creates a collection depending on the type of search.
                 if (typeCheck)
-                    pCol = new HashSet<Planet>(handler.AdvancedSearchPlanets());
+                    pCol = new List<Planet>(handler.AdvancedSearchPlanets());
                 else
-                    sCol = new HashSet<Star>(handler.AdvancedSearchStars());
+                    sCol = new List<Star>(handler.AdvancedSearchStars());
 
                 // Checks if the user inpputed a return or leave.
                 if (cc.Input == "r") break;
@@ -184,7 +180,7 @@ namespace Astrofinder
                     {
                         pCol = OrderByPlanet(
                                 cc.Input.Split(" ")[1], 
-                                pCol.ToList() as List<Planet>);
+                                pCol as List<Planet>);
                     }
                     catch (ArgumentNullException j)
                     {
@@ -212,7 +208,7 @@ namespace Astrofinder
                     {
                         sCol = OrderByStar(
                                 cc.Input.Split(" ")[1], 
-                                sCol.ToList() as List<Star>);
+                                sCol as List<Star>);
                     }
                     catch (ArgumentNullException)
                     {
