@@ -26,7 +26,8 @@ Todos os membros fizeram a classe `Program`.
 
 * Classes `InteractiveClient`, `ConsoleClient`, `StringExtensions`
 * Interface `ICelestialBody`
-* Relatório, Criação da Documentação em *Doxygen*
+* Parte de **Autoria** e **Arquitetura da Solução** no Relatório
+* Criação da Documentação em *Doxygen*
 
 #### `InteractiveClient`
 
@@ -47,7 +48,7 @@ Interface feita completamente por Marco Domingos.
 
 ### Daniel Fernandes
 
-* Classes `FileReader`, `Planet`, `Star`
+* Classes `FileReader`, `Planet`, `Star`, `InvalidFileConfiguration`
 * UML
 
 #### `FileReader`
@@ -64,12 +65,16 @@ Os métodos `ToString()` e `ToStringDetailed()` em ambas as classes foram
 implementados por Marco Domingos (documentação incluida), junto com o 
 método `CompareByPlanets` (e sua documentação) na classe `Star`.
 
+#### `InvalidFileConfiguration`
+
+Classe feita, em sua maioria, por Daniel Fernandes. Documentadas por Marco Domingos.
+
 ### Pedro Bezerra
 
-* Classes `Searcher`, `Handler`, `InvalidFileConfiguration`, 
-  `InvalidValueException`
+* Classes `Searcher`, `Handler`, `InvalidValueException`
 * *Structs* `PlanetQueryParams`, `StarQueryParams`
 * *Enum* `QueryParam`
+* Parte de **Autoria** e tudo de **Referências** no Relatório
 
 #### `Searcher`
 
@@ -87,7 +92,7 @@ feito por Daniel Fernandes (mas não documentado pelo mesmo).
 Os métodos `ClearPlanetParams()` e `ClearStarParams()` foram feitos e
 documentados por Marco Domingos.
 
-#### `InvalidFileConfiguration` e `InvalidValueException`
+#### `InvalidValueException`
 
 Classes totalmente feitas por Pedro Bezerra. Documentadas por Marco Domingos.
 
@@ -109,21 +114,27 @@ partir de estrelas e vice-versa. Porém a função de observar detalhes da estre
 a partir da informação detalhada de um planeta e vice-versa não foi
 implementada.
 
-### *Loop* do Programa
+### *Loop* do Programa e Descrição da Solução
 
 ![diag1]
 
-### Descrição da Solução
+### UML e Descrição das Classes
 
+![uml]
 
+## Referencias
 
-## Referências
+Na classe `FileReader`, no método `FormatPar`, foi utilizado uma implementação 
+de um Parser Genérico, [aqui][link1]. Neste mesmo método também foi implementado 
+um Generic Nullable<T> encontrado [aqui][link2].
 
-A classe `StringExtensions` foi baseada nesta discussão do *Stack Overflow*,
-mais especificamente na segunda resposta a pergunta:
+A classe `StringEnxtension` foi criada com base na inforamação encontrada
+[aqui][link3].
 
-https://stackoverflow.com/questions/4105386/can-maximum-number-of-characters-be-defined-in-c-sharp-format-strings-like-in-c
-
+[link1]:  https://stackoverflow.com/questions/2961656/generic-tryparse
+[link2]:  https://stackoverflow.com/questions/209160/nullable-type-as-a-generic-parameter-possiblehow-to-remove-elements-from-a-generic-list-while-iterating-over-it
+[link3]:  https://stackoverflow.com/questions/4105386/can-maximum-number-of-characters-be-defined-in-c-sharp-format-strings-like-in-c
 
 [github]: https://github.com/condmaker/astrofinder
 [diag1]:  Diagramas/diag1.png
+[uml]:    Diagramas/uml.png
