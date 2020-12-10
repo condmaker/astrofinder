@@ -114,9 +114,9 @@ namespace Astrofinder
             // the screen.
             IEnumerable<T> viewer;
             // The collection of planets that the user has/will filter.
-            ICollection<Planet> pCol;
+            ICollection<Planet> pCol = null;
             // The collection of stars that the user has/will filter.
-            ICollection<Star> sCol;
+            ICollection<Star> sCol = null;
 
             // Will store the user's position on the collection.
             short index;
@@ -174,7 +174,7 @@ namespace Astrofinder
                 cc.OrderInquiry();
 
                 // Observes the input.
-                if (cc.Input.Split(" ")[0] == "orderbyplanet")
+                if (cc.Input.Split(" ")[0].ToLower() == "orderbyplanet")
                 {
                     try
                     {
@@ -182,7 +182,7 @@ namespace Astrofinder
                                 cc.Input.Split(" ")[1], 
                                 pCol as List<Planet>);
                     }
-                    catch (ArgumentNullException j)
+                    catch (ArgumentNullException)
                     {
                         cc.PrintError(
                             new InvalidValueException(
@@ -202,7 +202,7 @@ namespace Astrofinder
                         continue;
                     }
                 }
-                else if (cc.Input.Split(" ")[0] == "orderbystar")
+                else if (cc.Input.Split(" ")[0].ToLower() == "orderbystar")
                 {
                     try
                     {
@@ -489,7 +489,7 @@ namespace Astrofinder
         private ICollection<Planet> OrderByPlanet(
             string input, List<Planet> col) 
         {
-            switch (input)
+            switch (input.ToLower())
             {
                 case "planetname":
                     col.Sort(Planet.CompareByName);
@@ -533,7 +533,7 @@ namespace Astrofinder
         private ICollection<Star> OrderByStar(
             string input, List<Star> col) 
         {
-            switch (input)
+            switch (input.ToLower())
             {
                 case "starname":
                     col.Sort(Star.CompareByName);
