@@ -201,7 +201,8 @@ namespace Astrofinder
         /// <returns>Planet with given name.</returns>
         public Planet GetPlanet(string name)
         {
-            Planet p = Planets.First<Planet>(planet => planet.Name.Equals(name));
+            Planet p = Planets.First<Planet>(
+                planet => planet.Name.Equals(name));
             return p;
         }
 
