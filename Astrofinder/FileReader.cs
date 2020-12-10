@@ -8,27 +8,39 @@ namespace Astrofinder
 {
 
     /// <summary>
-    /// Class responsible for reading and saving the data from a file 
+    /// Class responsible for reading and saving the data from a file.
     /// </summary>
     public class FileReader
     {
         
-        // Directory path to the file imputed by the user  
+        /// <summary>
+        /// Directory path to the file imputed by the user
+        /// </summary>  
         private string path;
 
-        // Number of columns in the first line
-        // The program expects that all lines have this numbers of columns
+        /// <summary>
+        /// Number of columns in the first line,
+        /// The program expects that all lines have this numbers of columns,
+        /// </summary>
         private short totalColNumb; 
 
-        // Collection that stores all the Planet instances. 
+        /// <summary>
+        /// Collection that stores all the Planet instances. 
+        /// </summary>
+        /// <value>The instances themselves.</value>
         public ICollection<Planet> planetCol { get; private set; }
 
-        // Collection that stores all the Star instances.
+        /// <summary>
+        /// Collection that stores all the Star instances. 
+        /// </summary>
+        /// <value>The instances themselves.</value>
         public List<Star> starCol { get; private set; } 
- 
-        // This Dictionary stores the parameters that can be found 
-        // and extracted from the file,
-        // as well as the index of the collumn they appear at.
+
+        /// <summary>
+        /// This Dictionary stores the parameters that can be found 
+        /// and extracted from the file,
+        /// as well as the index of the collumn they appear at.
+        /// </summary>
         private Dictionary<string, int?> par;
 
 

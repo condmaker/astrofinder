@@ -16,7 +16,7 @@ namespace Astrofinder
         public string Input { get; private set; }
 
         /// <summary>
-        /// Class constructor.
+        /// Class constructor. Empty
         /// </summary>
         public ConsoleClient()
         {
@@ -198,6 +198,9 @@ namespace Astrofinder
             Console.Clear();
         }
 
+        /// <summary>
+        /// Prints the Ordering tutorial to the user, and asks his input.
+        /// </summary>
         public void OrderInquiry()
         {
             Console.WriteLine("★---------------------------");
