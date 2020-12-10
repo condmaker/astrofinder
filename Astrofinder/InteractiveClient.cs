@@ -154,9 +154,9 @@ namespace Astrofinder
                 try
                 {
                     if (typeCheck)
-                        ConvertParams<Planet>();
+                        ConvertParams<Planet>(pCol);
                     else
-                        ConvertParams<Star>();
+                        ConvertParams<Star>(sCol);
                 }
                 catch (Exception i)
                 {
@@ -170,6 +170,72 @@ namespace Astrofinder
                 else
                     sCol = new HashSet<Star>(handler.AdvancedSearchStars());
 
+                // Checks if the user inpputed a return or leave.
+                if (cc.Input == "r") break;
+                else if (cc.Input == "q") break;
+
+                // Asks the user if he wishes to order the inquiry list.
+                cc.OrderInquiry();
+
+                // Observes the input.
+                if (cc.Input.Split(" ")[0] == "orderbyplanet")
+                {
+                    try
+                    {
+                        pCol = OrderByPlanet(
+                                cc.Input.Split(" ")[1], 
+                                pCol.ToList() as List<Planet>);
+                    }
+                    catch (ArgumentNullException j)
+                    {
+                        cc.PrintError(
+                            new InvalidValueException(
+                               "You can't order by stars on a planet search."));
+                        continue;
+                    }
+                    catch (InvalidValueException j)
+                    {
+                        cc.PrintError(j);
+                        continue;
+                    }
+                    catch (Exception)
+                    {
+                        cc.PrintError(
+                            new InvalidValueException(
+                               "Something wrong happened. Try again."));
+                        continue;
+                    }
+                }
+                else if (cc.Input.Split(" ")[0] == "orderbystar")
+                {
+                    try
+                    {
+                        sCol = OrderByStar(
+                                cc.Input.Split(" ")[1], 
+                                sCol.ToList() as List<Star>);
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        cc.PrintError(
+                            new InvalidValueException(
+                               "You can't order by planets on a star search."));
+                        continue;
+                    }
+                    catch (InvalidValueException k)
+                    {
+                        cc.PrintError(k);
+                        continue;
+                    }
+                    catch (Exception)
+                    {
+                        cc.PrintError(
+                            new InvalidValueException(
+                               "Something wrong happened. Try again."));
+                        continue;
+                    }
+                }
+
+                // Checks if the player pressed to leave/return again.
                 if (cc.Input == "r") break;
                 else if (cc.Input == "q") break;
 
@@ -209,7 +275,8 @@ namespace Astrofinder
         /// <summary>
         /// Method that converts the user's input to valid parameters.
         /// </summary>
-        private void ConvertParams<T>() where T : ICelestialBody
+        private void ConvertParams<T>(ICollection<T> col) 
+            where T : ICelestialBody
         {
             string[] s, sLoop;
             string sNumLoop = null;
@@ -223,7 +290,7 @@ namespace Astrofinder
             {
                 s = cc.Input.ToLower().Split(", ");
             }
-            catch (Exception i)
+            catch (Exception)
             {
                 s.Append(cc.Input.ToLower());
             }
@@ -238,7 +305,7 @@ namespace Astrofinder
                 {
                     sNumLoop = s[i].Split(" ")[1];
                 }
-                catch (IndexOutOfRangeException h)
+                catch (IndexOutOfRangeException)
                 {
                     if (cc.Input.Trim() == "r" ||
                         cc.Input.Trim() == "q" || cc.Input.Trim() == "")
@@ -252,7 +319,7 @@ namespace Astrofinder
 
                 // Observes the current parameter and updates the handler based
                 // on it.
-                ParamSwitch(sLoop, sNumLoop, ref v);
+                ParamSwitch<T>(sLoop, sNumLoop, col, ref v);
 
                 if (!v)
                 {
@@ -271,8 +338,8 @@ namespace Astrofinder
         /// numerical parameter.</param>
         /// <param name="v">An reference bool that will be set to false
         /// if one or more commands are invalid</param>
-        private void ParamSwitch(string[] sLoop, string sNumLoop, 
-            ref bool v)
+        private void ParamSwitch<T>(string[] sLoop, string sNumLoop, 
+            ICollection<T> col, ref bool v) where T : ICelestialBody
         {
             switch (sLoop[0])
             {
@@ -419,6 +486,97 @@ namespace Astrofinder
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="col"></param>
+        private ICollection<Planet> OrderByPlanet(
+            string input, List<Planet> col) 
+        {
+            switch (input)
+            {
+                case "planetname":
+                    col.Sort(Planet.CompareByName);
+                    break;
+                case "hostname":
+                    col.Sort(Planet.CompareByHostName);
+                    break;
+                case "discoverymethod":
+                    col.Sort(Planet.CompareByDiscMethod);
+                    break;
+                case "discoveryyear":
+                    col.Sort(Planet.CompareByDiscYear);
+                    break;
+                case "orbitalperiod":
+                    col.Sort(Planet.CompareByOrbPeriod);
+                    break;
+                case "planetradius":
+                    col.Sort(Planet.CompareByRadius);
+                    break;
+                case "planetmass":
+                    col.Sort(Planet.CompareByMass);
+                    break;
+                case "planettemperature":
+                    col.Sort(Planet.CompareByTemperature);
+                    break;
+                case "":
+                    break;
+                default:
+                    throw new InvalidValueException(
+                        "Your input is invalid. Please try again.");
+            }
+
+            return col as ICollection<Planet>;
+        }
+
+        /// <summary>
+        /// Orders a list of stars by the users input.
+        /// </summary>
+        /// <param name="input">What will it be ordered by.</param>
+        /// <param name="col">the list to be updated.</param>
+        private ICollection<Star> OrderByStar(
+            string input, List<Star> col) 
+        {
+            switch (input)
+            {
+                case "starname":
+                    col.Sort(Star.CompareByName);
+                    break;
+                case "starage":
+                    col.Sort(Star.CompareByAge);
+                    break;
+                case "sundistance":
+                    col.Sort(Star.CompareBySunDistance);
+                    break;
+                case "rotvelocity":
+                    col.Sort(Star.CompareByRotVelocity);
+                    break;
+                case "rotperiod":
+                    col.Sort(Star.CompareByRotPeriod);
+                    break;
+                case "starradius":
+                    col.Sort(Star.CompareByRadius);
+                    break;
+                case "starmass":
+                    col.Sort(Star.CompareByMass);
+                    break;
+                case "startemperature":
+                    col.Sort(Star.CompareByTemperature);
+                    break;
+                case "planetnum":
+                    col.Sort(Star.CompareByPlanets);
+                    break;
+                case "":
+                    break;
+                default:
+                    throw new InvalidValueException(
+                        "Your input is invalid. Please try again.");
+            }
+
+            return col as ICollection<Star>;
+        }
+
+        /// <summary>
         /// Updates the current query parameters.
         /// </summary>
         /// <param name="param">The parameter to update.</param>
@@ -461,7 +619,7 @@ namespace Astrofinder
                     handler.UpdateParams(
                     param, (short?)s);
                 }
-                catch (InvalidValueException h)
+                catch (InvalidValueException)
                 {
                     cc.PrintError(v);
                     val = false;

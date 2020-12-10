@@ -153,6 +153,27 @@ namespace Astrofinder
             return s1?.SunDistance?.CompareTo(s2.SunDistance) ?? -1;
         };
 
+        /// <summary>
+        /// Compares two specified Star objetcts and returns an integer
+        /// that indicates their relative position in the sort order,
+        /// based by their Number of Planets.
+        /// </summary>
+        /// <param name="s1">The first Star to compare.</param>
+        /// <param name="s2">The second Star to compare.</param>
+        /// <returns>A signed integer that indicates the relative values of x 
+        /// and y. Less than 0 if <paramref name="s1"> is less than
+        /// <paramref name="s2">, 0 if <paramref name="s1"> equals 
+        /// <paramref name="s2">, and greater than 0 if <paramref name="s1">
+        /// is greater than <paramref name="s2">.</returns>
+        public static Comparison<Star> CompareByPlanets = 
+            delegate (Star s1, Star s2)
+        {
+            short? nul1 = new Nullable<short>((short) s1.OrbitingPlanets.Count);
+            short? nul2 = new Nullable<short>((short) s2.OrbitingPlanets.Count);
+
+            return nul1?.CompareTo(nul2) ?? -1;
+        };
+
 
         /// <summary>
         /// Star's name. Derived from hostname column.

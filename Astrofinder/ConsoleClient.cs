@@ -198,6 +198,26 @@ namespace Astrofinder
             Console.Clear();
         }
 
+        public void OrderInquiry()
+        {
+            Console.WriteLine("★---------------------------");
+            Console.WriteLine("| Please select the ordering method.");
+            Console.WriteLine("| If you do not wish to order, press enter.");
+            Console.WriteLine("★---------------------------");
+            Console.WriteLine("| PLANET ORDERING COMMAND:");
+            Console.WriteLine("| ORDERBYPLANET <planetparameter>");
+            Console.WriteLine("|");
+            Console.WriteLine("| STAR ORDERING COMMAND:");
+            Console.WriteLine("| ORDERBYSTAR <starparameter>");
+            Console.WriteLine("★---------------------------\n");
+
+            Console.Write("> ");
+
+            Input = Console.ReadLine();
+
+            Console.Clear();
+        }
+
         /// <summary>
         /// Showcases a list of all the planets or starts searched by the user. 
         /// </summary>
