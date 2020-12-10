@@ -7,7 +7,7 @@ namespace Astrofinder
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             
             // Makes it so that the program supports unicode characters.
