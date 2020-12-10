@@ -119,4 +119,4 @@ Eram as cenas dos Comparison ?? maybe
 
 [link1]:https://stackoverflow.com/questions/2961656/generic-tryparse
 [link2]:https://stackoverflow.com/questions/209160/nullable-type-as-a-generic-parameter-possiblehow-to-remove-elements-from-a-generic-list-while-iterating-over-it
-[link3]:stackoverflow.com/questions/4105386/can-maximum-number-of-characters-be-defined-in-c-sharp-format-strings-like-in-c
+[link3]:https://stackoverflow.com/questions/4105386/can-maximum-number-of-characters-be-defined-in-c-sharp-format-strings-like-in-c
